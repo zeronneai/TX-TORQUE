@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TORQUE — Built by Pros. Driven by the Next Generation.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
+
+  <!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
+  <nav style="
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 68px;
+    background: rgba(8, 18, 34, 0.96);
+    backdrop-filter: blur(8px);
+  ">
+
+    <!-- Logo -->
+    <a href="#" style="
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 2rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    ">TORQUE</a>
+
+    <!-- Nav Links -->
+    <ul style="
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    ">
+      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Home</a></li>
+      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Gallery</a></li>
+      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">FAQs</a></li>
+      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Contact Us</a></li>
+    </ul>
+
+    <!-- Right Side -->
+    <div style="display:flex;align-items:center;gap:20px;">
+      <a href="#" style="
+        background: #c41230;
+        color: #fff;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        font-size: .82rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 11px 22px;
+        text-decoration: none;
+        display: inline-block;
+      ">Join Classes</a>
+
+      <a href="#" style="
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #fff;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 600;
+        font-size: .82rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+      ">
+        <!-- person icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Login
+      </a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+  <section style="
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: #0a1628;
+  ">
+
+    <!-- Background: dark overlay + subtle net pattern -->
+    <div style="
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(8,18,34,.55), rgba(8,18,34,.68)),
+        radial-gradient(ellipse at 70% 50%, #1a3a5c 0%, #0a1628 60%);
+    "></div>
+
+    <!-- Net texture overlay -->
+    <div style="
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-image:
+        repeating-linear-gradient( 55deg, rgba(255,255,255,.4) 0px, rgba(255,255,255,.4) 1px, transparent 1px, transparent 28px),
+        repeating-linear-gradient(-55deg, rgba(255,255,255,.4) 0px, rgba(255,255,255,.4) 1px, transparent 1px, transparent 28px);
+    "></div>
+
+    <!-- Content -->
+    <div style="
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      padding: 0 24px;
+      max-width: 720px;
+    ">
+
+      <!-- Torque Badge SVG -->
+      <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="64" cy="64" r="61" stroke="white" stroke-width="3"/>
+        <!-- Inner ring (dashed) -->
+        <circle cx="64" cy="64" r="53" stroke="white" stroke-width="1.5" stroke-dasharray="5 3.5"/>
+        <!-- TORQUE arc text via textPath -->
+        <path id="arcTop" d="M 18,64 A 46,46 0 0,1 110,64" fill="none"/>
+        <text font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="11" fill="white" letter-spacing="8">
+          <textPath href="#arcTop" startOffset="8%">TORQUE</textPath>
+        </text>
+        <!-- Large T -->
+        <text
+          x="64" y="88"
+          text-anchor="middle"
+          font-family="'Barlow Condensed',sans-serif"
+          font-weight="900"
+          font-style="italic"
+          font-size="58"
+          fill="white"
+        >T</text>
+        <!-- Stars -->
+        <text x="64" y="112" text-anchor="middle" font-size="11" fill="white" letter-spacing="4">★ ★ ★ ★</text>
+      </svg>
+
+      <!-- Headline -->
+      <h1 style="
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+        color: #fff;
+        text-transform: uppercase;
+        line-height: 1.05;
+        letter-spacing: 1px;
+        margin: 0;
+      ">Built by Pros.<br>Driven by the Next Generation.</h1>
+
+      <!-- Subtitle -->
+      <p style="
+        font-family: 'Barlow', sans-serif;
+        font-weight: 400;
+        font-size: 1.05rem;
+        color: rgba(255,255,255,.8);
+        line-height: 1.6;
+        max-width: 520px;
+        margin: 0;
+      ">A baseball performance facility built on professional structure,<br>discipline, and elite development standards.</p>
+
+    </div>
+  </section>
+
+</body>
+</html>
