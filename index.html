@@ -5,483 +5,451 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TORQUE — Built by Pros. Driven by the Next Generation.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ── SHIMMER (hero title) ── */
+    @keyframes shimmer {
+      0%   { background-position: -300% center; }
+      100% { background-position:  300% center; }
+    }
+    .shimmer-text {
+      background: linear-gradient(105deg,
+        #fff 20%, #c8deff 38%, #fff 45%, #e8f2ff 52%, #fff 60%);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* ── LOGO PULSE GLOW ── */
+    @keyframes logoPulse {
+      0%,100% { filter: drop-shadow(0 0 6px rgba(196,18,48,.4)); }
+      50%      { filter: drop-shadow(0 0 26px rgba(196,18,48,.9)) drop-shadow(0 0 50px rgba(196,18,48,.3)); }
+    }
+    .logo-glow { animation: logoPulse 2.6s ease-in-out infinite; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── STAGGER ITEMS ── */
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .stagger-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RED DIVIDER LINE ── */
+    .red-divider {
+      display: block;
+      height: 3px;
+      background: #c41230;
+      width: 0;
+      border-radius: 2px;
+      transition: width 1s cubic-bezier(.4,0,.2,1);
+    }
+    .red-divider.visible { width: 68px; }
+
+    /* ── CARD HOVER (dark) ── */
+    .card-hover {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 16px 48px rgba(196,18,48,.22), 0 4px 16px rgba(0,0,0,.18);
+    }
+
+    /* ── COACH CARD HOVER (white) ── */
+    .coach-hover {
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .coach-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 36px rgba(196,18,48,.16);
+      border-color: #c41230 !important;
+    }
+
+    /* ── BUTTON SHIMMER ── */
+    @keyframes btnShimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+      background-size: 200% auto;
+      opacity: 0;
+    }
+    .btn-shimmer:hover::after {
+      opacity: 1;
+      animation: btnShimmer .55s linear;
+    }
+    .btn-shimmer:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(196,18,48,.5);
+    }
+
+    /* ── SUB BUTTON (packages) ── */
+    button.sub-btn {
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    button.sub-btn:hover {
+      background: #a50f28 !important;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(196,18,48,.4);
+    }
+
+    /* ── NAV ── */
+    #main-nav { transition: background .35s ease, box-shadow .35s ease; }
+    #main-nav.scrolled {
+      background: rgba(5,10,20,.98) !important;
+      box-shadow: 0 2px 28px rgba(0,0,0,.5);
+    }
+    .nav-link { position: relative; transition: color .2s; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 2px; background: #c41230;
+      transform: scaleX(0);
+      transition: transform .25s ease;
+      transform-origin: left;
+    }
+    .nav-link:hover { color: #e03050 !important; }
+    .nav-link:hover::after,
+    .nav-link.active::after { transform: scaleX(1); }
+    .nav-link.active { color: #e03050 !important; }
+
+    /* ── HERO CANVAS ── */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .32;
+    }
+
+    /* ── DIAGONAL STRIPE ── */
+    .hero-stripe {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 180px;
+      z-index: 1; pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-stripe::before {
+      content: '';
+      position: absolute;
+      bottom: -50px; left: -5%;
+      width: 38%; height: 110px;
+      background: #c41230;
+      transform: skewX(-16deg);
+      opacity: .14;
+    }
+    .hero-stripe::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; left: 28%;
+      width: 20%; height: 60px;
+      background: #c41230;
+      transform: skewX(-16deg);
+      opacity: .08;
+    }
+
+    /* ── STATS ── */
+    .stats-row { display: flex; gap: 0; justify-content: center; flex-wrap: wrap; }
+    .stat-item { text-align: center; padding: 0 36px; }
+    .stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,.14); }
+    .stat-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-style: italic;
+      font-size: 2.8rem; color: #fff; line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: .72rem; color: rgba(255,255,255,.55);
+      letter-spacing: 2px; text-transform: uppercase;
+      display: block; margin-top: 5px;
+    }
+
+    /* ── FLOATING WHATSAPP ── */
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+      70%      { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+    }
+    #wa-btn {
+      position: fixed; bottom: 26px; right: 26px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      animation: waPulse 2.2s ease infinite;
+      transition: transform .2s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
+    #wa-btn:hover { transform: scale(1.1); }
+
+    /* ── SOCIAL ICONS ── */
+    .social-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      transition: background .2s, border-color .2s, color .2s, transform .2s;
+    }
+    .social-icon:hover {
+      background: #c41230; border-color: #c41230;
+      color: #fff; transform: translateY(-3px);
+    }
+  </style>
 </head>
 <body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
 
-  <!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
-  <nav style="
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 48px;
-    height: 68px;
-    background: rgba(8, 18, 34, 0.96);
-    backdrop-filter: blur(8px);
+  <!-- ══════════════════════════ NAVBAR ══════════════════════════ -->
+  <nav id="main-nav" style="
+    position:fixed;top:0;left:0;right:0;z-index:999;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 48px;height:68px;
+    background:rgba(8,18,34,0.96);backdrop-filter:blur(10px);
   ">
-
-    <!-- Logo -->
-    <a href="#" style="display:flex;align-items:center;">
+    <a href="#hero" style="display:flex;align-items:center;">
       <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
-           alt="Torque Logo"
-           style="height:44px;width:auto;object-fit:contain;" />
+           alt="Torque Logo" style="height:44px;width:auto;object-fit:contain;" />
     </a>
 
-    <!-- Nav Links -->
-    <ul style="
-      list-style: none;
-      margin: 0; padding: 0;
-      display: flex;
-      align-items: center;
-      gap: 36px;
-    ">
-      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Home</a></li>
-      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Gallery</a></li>
-      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">FAQs</a></li>
-      <li><a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Contact Us</a></li>
+    <ul style="list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:36px;">
+      <li><a href="#hero"        class="nav-link" data-section="hero"        style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Home</a></li>
+      <li><a href="#programs"    class="nav-link" data-section="programs"    style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Programs</a></li>
+      <li><a href="#coaches"     class="nav-link" data-section="coaches"     style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Coaches</a></li>
+      <li><a href="#packages"    class="nav-link" data-section="packages"    style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Packages</a></li>
     </ul>
 
-    <!-- Right Side -->
     <div style="display:flex;align-items:center;gap:20px;">
-      <a href="#" style="
-        background: #c41230;
-        color: #fff;
-        font-family: 'Barlow Condensed', sans-serif;
-        font-weight: 800;
-        font-size: .82rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        padding: 11px 22px;
-        text-decoration: none;
-        display: inline-block;
+      <a href="#packages" class="btn-shimmer" style="
+        background:#c41230;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:800;
+        font-size:.82rem;letter-spacing:2px;text-transform:uppercase;
+        padding:11px 22px;text-decoration:none;display:inline-block;
       ">Join Classes</a>
-
       <a href="#" style="
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        color: #fff;
-        font-family: 'Barlow Condensed', sans-serif;
-        font-weight: 600;
-        font-size: .82rem;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        text-decoration: none;
+        display:flex;align-items:center;gap:6px;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:600;
+        font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
       ">
-        <!-- person icon -->
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
         Login
       </a>
     </div>
   </nav>
 
-  <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-  <section style="
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 620px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    background: #0a1628;
+  <!-- ══════════════════════════ HERO ══════════════════════════ -->
+  <section id="hero" style="
+    position:relative;width:100%;height:100vh;min-height:640px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;background:#0a1628;
   ">
-
-    <!-- Background: real photo + dark overlay -->
+    <!-- Photo bg -->
     <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.27_3_gszjif.jpg"
-         alt=""
-         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" />
-    <div style="position:absolute;inset:0;background:linear-gradient(rgba(8,18,34,.52),rgba(8,18,34,.62));"></div>
+         alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;" />
+    <!-- Gradient overlay -->
+    <div style="position:absolute;inset:0;background:linear-gradient(rgba(8,18,34,.56),rgba(8,18,34,.70));z-index:0;"></div>
+    <!-- Animated dot-grid canvas -->
+    <canvas id="hero-canvas"></canvas>
+    <!-- Diagonal stripe accents -->
+    <div class="hero-stripe"></div>
 
     <!-- Content -->
-    <div style="
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px;
-      padding: 0 24px;
-      max-width: 720px;
-    ">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;padding:0 24px;max-width:760px;">
 
-      <!-- Torque Logo -->
+      <!-- Logo with red glow -->
       <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
-           alt="Torque"
-           style="width:140px;height:auto;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(0,0,0,.45));" />
+           alt="Torque" class="logo-glow"
+           style="width:140px;height:auto;object-fit:contain;" />
 
-      <!-- Headline -->
-      <h1 style="
-        font-family: 'Barlow Condensed', sans-serif;
-        font-weight: 900;
-        font-style: italic;
-        font-size: clamp(2.6rem, 5.5vw, 4.4rem);
-        color: #fff;
-        text-transform: uppercase;
-        line-height: 1.05;
-        letter-spacing: 1px;
-        margin: 0;
+      <!-- Shimmer headline -->
+      <h1 class="shimmer-text" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+        font-size:clamp(2.6rem,5.5vw,4.4rem);text-transform:uppercase;
+        line-height:1.05;letter-spacing:1px;margin:0;
       ">Built by Pros.<br>Driven by the Next Generation.</h1>
 
       <!-- Subtitle -->
       <p style="
-        font-family: 'Barlow', sans-serif;
-        font-weight: 400;
-        font-size: 1.05rem;
-        color: rgba(255,255,255,.8);
-        line-height: 1.6;
-        max-width: 520px;
-        margin: 0;
+        font-family:'Barlow',sans-serif;font-weight:400;font-size:1.05rem;
+        color:rgba(255,255,255,.8);line-height:1.6;max-width:520px;margin:0;
       ">A baseball performance facility built on professional structure,<br>discipline, and elite development standards.</p>
 
+      <!-- CTA -->
+      <a href="#packages" class="btn-shimmer" style="
+        margin-top:6px;background:#c41230;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:800;
+        font-size:.92rem;letter-spacing:2.5px;text-transform:uppercase;
+        padding:15px 40px;text-decoration:none;display:inline-block;
+      ">Join Classes Now</a>
+
+      <!-- Stats counters -->
+      <div style="margin-top:18px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);width:100%;">
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-number" id="stat-athletes">0</span>
+            <span class="stat-label">Athletes Trained</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-locations">0</span>
+            <span class="stat-label">Locations</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-years">0</span>
+            <span class="stat-label">Years of Excellence</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ══════════════════ PLAYER DEVELOPMENT PROGRAMS ══════════════════ -->
-  <section style="background:#0a1628;padding:96px 48px 100px;">
+  <section id="programs" style="background:#0a1628;padding:96px 48px 100px;">
+    <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;text-align:center;margin:0 0 10px;">TX Torque</p>
+    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:0 0 14px;">Player Development Programs</h2>
+    <span class="red-divider reveal" style="margin:0 auto 52px;"></span>
 
-    <!-- Eyebrow -->
-    <p style="
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:700;
-      font-size:.78rem;
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#c41230;
-      text-align:center;
-      margin:0 0 10px;
-    ">TX Torque</p>
-
-    <!-- Heading -->
-    <h2 style="
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:900;
-      font-style:italic;
-      font-size:clamp(2rem,4vw,3rem);
-      color:#fff;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      text-align:center;
-      margin:0 0 52px;
-    ">Player Development Programs</h2>
-
-    <!-- Cards grid -->
-    <div style="
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
-      max-width:1100px;
-      margin:0 auto;
-    ">
-
-      <!-- Card 1 — Foundational Development -->
-      <div style="background:#fff;border-radius:10px;overflow:hidden;">
-        <!-- Facility image -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1100px;margin:0 auto;">
+      <div class="card-hover reveal" style="background:#fff;border-radius:10px;overflow:hidden;">
         <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.26_2_ayu6ik.jpg"
              alt="Foundational Development facility"
              style="width:100%;height:290px;object-fit:cover;object-position:center;display:block;" />
-        <!-- Text body -->
         <div style="padding:28px 30px 34px;">
-          <h3 style="
-            font-family:'Barlow Condensed',sans-serif;
-            font-weight:900;
-            font-style:italic;
-            font-size:1.55rem;
-            color:#0a1628;
-            text-transform:uppercase;
-            letter-spacing:.5px;
-            margin:0 0 12px;
-          ">Foundational Development</h3>
-          <p style="
-            font-family:'Barlow',sans-serif;
-            font-size:.93rem;
-            color:#555;
-            line-height:1.65;
-            margin:0;
-          ">This program establishes the technical and physical foundation every athlete needs to progress.</p>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.55rem;color:#0a1628;text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;">Foundational Development</h3>
+          <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:#555;line-height:1.65;margin:0;">This program establishes the technical and physical foundation every athlete needs to progress.</p>
         </div>
       </div>
-
-      <!-- Card 2 — Advanced Development -->
-      <div style="background:#fff;border-radius:10px;overflow:hidden;">
-        <!-- Facility image -->
+      <div class="card-hover reveal" style="background:#fff;border-radius:10px;overflow:hidden;">
         <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777647677/WhatsApp_Image_2026-04-30_at_16.42.28_3_bqf0x8.jpg"
              alt="Advanced Development facility"
              style="width:100%;height:290px;object-fit:cover;object-position:center;display:block;" />
-        <!-- Text body -->
         <div style="padding:28px 30px 34px;">
-          <h3 style="
-            font-family:'Barlow Condensed',sans-serif;
-            font-weight:900;
-            font-style:italic;
-            font-size:1.55rem;
-            color:#0a1628;
-            text-transform:uppercase;
-            letter-spacing:.5px;
-            margin:0 0 12px;
-          ">Advanced Development</h3>
-          <p style="
-            font-family:'Barlow',sans-serif;
-            font-size:.93rem;
-            color:#555;
-            line-height:1.65;
-            margin:0;
-          ">This program establishes the technical and physical foundation every athlete needs to progress.</p>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.55rem;color:#0a1628;text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;">Advanced Development</h3>
+          <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:#555;line-height:1.65;margin:0;">This program establishes the technical and physical foundation every athlete needs to progress.</p>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ══════════════════ TORQUE PERFORMANCE STANDARDS ══════════════════ -->
-  <section style="
-    background: linear-gradient(135deg,#0d2040 0%,#0a1628 50%,#0f2244 100%);
-    padding: 96px 60px;
-  ">
-    <div style="
-      max-width: 1180px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.25fr;
-      gap: 72px;
-      align-items: center;
-    ">
+  <section id="performance" style="background:linear-gradient(135deg,#0d2040 0%,#0a1628 50%,#0f2244 100%);padding:96px 60px;">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.25fr;gap:72px;align-items:center;">
 
-      <!-- LEFT — facility photo placeholder -->
-      <div style="
-        border-radius: 10px;
-        overflow: hidden;
-        position: relative;
-        aspect-ratio: 4/5;
-        background: linear-gradient(175deg,#1b3350 0%,#0d1e32 55%,#080f1c 100%);
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-      ">
-        <!-- Turf lane lines (red + white) -->
-        <div style="position:absolute;bottom:0;left:0;right:0;height:42%;
-          background:linear-gradient(180deg,transparent 0%,#8b1a1a44 40%,#6b140f66 100%);
-        "></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;height:42%;
-          background-image:
-            repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.25) 60px,rgba(255,255,255,.25) 62px);
-        "></div>
-        <!-- ceiling lights row -->
+      <!-- Facility image placeholder -->
+      <div class="reveal" style="border-radius:10px;overflow:hidden;position:relative;aspect-ratio:4/5;background:linear-gradient(175deg,#1b3350 0%,#0d1e32 55%,#080f1c 100%);display:flex;align-items:flex-end;justify-content:center;">
+        <div style="position:absolute;bottom:0;left:0;right:0;height:42%;background:linear-gradient(180deg,transparent 0%,#8b1a1a44 40%,#6b140f66 100%);"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:42%;background-image:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.25) 60px,rgba(255,255,255,.25) 62px);"></div>
         <div style="position:absolute;top:18%;left:0;right:0;display:flex;justify-content:space-around;padding:0 20px;">
           <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,240,180,.7);box-shadow:0 0 12px 6px rgba(255,240,180,.3);"></div>
           <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,240,180,.7);box-shadow:0 0 12px 6px rgba(255,240,180,.3);"></div>
           <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,240,180,.7);box-shadow:0 0 12px 6px rgba(255,240,180,.3);"></div>
           <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,240,180,.7);box-shadow:0 0 12px 6px rgba(255,240,180,.3);"></div>
         </div>
-        <!-- home plate diamond hint -->
         <svg style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);opacity:.3;" width="48" height="48" viewBox="0 0 48 48">
           <polygon points="24,4 44,24 24,44 4,24" stroke="white" stroke-width="2" fill="none"/>
         </svg>
       </div>
 
-      <!-- RIGHT — content -->
+      <!-- Content -->
       <div>
-        <!-- Eyebrow -->
-        <p style="
-          font-family:'Barlow Condensed',sans-serif;
-          font-weight:700;
-          font-size:.78rem;
-          letter-spacing:4px;
-          text-transform:uppercase;
-          color:#c41230;
-          margin:0 0 10px;
-        ">Performance</p>
-
-        <!-- Heading -->
-        <h2 style="
-          font-family:'Barlow Condensed',sans-serif;
-          font-weight:900;
-          font-style:italic;
-          font-size:clamp(1.8rem,3.2vw,2.7rem);
-          color:#fff;
-          text-transform:uppercase;
-          letter-spacing:1px;
-          line-height:1.1;
-          margin:0 0 44px;
-        ">Torque Performance Standards</h2>
-
-        <!-- 2-col feature grid -->
-        <div style="
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:36px 40px;
-        ">
-
-          <div>
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Developing Complete Athletes</h4>
-            <p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We build athletes who dominate mechanically, physically, and mentally — not athletes without structure, focus, or purpose.</p>
-          </div>
-
-          <div>
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Preparing Players for the Next Level</h4>
-            <p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">Our training pushes athletes beyond high school standards and prepares them to compete at higher levels of baseball.</p>
-          </div>
-
-          <div>
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Growth On and Off the Field</h4>
-            <p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We develop discipline, maturity, and decision-making alongside performance — because true athletes succeed everywhere.</p>
-          </div>
-
-          <div>
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Strong, Resilient Mindsets</h4>
-            <p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We teach athletes to handle pressure, adversity, and expectation. Mindset isn't a bonus — it's part of the program.</p>
-          </div>
-
-          <div>
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Pushing Athletes to Their Limits</h4>
-            <p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We expect effort, discipline, and accountability. The standard is high because the results demand it.</p>
-          </div>
-
-          <div>
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Building Alphas and Leaders</h4>
-            <p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">Our environment produces athletes who take ownership, lead by example, and elevate everyone around them.</p>
-          </div>
-
+        <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0 0 10px;">Performance</p>
+        <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(1.8rem,3.2vw,2.7rem);color:#fff;text-transform:uppercase;letter-spacing:1px;line-height:1.1;margin:0 0 14px;">Torque Performance Standards</h2>
+        <span class="red-divider reveal" style="margin-bottom:40px;"></span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px 40px;">
+          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Developing Complete Athletes</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We build athletes who dominate mechanically, physically, and mentally — not athletes without structure, focus, or purpose.</p></div>
+          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Preparing Players for the Next Level</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">Our training pushes athletes beyond high school standards and prepares them to compete at higher levels of baseball.</p></div>
+          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Growth On and Off the Field</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We develop discipline, maturity, and decision-making alongside performance — because true athletes succeed everywhere.</p></div>
+          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Strong, Resilient Mindsets</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We teach athletes to handle pressure, adversity, and expectation. Mindset isn't a bonus — it's part of the program.</p></div>
+          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Pushing Athletes to Their Limits</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We expect effort, discipline, and accountability. The standard is high because the results demand it.</p></div>
+          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Building Alphas and Leaders</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">Our environment produces athletes who take ownership, lead by example, and elevate everyone around them.</p></div>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ══════════════════════ MEET THE COACHES ══════════════════════ -->
-  <section style="background:#fff;padding:96px 48px 104px;">
+  <section id="coaches" style="background:#fff;padding:96px 48px 104px;">
+    <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;text-align:center;margin:0 0 10px;">Our Team</p>
+    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#0a1628;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:0 0 14px;">Meet the Coaches</h2>
+    <span class="red-divider reveal" style="margin:0 auto 56px;"></span>
 
-    <!-- Eyebrow -->
-    <p style="
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:700;
-      font-size:.78rem;
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#c41230;
-      text-align:center;
-      margin:0 0 10px;
-    ">Our Team</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1200px;margin:0 auto;">
 
-    <!-- Heading -->
-    <h2 style="
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:900;
-      font-style:italic;
-      font-size:clamp(2rem,4vw,3rem);
-      color:#0a1628;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      text-align:center;
-      margin:0 0 56px;
-    ">Meet the Coaches</h2>
-
-    <!-- 4-column grid -->
-    <div style="
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:22px;
-      max-width:1200px;
-      margin:0 auto;
-    ">
-
-      <!-- ── JUSTIN MAESE ── -->
-      <div style="border:1px solid #e2e6ea;border-radius:4px;overflow:hidden;">
-        <!-- Photo placeholder — pitcher silhouette tones -->
-        <div style="
-          width:100%;height:240px;
-          background:linear-gradient(180deg,#1e3a5a 0%,#0d2035 60%,#050e1c 100%);
-          position:relative;overflow:hidden;
-          display:flex;align-items:flex-end;justify-content:center;
-        ">
-          <div style="position:absolute;inset:0;opacity:.08;
-            background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);
-          "></div>
-          <!-- stadium light glow top-right -->
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;
-            background:radial-gradient(circle,rgba(255,255,220,.18) 0%,transparent 70%);
-          "></div>
-          <!-- silhouette hint -->
-          <svg style="opacity:.22;margin-bottom:0;" width="80" height="160" viewBox="0 0 80 160" fill="white">
-            <ellipse cx="40" cy="20" rx="14" ry="14"/>
-            <path d="M40 34 C20 50 10 80 14 120 L26 120 L30 80 L40 70 L50 80 L54 120 L66 120 C70 80 60 50 40 34Z"/>
-            <path d="M14 60 C6 50 2 44 8 36 L20 50Z M66 60 C74 50 78 44 72 36 L60 50Z"/>
-          </svg>
+      <!-- Jersey-number circle helper -->
+      <!-- JUSTIN MAESE -->
+      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
+        <div style="width:100%;height:240px;background:linear-gradient(180deg,#1e3a5a 0%,#0d2035 60%,#050e1c 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);"></div>
+          <div style="position:absolute;top:-10px;right:-10px;width:130px;height:130px;background:radial-gradient(circle,rgba(196,18,48,.22) 0%,transparent 70%);"></div>
+          <div style="width:112px;height:112px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(196,18,48,.12);display:flex;align-items:center;justify-content:center;z-index:1;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.8rem;color:rgba(255,255,255,.65);line-height:1;">#3</span>
+          </div>
         </div>
         <div style="padding:20px 18px 24px;">
           <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Justin Maese</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 1px;">Director of Facility Operations</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 6px;">Director of Pitching</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 1px;">Director of Facility Operations</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Director of Pitching</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 4px;">New York Yankees • Atlanta Braves • Toronto Blue Jays</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;color:#0a1628;margin:0 0 10px;">2015 El Paso Baseball Hall of Fame</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;color:#c41230;margin:0 0 10px;">2015 El Paso Baseball Hall of Fame</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">Justin, a 3rd-round pick in the 2015 MLB Draft, brings nine years of professional baseball experience. He oversees all training operations with a focus on structured development, high-level pitching principles, and performance standards.</p>
         </div>
       </div>
 
-      <!-- ── ALEX REYES ── -->
-      <div style="border:1px solid #e2e6ea;border-radius:4px;overflow:hidden;">
-        <div style="
-          width:100%;height:240px;
-          background:linear-gradient(180deg,#1a3348 0%,#0d1e30 60%,#06101e 100%);
-          position:relative;overflow:hidden;
-          display:flex;align-items:flex-end;justify-content:center;
-        ">
-          <div style="position:absolute;inset:0;opacity:.08;
-            background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);
-          "></div>
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;
-            background:radial-gradient(circle,rgba(255,255,220,.18) 0%,transparent 70%);
-          "></div>
-          <svg style="opacity:.22;margin-bottom:0;" width="80" height="160" viewBox="0 0 80 160" fill="white">
-            <ellipse cx="40" cy="20" rx="14" ry="14"/>
-            <path d="M40 34 C20 50 10 80 14 120 L26 120 L30 80 L40 70 L50 80 L54 120 L66 120 C70 80 60 50 40 34Z"/>
-            <path d="M14 60 C6 50 2 44 8 36 L20 50Z M66 60 C74 50 78 44 72 36 L60 50Z"/>
-          </svg>
+      <!-- ALEX REYES -->
+      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
+        <div style="width:100%;height:240px;background:linear-gradient(180deg,#1a3348 0%,#0d1e30 60%,#06101e 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);"></div>
+          <div style="position:absolute;top:-10px;right:-10px;width:130px;height:130px;background:radial-gradient(circle,rgba(196,18,48,.22) 0%,transparent 70%);"></div>
+          <div style="width:112px;height:112px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(196,18,48,.12);display:flex;align-items:center;justify-content:center;z-index:1;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.8rem;color:rgba(255,255,255,.65);line-height:1;">#7</span>
+          </div>
         </div>
         <div style="padding:20px 18px 24px;">
           <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Alex Reyes</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 1px;">Events and Recruitment Director</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 6px;">Fielding / Hitting Pitching Coach</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 1px;">Events and Recruitment Director</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Fielding / Hitting Pitching Coach</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 10px;">NMSU • Bravos de León • Guerreros de Oaxaca • Tigres de Aragua • Vaqueros de Montería • Venados de Mazatlán</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">Alex brings four years of collegiate two-way experience and five years of professional pitching across Mexico, Venezuela, and Colombia. His background as both a shortstop and college hitter gives him a unique advantage in developing athletes on both sides of the ball.</p>
         </div>
       </div>
 
-      <!-- ── EUDOR GARCIA ── -->
-      <div style="border:1px solid #e2e6ea;border-radius:4px;overflow:hidden;">
-        <div style="
-          width:100%;height:240px;
-          background:linear-gradient(180deg,#1c3248 0%,#0e1f32 60%,#06101e 100%);
-          position:relative;overflow:hidden;
-          display:flex;align-items:flex-end;justify-content:center;
-        ">
-          <div style="position:absolute;inset:0;opacity:.08;
-            background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);
-          "></div>
-          <div style="position:absolute;top:-20px;left:-20px;width:140px;height:140px;
-            background:radial-gradient(circle,rgba(255,255,220,.15) 0%,transparent 70%);
-          "></div>
-          <svg style="opacity:.22;margin-bottom:0;" width="80" height="160" viewBox="0 0 80 160" fill="white">
-            <ellipse cx="40" cy="20" rx="14" ry="14"/>
-            <path d="M40 34 C20 50 10 80 14 120 L26 120 L30 80 L40 70 L50 80 L54 120 L66 120 C70 80 60 50 40 34Z"/>
-            <path d="M14 60 C6 50 2 44 8 36 L20 50Z M66 60 C74 50 78 44 72 36 L60 50Z"/>
-          </svg>
+      <!-- EUDOR GARCIA -->
+      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
+        <div style="width:100%;height:240px;background:linear-gradient(180deg,#1c3248 0%,#0e1f32 60%,#06101e 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);"></div>
+          <div style="position:absolute;top:-10px;left:-10px;width:130px;height:130px;background:radial-gradient(circle,rgba(196,18,48,.18) 0%,transparent 70%);"></div>
+          <div style="width:112px;height:112px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(196,18,48,.12);display:flex;align-items:center;justify-content:center;z-index:1;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.8rem;color:rgba(255,255,255,.65);line-height:1;">#4</span>
+          </div>
         </div>
         <div style="padding:20px 18px 24px;">
           <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Eudor Garcia</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 6px;">Fielding &amp; Hitting Director</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Fielding &amp; Hitting Director</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 2px;">NJCAA Player of the Year</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 2px;">2014 El Paso Baseball Hall of Fame</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 10px;">EPCC • New York Mets • Toros de Tijuana • Algodoneros de Torreón • Indios de Juárez</p>
@@ -489,227 +457,105 @@
         </div>
       </div>
 
-      <!-- ── GABRIEL AGUILAR ── -->
-      <div style="border:1px solid #e2e6ea;border-radius:4px;overflow:hidden;">
-        <div style="
-          width:100%;height:240px;
-          background:linear-gradient(180deg,#1b3050 0%,#0d1e34 60%,#060e1c 100%);
-          position:relative;overflow:hidden;
-          display:flex;align-items:flex-end;justify-content:center;
-        ">
-          <div style="position:absolute;inset:0;opacity:.08;
-            background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);
-          "></div>
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;
-            background:radial-gradient(circle,rgba(255,255,220,.18) 0%,transparent 70%);
-          "></div>
-          <svg style="opacity:.22;margin-bottom:0;" width="80" height="160" viewBox="0 0 80 160" fill="white">
-            <ellipse cx="40" cy="20" rx="14" ry="14"/>
-            <path d="M40 34 C20 50 10 80 14 120 L26 120 L30 80 L40 70 L50 80 L54 120 L66 120 C70 80 60 50 40 34Z"/>
-            <path d="M14 60 C6 50 2 44 8 36 L20 50Z M66 60 C74 50 78 44 72 36 L60 50Z"/>
-          </svg>
+      <!-- GABRIEL AGUILAR -->
+      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
+        <div style="width:100%;height:240px;background:linear-gradient(180deg,#1b3050 0%,#0d1e34 60%,#060e1c 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px);"></div>
+          <div style="position:absolute;top:-10px;right:-10px;width:130px;height:130px;background:radial-gradient(circle,rgba(196,18,48,.22) 0%,transparent 70%);"></div>
+          <div style="width:112px;height:112px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(196,18,48,.12);display:flex;align-items:center;justify-content:center;z-index:1;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;color:rgba(255,255,255,.65);line-height:1;">#11</span>
+          </div>
         </div>
         <div style="padding:20px 18px 24px;">
           <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Gabriel Aguilar</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 1px;">Team Operations</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;letter-spacing:.3px;margin:0 0 6px;">Pitching, Strength &amp; Conditioning Coach</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 1px;">Team Operations</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Pitching, Strength &amp; Conditioning Coach</p>
           <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 10px;">UNM • Rieleros de Aguascalientes • Sultanes de Monterrey • Leones de Yucatán</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">With four years at UNM and ten years of professional pitching, Gabriel brings a high-level understanding of both pitching development and strength and conditioning. He develops athletes at both youth and advanced levels through detailed mechanics work and disciplined training habits.</p>
+          <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">With four years at UNM and ten years of professional pitching, Gabriel brings a high-level understanding of both pitching development and strength and conditioning. He develops athletes at both youth and advanced levels through detailed mechanics and disciplined training habits.</p>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ══════════════════════ TRAINING PACKAGES ══════════════════════ -->
-  <section style="background:#eef0f4;padding:96px 48px 104px;">
-
-    <!-- Heading -->
-    <h2 style="
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:900;
-      font-style:normal;
-      font-size:clamp(2rem,4vw,2.8rem);
-      color:#0a1628;
-      text-transform:uppercase;
-      letter-spacing:2px;
-      text-align:center;
-      margin:0 0 12px;
-    ">Training Packages</h2>
-
-    <!-- Subtitle -->
-    <p style="
-      font-family:'Barlow',sans-serif;
-      font-size:.88rem;
-      color:#555;
-      text-align:center;
-      line-height:1.6;
-      margin:0 0 18px;
-    ">Please make sure to review the age requirements and class times before booking.<br>
-    Students must be registered in the correct age group.</p>
-
-    <!-- Age schedule -->
-    <div style="
-      display:flex;justify-content:center;align-items:center;
-      flex-wrap:wrap;gap:6px 28px;
-      margin:0 0 40px;
-    ">
-      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;">
-        <span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 7–10: 4:00 PM – 6:00 PM
-      </span>
-      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;">
-        <span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 11–14: 6:00 PM – 7:00 PM
-      </span>
-      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;">
-        <span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 14 and up: 7:00 PM – 8:00 PM
-      </span>
+  <section id="packages" style="background:#eef0f4;padding:96px 48px 104px;">
+    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,4vw,2.8rem);color:#0a1628;text-transform:uppercase;letter-spacing:2px;text-align:center;margin:0 0 14px;">Training Packages</h2>
+    <span class="red-divider reveal" style="margin:0 auto 14px;"></span>
+    <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.88rem;color:#555;text-align:center;line-height:1.6;margin:0 0 18px;">Please make sure to review the age requirements and class times before booking.<br>Students must be registered in the correct age group.</p>
+    <div class="reveal" style="display:flex;justify-content:center;flex-wrap:wrap;gap:6px 28px;margin:0 0 40px;">
+      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;"><span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 7–10: 4:00 PM – 6:00 PM</span>
+      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;"><span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 11–14: 6:00 PM – 7:00 PM</span>
+      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;"><span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 14 and up: 7:00 PM – 8:00 PM</span>
     </div>
 
-    <!-- Table wrapper -->
     <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
 
-      <!-- ── ROW TEMPLATE (5 cols: tier | m2m | 6mo | 12mo | annual) ── -->
-
-      <!-- ── A ── -->
-      <div style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:3px;overflow:hidden;">
-        <!-- Tier -->
+      <!-- A -->
+      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
         <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
           <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#0a1628" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="14" fill="#0a1628">A</text></svg>
           <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#0a1628;line-height:1;">A</span>
           <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#888;">4 Lessons / Month</span>
         </div>
-        <!-- Month to Month -->
         <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div>
-            <div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div>
-          </div>
+          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$260.00</div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
+          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
         </div>
-        <!-- 6-Month -->
         <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div>
-            <div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$260.00</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$234.00</div>
-          </div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
+          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div>
+          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$260.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$234.00</div></div>
+          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
         </div>
-        <!-- 12-Month -->
         <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div>
-            <div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$260.00</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$221.00</div>
-          </div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
+          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div>
+          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$260.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$221.00</div></div>
+          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
         </div>
-        <!-- Annual -->
         <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;">
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div>
-            <div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$3,120.00</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$2,496.00</div>
-          </div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
+          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div>
+          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$3,120.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$2,496.00</div></div>
+          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
         </div>
       </div>
 
-      <!-- ── AA ── -->
-      <div style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:3px;overflow:hidden;">
+      <!-- AA -->
+      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
         <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
           <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#0a1628" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="11" fill="#0a1628">AA</text></svg>
           <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#0a1628;line-height:1;">AA</span>
           <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#888;">8 Lessons / Month</span>
         </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$360.00</div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$360.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$324.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$360.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$306.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$4,320.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$3,456.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$360.00</div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$360.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$324.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$360.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$306.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$4,320.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$3,456.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
       </div>
 
-      <!-- ── AAA ── -->
-      <div style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:3px;overflow:hidden;">
+      <!-- AAA -->
+      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
         <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
           <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#b8860b" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="9" fill="#b8860b">AAA</text></svg>
           <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#b8860b;line-height:1;">AAA</span>
           <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#b8860b;">12 Lessons / Month</span>
         </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$440.00</div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$440.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$396.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$440.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$374.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$5,280.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$4,224.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$440.00</div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$440.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$396.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$440.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$374.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$5,280.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$4,224.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
       </div>
 
-      <!-- ── MLB ── -->
-      <div style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:3px;overflow:hidden;">
+      <!-- MLB -->
+      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
         <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
           <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#0a1628" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="9" fill="#0a1628">MLB</text></svg>
           <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#0a1628;line-height:1;">MLB</span>
           <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#888;">Unlimited Lessons / Month</span>
         </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$600.00</div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$600.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$540.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$600.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$510.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$7,200.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$5,760.00</div></div>
-          <button style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$600.00</div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$600.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$540.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$600.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$510.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
+        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$7,200.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$5,760.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
       </div>
 
     </div>
@@ -717,24 +563,182 @@
 
   <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
   <footer style="background:#060e1c;padding:52px 48px 36px;">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;">
-      <span style="
-        font-family:'Barlow Condensed',sans-serif;
-        font-weight:900;font-style:italic;
-        font-size:2.2rem;color:#fff;letter-spacing:3px;
-      ">TORQUE</span>
+    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
+           alt="Torque" style="height:52px;width:auto;object-fit:contain;opacity:.88;" />
       <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;">
-        <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;">Home</a>
-        <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;">Gallery</a>
-        <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;">FAQs</a>
-        <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;">Contact Us</a>
+        <a href="#hero"        style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Home</a>
+        <a href="#programs"    style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Programs</a>
+        <a href="#coaches"     style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Coaches</a>
+        <a href="#packages"    style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Packages</a>
       </div>
-      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);margin:4px 0;"></div>
-      <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:rgba(255,255,255,.3);margin:0;">
-        &copy; 2025 TX Torque Baseball Academy. All rights reserved.
+      <!-- Social icons -->
+      <div style="display:flex;gap:10px;">
+        <a href="#" class="social-icon" aria-label="Instagram">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="Facebook">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="X">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="YouTube">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);"></div>
+      <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:rgba(255,255,255,.28);margin:0;">
+        &copy; <span id="footer-year"></span> TX Torque Baseball Academy. All rights reserved.
       </p>
     </div>
   </footer>
 
+  <!-- ══════════════════ FLOATING WHATSAPP ══════════════════ -->
+  <a id="wa-btn" href="https://wa.me/19152000000" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
+  <script>
+    /* ── Footer year ── */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* ── Hero animated dot-grid canvas ── */
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+      const SPACING = 46;
+      let W, H, dots, cols;
+
+      function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+        cols = Math.ceil(W / SPACING) + 1;
+        const rows = Math.ceil(H / SPACING) + 1;
+        dots = [];
+        for (let r = 0; r <= rows; r++) {
+          for (let c = 0; c <= cols; c++) {
+            dots.push({
+              ox: c * SPACING, oy: r * SPACING,
+              x: c * SPACING,  y: r * SPACING,
+              phase: Math.random() * Math.PI * 2,
+              amp:   2 + Math.random() * 3.5,
+              spd:   0.35 + Math.random() * 0.55
+            });
+          }
+        }
+      }
+
+      function draw(t) {
+        ctx.clearRect(0, 0, W, H);
+        const ts = t * 0.00075;
+
+        dots.forEach((d, i) => {
+          d.x = d.ox + Math.sin(ts * d.spd + d.phase) * d.amp;
+          d.y = d.oy + Math.cos(ts * d.spd + d.phase) * d.amp;
+
+          /* dot */
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, 1.4, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,.6)';
+          ctx.fill();
+
+          /* right neighbour line */
+          if ((i + 1) % cols !== 0 && i + 1 < dots.length) {
+            const n = dots[i + 1];
+            const dx = n.x - d.x, dy = n.y - d.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(n.x, n.y);
+            ctx.strokeStyle = `rgba(255,255,255,${Math.max(0, .11 * (1 - dist / 58))})`;
+            ctx.lineWidth = .7;
+            ctx.stroke();
+          }
+
+          /* bottom neighbour line */
+          if (i + cols < dots.length) {
+            const n = dots[i + cols];
+            const dx = n.x - d.x, dy = n.y - d.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(n.x, n.y);
+            ctx.strokeStyle = `rgba(255,255,255,${Math.max(0, .11 * (1 - dist / 58))})`;
+            ctx.lineWidth = .7;
+            ctx.stroke();
+          }
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      requestAnimationFrame(draw);
+    })();
+
+    /* ── Nav: scroll opacity + active section ── */
+    const nav      = document.getElementById('main-nav');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sectionIds = ['hero', 'programs', 'performance', 'coaches', 'packages'];
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 48);
+      let active = 'hero';
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 130) active = id;
+      });
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.section === active));
+    }, { passive: true });
+
+    /* ── Intersection Observer: reveal + red-divider ── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal, .red-divider').forEach(el => io.observe(el));
+
+    /* ── Stagger items per section ── */
+    document.querySelectorAll('section').forEach(section => {
+      const items = section.querySelectorAll('.stagger-item');
+      if (!items.length) return;
+      const sio = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 115));
+        sio.disconnect();
+      }, { threshold: 0.08 });
+      sio.observe(section);
+    });
+
+    /* ── Stats counter ── */
+    function counter(el, target, suffix, ms) {
+      let start = null;
+      (function step(ts) {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / ms, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(ease * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      })(performance.now());
+    }
+
+    const statsIO = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      counter(document.getElementById('stat-athletes'),  500, '+', 1800);
+      counter(document.getElementById('stat-locations'),   3,  '',  900);
+      counter(document.getElementById('stat-years'),       10, '+', 1400);
+      statsIO.disconnect();
+    }, { threshold: 0.5 });
+    statsIO.observe(document.getElementById('hero'));
+  </script>
 </body>
 </html>
