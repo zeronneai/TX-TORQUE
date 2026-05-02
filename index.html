@@ -232,6 +232,177 @@
       background: #c41230; border-color: #c41230;
       color: #fff; transform: translateY(-3px);
     }
+
+    /* ════════════════════════════════════════
+       HAMBURGER + MOBILE DRAWER  (all viewports)
+       ════════════════════════════════════════ */
+    #nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-shrink: 0;
+      line-height: 0;
+    }
+    #mobile-nav-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: rgba(4,10,22,.97);
+      display: flex;
+      flex-direction: column;
+      padding: 96px 36px 52px;
+      transform: translateX(100%);
+      transition: transform .38s cubic-bezier(.4,0,.2,1);
+      overflow-y: auto;
+      visibility: hidden;
+    }
+    #mobile-nav-drawer.open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+    #mobile-nav-drawer a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 2.1rem;
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      transition: color .2s;
+      display: block;
+      letter-spacing: .5px;
+    }
+    #mobile-nav-drawer a:hover { color: #c41230; }
+    #mobile-nav-drawer .mob-cta {
+      margin-top: 28px;
+      background: #c41230;
+      color: #fff !important;
+      text-align: center;
+      padding: 18px !important;
+      border-bottom: none !important;
+      border-radius: 2px;
+      font-size: 1.1rem !important;
+      letter-spacing: 2.5px !important;
+    }
+
+    /* ════════════════════════════════════════
+       @media (max-width: 768px)
+       ════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      body { overflow-x: hidden; }
+
+      /* ── NAV ── */
+      #main-nav { padding: 0 20px !important; }
+      #main-nav > ul { display: none !important; }
+      #main-nav > div > a { display: none !important; }
+      #nav-hamburger { display: flex !important; align-items: center; justify-content: center; }
+
+      /* ── HERO ── */
+      #hero h1 { font-size: clamp(1.75rem, 8vw, 2.4rem) !important; }
+      #hero p br { display: none; }
+      #hero a.btn-shimmer {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        padding: 16px 20px !important;
+        min-height: 52px !important;
+        box-sizing: border-box !important;
+      }
+      .stats-row { flex-direction: column !important; gap: 18px !important; }
+      .stat-item { padding: 0 !important; }
+      .stat-item + .stat-item {
+        border-left: none !important;
+        border-top: 1px solid rgba(255,255,255,.14);
+        padding-top: 18px !important;
+      }
+
+      /* ── PROGRAMS ── */
+      #programs { padding: 60px 20px 68px !important; }
+      #programs > div { grid-template-columns: 1fr !important; gap: 20px !important; }
+      #programs .card-hover > div:last-child { padding: 20px 18px 24px !important; }
+
+      /* ── PERFORMANCE ── */
+      #performance { padding: 60px 20px !important; }
+      #performance > div { grid-template-columns: 1fr !important; gap: 32px !important; }
+      #performance > div > div.reveal { aspect-ratio: 16 / 9 !important; }
+      #performance > div > div:last-child > div:last-child {
+        grid-template-columns: 1fr !important;
+        gap: 24px 0 !important;
+      }
+
+      /* ── COACHES ── */
+      #coaches { padding: 60px 20px 72px !important; }
+      #coaches > div { grid-template-columns: 1fr !important; gap: 20px !important; }
+      #coaches .coach-hover > div { padding: 16px 14px 20px !important; }
+
+      /* ── CAROUSELS ── */
+      #pro-gallery { padding-top: 60px !important; padding-bottom: 72px !important; }
+      #future-stars { padding-top: 60px !important; padding-bottom: 72px !important; }
+
+      /* ── PACKAGES ── */
+      #packages { padding: 60px 16px 72px !important; }
+      #packages .stagger-item {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden;
+      }
+      /* Tier header: horizontal strip */
+      #packages .stagger-item > div:first-child {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 10px !important;
+        padding: 14px 16px !important;
+        border-right: none !important;
+        border-bottom: 2px solid #c9cdd6 !important;
+        background: #edf0f4 !important;
+      }
+      /* Pricing cells: horizontal layout */
+      #packages .stagger-item > div:not(:first-child) {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 12px 14px !important;
+        border-right: none !important;
+        border-bottom: 1px solid #e4e8ed !important;
+        gap: 8px !important;
+      }
+      /* Label area gets remaining space, left-aligned */
+      #packages .stagger-item > div:not(:first-child) > div:first-child {
+        flex: 1 !important;
+        text-align: left !important;
+      }
+      #packages .stagger-item > div:not(:first-child) > div:first-child > div {
+        text-align: left !important;
+      }
+      /* Subscribe button: compact touch target */
+      #packages .stagger-item button.sub-btn {
+        width: auto !important;
+        min-width: 88px !important;
+        min-height: 44px !important;
+        flex-shrink: 0 !important;
+        padding: 8px 10px !important;
+        font-size: .63rem !important;
+        letter-spacing: 1px !important;
+      }
+
+      /* ── FOOTER ── */
+      footer { padding: 48px 20px 32px !important; }
+
+      /* ── WHATSAPP FLOAT ── */
+      #wa-btn {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 18px !important;
+        right: 14px !important;
+      }
+
+    }
   </style>
 </head>
 <body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
@@ -272,8 +443,22 @@
         </svg>
         Login
       </a>
+      <button id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile navigation drawer -->
+  <div id="mobile-nav-drawer" aria-hidden="true">
+    <a href="#hero"     onclick="closeMobileNav()">Home</a>
+    <a href="#programs" onclick="closeMobileNav()">Programs</a>
+    <a href="#coaches"  onclick="closeMobileNav()">Coaches</a>
+    <a href="#packages" onclick="closeMobileNav()">Packages</a>
+    <a href="https://torque-performance.vercel.app/" class="mob-cta" target="_blank" rel="noopener" onclick="closeMobileNav()">Join Classes</a>
+  </div>
 
   <!-- ══════════════════════════ HERO ══════════════════════════ -->
   <section id="hero" style="
@@ -645,6 +830,34 @@
 
   <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
   <script>
+    /* ── Mobile nav hamburger ── */
+    (function () {
+      const hamburger = document.getElementById('nav-hamburger');
+      const drawer    = document.getElementById('mobile-nav-drawer');
+      const BARS  = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+      const CROSS = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+      window.closeMobileNav = function () {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        hamburger.innerHTML = BARS;
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+
+      hamburger.addEventListener('click', function () {
+        if (drawer.classList.contains('open')) {
+          window.closeMobileNav();
+        } else {
+          drawer.classList.add('open');
+          drawer.setAttribute('aria-hidden', 'false');
+          hamburger.innerHTML = CROSS;
+          hamburger.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    })();
+
     /* ── Footer year ── */
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
