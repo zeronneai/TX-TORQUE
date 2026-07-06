@@ -431,6 +431,26 @@
     #promo-modal-later { transition:color .2s; }
     #promo-modal-later:hover { color:rgba(255,255,255,.85); }
 
+    /* ── TRIAL LEAD FORM ── */
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+    .form-field input, .form-field select {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; padding: 13px 16px; border-radius: 4px;
+      font-family: 'Barlow', sans-serif; font-size: .95rem;
+      outline: none; transition: border-color .2s, background .2s;
+      -webkit-appearance: none; appearance: none; width: 100%;
+    }
+    .form-field input::placeholder { color: rgba(255,255,255,.3); }
+    .form-field input:focus, .form-field select:focus {
+      border-color: #c41230; background: rgba(255,255,255,.1);
+    }
+    .form-field select option { background: #0d2040; color: #fff; }
+
     @media (max-width: 768px) {
       #tournament-bar .tb-full  { display:none !important; }
       #tournament-bar .tb-short { display:flex !important; }
@@ -438,13 +458,15 @@
       #tournament-bar .tb-text  { font-size:.68rem !important; letter-spacing:1px !important; }
       #main-nav { top:34px !important; }
       #promo-modal { padding:40px 24px 32px !important; }
+      #trial { padding: 60px 20px 72px !important; }
+      #trial .form-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
 <body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
 
   <!-- ══════════════════ TOURNAMENT ANNOUNCEMENT BAR ══════════════════ -->
-  <a id="tournament-bar" href="/tournament" style="
+  <a id="tournament-bar" href="#trial" style="
     position:fixed;top:0;left:0;right:0;z-index:1000;
     display:flex;align-items:center;justify-content:center;
     height:38px;padding:0 16px;text-decoration:none;
@@ -457,20 +479,20 @@
       font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
       white-space:nowrap;display:flex;align-items:center;gap:9px;
     ">
-      <span>🔥 Sportplex Tournament</span>
+      <span>🔥 Book Your Trial Class</span>
       <span style="opacity:.55;">·</span>
-      <span>July 24</span>
+      <span>$20 refundable when you join</span>
       <span style="opacity:.55;">·</span>
-      <span class="tb-cta">Book Your Free Trial →</span>
+      <span class="tb-cta">Fri &amp; Sat only →</span>
     </span>
     <span class="tb-text tb-short" style="
       font-family:'Barlow Condensed',sans-serif;font-weight:700;
       font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
       white-space:nowrap;align-items:center;gap:7px;
     ">
-      <span>🔥 Tournament · Jul 24</span>
+      <span>🔥 Trial Class · $20 refundable</span>
       <span style="opacity:.55;">·</span>
-      <span class="tb-cta">Free Trial →</span>
+      <span class="tb-cta">Fri &amp; Sat →</span>
     </span>
   </a>
 
@@ -902,6 +924,97 @@
     </div>
   </section>
 
+  <!-- ══════════════════════════ BOOK A TRIAL ══════════════════════════ -->
+  <section id="trial" style="background:#0a1628;padding:96px 48px 104px;position:relative;overflow:hidden;">
+    <div aria-hidden="true" style="position:absolute;top:-40px;right:-60px;width:260px;height:140px;background:#c41230;opacity:.07;transform:skewX(-16deg);pointer-events:none;"></div>
+
+    <div style="max-width:640px;margin:0 auto;position:relative;z-index:2;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0 0 10px;">Try Torque</p>
+        <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0 0 14px;">Book a Trial Class</h2>
+        <span class="red-divider reveal" style="margin:0 auto 24px;"></span>
+        <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.75;margin:0 auto;max-width:544px;">
+          See what Torque-level training feels like. Reserve your spot with a <strong style="color:#fff;">$20 deposit that's fully refunded when you sign up for a package</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round — book anytime.
+        </p>
+      </div>
+
+      <!-- Value chips -->
+      <div class="reveal" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:46px;">
+        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>$20 Refundable
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Fridays &amp; Saturdays
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All Skill Levels
+        </span>
+      </div>
+
+      <form id="lead-form" class="reveal" novalidate style="display:flex;flex-direction:column;gap:20px;">
+        <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="form-field">
+            <label for="parentName">Parent Name</label>
+            <input type="text" id="parentName" name="parentName" placeholder="Jane Smith" required autocomplete="name" />
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(915) 555-0100" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="form-field">
+            <label for="playerName">Player Name</label>
+            <input type="text" id="playerName" name="playerName" placeholder="Junior Smith" required />
+          </div>
+          <div class="form-field">
+            <label for="playerAge">Player Age</label>
+            <input type="number" id="playerAge" name="playerAge" placeholder="12" min="4" max="22" required />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="preferredDay">Preferred Day</label>
+          <select id="preferredDay" name="preferredDay" required>
+            <option value="" disabled selected>Select a day</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+
+        <div id="form-error" style="display:none;background:rgba(196,18,48,.14);border:1px solid rgba(196,18,48,.38);border-radius:4px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#e8bbc2;line-height:1.5;"></div>
+
+        <button type="submit" id="submit-btn" class="btn-shimmer" style="
+          background:#c41230;color:#fff;border:none;cursor:pointer;
+          font-family:'Barlow Condensed',sans-serif;font-weight:800;
+          font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
+          padding:18px 0;width:100%;margin-top:4px;
+        ">Book My Trial Class</button>
+
+        <p style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+          By submitting you agree to be contacted about your trial class.
+          The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
+        </p>
+      </form>
+
+      <div id="form-success" style="display:none;text-align:center;padding:52px 24px;">
+        <div style="width:76px;height:76px;border-radius:50%;background:rgba(196,18,48,.14);border:2px solid #c41230;display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:2.2rem;color:#fff;text-transform:uppercase;margin:0 0 14px;">You're In!</h3>
+        <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
+          Thanks! We'll reach out within 24 hours to schedule your trial class.<br>See you on the field — Friday or Saturday.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
   <footer style="background:#060e1c;padding:52px 48px 36px;">
     <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
@@ -976,7 +1089,7 @@
       <div style="height:3px;width:56px;background:#c41230;border-radius:2px;margin:0 auto 18px;"></div>
 
       <p style="font-family:'Barlow',sans-serif;font-size:.95rem;color:rgba(255,255,255,.72);line-height:1.65;margin:0 0 26px;">
-        Hardest Thrower &amp; Hardest Hit competitions. Book your <strong style="color:#fff;">FREE trial class</strong> — Fridays &amp; Saturdays — and get your athlete on the field.
+        One day only. Compete in the <strong style="color:#fff;">Hardest Thrower</strong> &amp; <strong style="color:#fff;">Hardest Hit</strong> skill competitions at the Sportplex — TX Torque &times; Next Level Baseball in El Paso.
       </p>
 
       <a href="/tournament" class="btn-shimmer" style="
@@ -984,7 +1097,7 @@
         font-family:'Barlow Condensed',sans-serif;font-weight:800;
         font-size:.95rem;letter-spacing:2.5px;text-transform:uppercase;
         padding:15px 0;text-decoration:none;display:block;width:100%;
-      ">Book Your Free Trial</a>
+      ">View Tournament Details</a>
 
       <button id="promo-modal-later" style="
         background:none;border:none;cursor:pointer;margin-top:16px;
@@ -1197,6 +1310,72 @@
 
       /* let the page paint first, then reveal */
       setTimeout(openModal, 800);
+    })();
+
+    /* ── Trial lead form → Apps Script (source: main-landing-trial) ── */
+    (function () {
+      const form = document.getElementById('lead-form');
+      if (!form) return;
+      const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzetU-RRWEOlavyO3ufeAAFCOCt_NXnHuwQ_chzs8_imkZGD8yld6IK1IhAL87Z78ip/exec';
+      const submitBtn  = document.getElementById('submit-btn');
+      const errorBox   = document.getElementById('form-error');
+      const successBox = document.getElementById('form-success');
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorBox.style.display = 'none';
+
+        const parentName   = form.parentName.value.trim();
+        const phone        = form.phone.value.trim();
+        const email        = form.email.value.trim();
+        const playerName   = form.playerName.value.trim();
+        const playerAge    = form.playerAge.value.trim();
+        const preferredDay = form.preferredDay.value;
+
+        if (!parentName || !phone || !email || !playerName || !playerAge || !preferredDay) {
+          errorBox.textContent = 'Please fill out all fields before submitting.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          errorBox.textContent = 'Please enter a valid email address.';
+          errorBox.style.display = 'block';
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        const payload = {
+          parentName,
+          phone,
+          email,
+          playerName,
+          playerAge,
+          preferredDay,
+          timestamp: new Date().toISOString(),
+          source:    'main-landing-trial'
+        };
+
+        try {
+          /* Apps Script sends no CORS headers → post as text/plain (simple
+             request, no preflight) with mode:'no-cors'. doPost reads
+             e.postData.contents and JSON.parses it. Opaque response = success. */
+          await fetch(LEAD_ENDPOINT, {
+            method: 'POST',
+            mode:   'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body:    JSON.stringify(payload)
+          });
+          form.style.display = 'none';
+          successBox.style.display = 'block';
+        } catch (err) {
+          errorBox.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.';
+          errorBox.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Book My Trial Class';
+        }
+      });
     })();
 
   </script>
