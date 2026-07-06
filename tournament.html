@@ -139,19 +139,12 @@
       font-style: normal; font-size: 1.1rem; letter-spacing: 2.5px;
     }
 
-    /* ── TOURNAMENT VIDEO SHOWCASE ── */
-    .vid-track { display: flex; gap: 18px; justify-content: center; align-items: stretch; margin-top: 42px; }
-    .vid-card {
-      position: relative; width: 100%; max-width: 260px; aspect-ratio: 9 / 16;
-      border-radius: 14px; overflow: hidden; background: #060f1f;
-      border: 1px solid rgba(196,18,48,.28);
-      box-shadow: 0 16px 40px rgba(0,0,0,.45);
-    }
-    .vid-card video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .vid-card::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      box-shadow: inset 0 -46px 60px -34px rgba(196,18,48,.4);
-    }
+    /* ── HERO VIDEO BACKGROUND ── */
+    #hero-video-bg { position: absolute; inset: 0; z-index: 0; display: flex; background: #0a1628; }
+    .hero-vid { flex: 1 1 33.333%; position: relative; overflow: hidden; }
+    .hero-vid video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* subtle seam between the three background columns */
+    .hero-vid + .hero-vid { border-left: 1px solid rgba(196,18,48,.22); }
 
     @media (max-width: 768px) {
       body { overflow-x: hidden; }
@@ -168,16 +161,12 @@
       #free-trial > div > div:last-child { grid-template-columns: 1fr !important; }
       #trial-form { padding: 60px 20px !important; }
       #trial-form .form-grid { grid-template-columns: 1fr !important; }
-      #video-showcase { padding: 48px 20px 56px !important; }
-      .vid-track {
-        position: relative; display: block; max-width: 300px; margin: 32px auto 0;
-        aspect-ratio: 9 / 16;
+      #hero-video-bg { display: block; }
+      .hero-vid {
+        position: absolute; inset: 0; flex: none; border-left: none;
+        opacity: 0; transition: opacity .6s ease;
       }
-      .vid-card {
-        position: absolute; inset: 0; max-width: none; width: 100%; height: 100%;
-        opacity: 0; transition: opacity .55s ease; pointer-events: none;
-      }
-      .vid-card.is-active { opacity: 1; pointer-events: auto; }
+      .hero-vid.is-active { opacity: 1; }
       footer { padding: 48px 20px 32px !important; }
       #wa-btn { width: 50px !important; height: 50px !important; bottom: 18px !important; right: 14px !important; }
     }
@@ -232,15 +221,32 @@
 
   <!-- ══════════════════════════ HERO ══════════════════════════ -->
   <section id="tournament-hero" style="
-    position:relative;width:100%;min-height:100vh;
+    position:relative;width:100%;min-height:90vh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;overflow:hidden;background:#0a1628;
     padding:100px 48px 80px;
   ">
-    <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_1400,q_auto,f_auto/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.27_3_gszjif.jpg"
-         alt="" aria-hidden="true"
-         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.15;" />
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.55) 0%,rgba(10,22,40,.88) 100%);z-index:1;"></div>
+    <!-- Video background layer (desktop: 3 columns · mobile: single cycling) -->
+    <div id="hero-video-bg">
+      <div class="hero-vid">
+        <video muted playsinline preload="metadata"
+               poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_500,q_auto,f_auto/v1783365085/TX_TORQUE_4_rclaac.jpg"
+               src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_500/v1783365085/TX_TORQUE_4_rclaac.mp4"></video>
+      </div>
+      <div class="hero-vid">
+        <video muted playsinline preload="metadata"
+               poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_500,q_auto,f_auto/v1783365089/TX_TORQUE_1_h8g79m.jpg"
+               src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_500/v1783365089/TX_TORQUE_1_h8g79m.mp4"></video>
+      </div>
+      <div class="hero-vid">
+        <video muted playsinline preload="metadata"
+               poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_500,q_auto,f_auto/v1783365086/TX_TORQUE_2_xka764.jpg"
+               src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_500/v1783365086/TX_TORQUE_2_xka764.mp4"></video>
+      </div>
+    </div>
+    <!-- Readability scrim: darker top (nav) + bottom (CTA), plus edge vignette -->
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(10,22,40,.80) 0%,rgba(10,22,40,.55) 42%,rgba(10,22,40,.62) 66%,rgba(10,22,40,.90) 100%);"></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 120% 82% at 50% 46%,transparent 32%,rgba(10,22,40,.58) 100%);"></div>
     <div style="position:absolute;bottom:0;left:0;width:100%;height:180px;z-index:1;pointer-events:none;overflow:hidden;">
       <div style="position:absolute;bottom:-50px;left:-5%;width:38%;height:110px;background:#c41230;transform:skewX(-16deg);opacity:.14;"></div>
       <div style="position:absolute;bottom:-20px;left:28%;width:20%;height:60px;background:#c41230;transform:skewX(-16deg);opacity:.08;"></div>
@@ -282,34 +288,6 @@
         font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
         padding:18px 48px;text-decoration:none;
       ">Book Your Free Trial</a>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════ VIDEO SHOWCASE ══════════════════════════ -->
-  <section id="video-showcase" style="background:#0a1628;padding:60px 48px 72px;position:relative;overflow:hidden;">
-    <div aria-hidden="true" style="position:absolute;top:-40px;left:-60px;width:240px;height:130px;background:#c41230;opacity:.08;transform:skewX(-16deg);pointer-events:none;"></div>
-    <div style="max-width:1000px;margin:0 auto;text-align:center;position:relative;z-index:2;">
-      <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0 0 10px;">On The Field</p>
-      <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(1.9rem,4vw,2.8rem);color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0 0 12px;">See The Work</h2>
-      <span class="red-divider reveal" style="margin:0 auto;"></span>
-
-      <div id="vid-track" class="vid-track">
-        <div class="vid-card">
-          <video muted playsinline preload="metadata"
-                 poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_500,q_auto,f_auto/v1783365085/TX_TORQUE_4_rclaac.jpg"
-                 src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_500/v1783365085/TX_TORQUE_4_rclaac.mp4"></video>
-        </div>
-        <div class="vid-card">
-          <video muted playsinline preload="metadata"
-                 poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_500,q_auto,f_auto/v1783365089/TX_TORQUE_1_h8g79m.jpg"
-                 src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_500/v1783365089/TX_TORQUE_1_h8g79m.mp4"></video>
-        </div>
-        <div class="vid-card">
-          <video muted playsinline preload="metadata"
-                 poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_500,q_auto,f_auto/v1783365086/TX_TORQUE_2_xka764.jpg"
-                 src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_500/v1783365086/TX_TORQUE_2_xka764.mp4"></video>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -685,12 +663,12 @@
       });
     })();
 
-    /* ── Video showcase: desktop = 3 simultaneous (loop) · mobile = 1-at-a-time sequential ── */
+    /* ── Hero video background: desktop = 3 simultaneous (loop) · mobile = 1-at-a-time sequential ── */
     (function () {
-      const section = document.getElementById('video-showcase');
+      const section = document.getElementById('tournament-hero');
       if (!section) return;
-      const track   = document.getElementById('vid-track');
-      const cards   = Array.from(track.querySelectorAll('.vid-card'));
+      const track   = document.getElementById('hero-video-bg');
+      const cards   = Array.from(track.querySelectorAll('.hero-vid'));
       const videos  = cards.map(c => c.querySelector('video'));
       const mq      = window.matchMedia('(max-width: 768px)');
       let mode = null, seq = 0, started = false;
