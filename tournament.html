@@ -548,7 +548,8 @@
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
     /* ── Form submit ── */
-    const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzetU-RRWEOlavyO3ufeAAFCOCt_NXnHuwQ_chzs8_imkZGD8yld6IK1IhAL87Z78ip/exec';
+    const LEAD_ENDPOINT      = 'https://script.google.com/macros/s/AKfycbzetU-RRWEOlavyO3ufeAAFCOCt_NXnHuwQ_chzs8_imkZGD8yld6IK1IhAL87Z78ip/exec';
+    const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/3cI6oG5VQaeMaI5gcSfAc0i';
 
     const form       = document.getElementById('lead-form');
     const submitBtn  = document.getElementById('submit-btn');
@@ -578,7 +579,7 @@
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting…';
+      submitBtn.textContent = 'Saving…';
 
       const payload = {
         parentName,
@@ -588,23 +589,27 @@
         playerAge,
         preferredDay,
         timestamp: new Date().toISOString(),
-        source:    'tournament-landing'
+        source:    'tournament-landing',
+        status:    'pending_payment'
       };
 
       try {
-        /* Apps Script web apps don't send CORS headers. Sending JSON with an
-           application/json content-type would trigger a preflight that fails,
-           so we POST as text/plain (a "simple request" — no preflight) using
-           mode:'no-cors'. doPost reads e.postData.contents and JSON.parses it.
-           The response is opaque, so a completed request = success. */
+        /* 1) Save the lead first. Apps Script sends no CORS headers, so we POST
+           as text/plain (a "simple request" — no preflight) with mode:'no-cors'.
+           doPost reads e.postData.contents and JSON.parses it. The response is
+           opaque, so a completed request = lead saved. */
         await fetch(LEAD_ENDPOINT, {
           method: 'POST',
           mode:   'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body:    JSON.stringify(payload)
         });
-        form.style.display = 'none';
-        successBox.style.display = 'block';
+        /* 2) Hand off to Stripe for the $20 deposit. Try to prefill the email
+           (Stripe ignores it gracefully if the link collects its own). The
+           thank-you page is the real confirmation, after payment. */
+        submitBtn.textContent = 'Redirecting you to secure payment…';
+        const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
+        setTimeout(function () { window.location.href = payUrl; }, 700);
       } catch (err) {
         errorBox.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.';
         errorBox.style.display = 'block';

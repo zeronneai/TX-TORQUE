@@ -2,11 +2,13 @@
   "version": 2,
   "builds": [
     { "src": "index.html",      "use": "@vercel/static" },
-    { "src": "tournament.html", "use": "@vercel/static" }
+    { "src": "tournament.html", "use": "@vercel/static" },
+    { "src": "thank-you.html",  "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/tournament", "dest": "/tournament.html" },
     { "src": "/torneo",     "dest": "/tournament.html" },
+    { "src": "/thank-you",  "dest": "/thank-you.html" },
     { "src": "/(.*)",       "dest": "/index.html" }
   ]
 }
