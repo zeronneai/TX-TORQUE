@@ -403,13 +403,80 @@
       }
 
     }
+
+    /* ════════════════════════════════════════
+       TOURNAMENT PROMO — announcement bar + modal
+       ════════════════════════════════════════ */
+    @keyframes barSheen { 0% { background-position:0% center; } 100% { background-position:200% center; } }
+
+    #tournament-bar .tb-cta { text-decoration:underline; text-underline-offset:3px; transition:opacity .2s; }
+    #tournament-bar:hover .tb-cta { opacity:.82; }
+    #tournament-bar .tb-short { display:none; }
+
+    #promo-modal-overlay {
+      position:fixed; inset:0; z-index:10000;
+      background:rgba(4,10,22,.80); backdrop-filter:blur(5px);
+      display:flex; align-items:center; justify-content:center; padding:20px;
+      opacity:0; visibility:hidden;
+      transition:opacity .35s ease, visibility .35s ease;
+    }
+    #promo-modal-overlay.open { opacity:1; visibility:visible; }
+    #promo-modal {
+      transform:scale(.9) translateY(12px);
+      transition:transform .4s cubic-bezier(.34,1.35,.5,1);
+    }
+    #promo-modal-overlay.open #promo-modal { transform:scale(1) translateY(0); }
+    #promo-modal-close { transition:color .2s, transform .2s; }
+    #promo-modal-close:hover { color:#fff; transform:rotate(90deg); }
+    #promo-modal-later { transition:color .2s; }
+    #promo-modal-later:hover { color:rgba(255,255,255,.85); }
+
+    @media (max-width: 768px) {
+      #tournament-bar .tb-full  { display:none !important; }
+      #tournament-bar .tb-short { display:flex !important; }
+      #tournament-bar { height:34px !important; }
+      #tournament-bar .tb-text  { font-size:.68rem !important; letter-spacing:1px !important; }
+      #main-nav { top:34px !important; }
+      #promo-modal { padding:40px 24px 32px !important; }
+    }
   </style>
 </head>
 <body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
 
+  <!-- ══════════════════ TOURNAMENT ANNOUNCEMENT BAR ══════════════════ -->
+  <a id="tournament-bar" href="/tournament" style="
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:center;
+    height:38px;padding:0 16px;text-decoration:none;
+    background:linear-gradient(90deg,#8f0d22,#c41230 40%,#e0173a 50%,#c41230 60%,#8f0d22);
+    background-size:200% auto;animation:barSheen 6s linear infinite;
+    box-shadow:0 2px 12px rgba(0,0,0,.35);
+  ">
+    <span class="tb-text tb-full" style="
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
+      white-space:nowrap;display:flex;align-items:center;gap:9px;
+    ">
+      <span>🔥 Sportplex Tournament</span>
+      <span style="opacity:.55;">·</span>
+      <span>July 24</span>
+      <span style="opacity:.55;">·</span>
+      <span class="tb-cta">Book Your Free Trial →</span>
+    </span>
+    <span class="tb-text tb-short" style="
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
+      white-space:nowrap;align-items:center;gap:7px;
+    ">
+      <span>🔥 Tournament · Jul 24</span>
+      <span style="opacity:.55;">·</span>
+      <span class="tb-cta">Free Trial →</span>
+    </span>
+  </a>
+
   <!-- ══════════════════════════ NAVBAR ══════════════════════════ -->
   <nav id="main-nav" style="
-    position:fixed;top:0;left:0;right:0;z-index:999;
+    position:fixed;top:38px;left:0;right:0;z-index:999;
     display:flex;align-items:center;justify-content:space-between;
     padding:0 48px;height:68px;
     background:rgba(8,18,34,0.96);backdrop-filter:blur(10px);
@@ -518,6 +585,53 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ TOURNAMENT FEATURED BAND ══════════════════ -->
+  <section id="tournament-promo" style="
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#0d2040 0%,#0a1628 55%,#0f2244 100%);
+    padding:80px 48px;
+    border-top:1px solid rgba(196,18,48,.28);
+    border-bottom:1px solid rgba(196,18,48,.28);
+  ">
+    <!-- red diagonal accents -->
+    <div aria-hidden="true" style="position:absolute;top:0;right:-60px;width:320px;height:100%;background:linear-gradient(180deg,rgba(196,18,48,.16),transparent 70%);transform:skewX(-14deg);pointer-events:none;"></div>
+    <div aria-hidden="true" style="position:absolute;bottom:-40px;left:-50px;width:220px;height:120px;background:#c41230;opacity:.09;transform:skewX(-16deg);pointer-events:none;"></div>
+
+    <div style="position:relative;z-index:2;max-width:860px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;">
+
+      <!-- Date badge -->
+      <div class="reveal" style="display:inline-flex;align-items:center;gap:9px;background:rgba(196,18,48,.16);border:1px solid rgba(196,18,48,.4);padding:8px 20px;border-radius:2px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:2.5px;text-transform:uppercase;color:#e03050;">July 24, 2026 · El Paso, TX</span>
+      </div>
+
+      <!-- Kicker -->
+      <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0;">Special Event</p>
+
+      <!-- Headline -->
+      <h2 class="shimmer-text reveal" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+        font-size:clamp(2.2rem,5vw,3.6rem);text-transform:uppercase;
+        line-height:1.02;letter-spacing:1px;margin:0;
+      ">Sportplex Tournament</h2>
+
+      <!-- Subtext / free-trial hook -->
+      <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:1.02rem;color:rgba(255,255,255,.72);line-height:1.65;max-width:600px;margin:0;">
+        Hardest Thrower &amp; Hardest Hit skill competitions. Book your <strong style="color:#fff;">FREE trial class</strong> — available Fridays &amp; Saturdays — and get your athlete on the field.
+      </p>
+
+      <span class="red-divider reveal" style="margin:6px auto 4px;"></span>
+
+      <!-- CTA -->
+      <a href="/tournament" class="btn-shimmer reveal" style="
+        background:#c41230;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:800;
+        font-size:.98rem;letter-spacing:2.5px;text-transform:uppercase;
+        padding:16px 44px;text-decoration:none;display:inline-block;
+      ">Book Your Free Trial</a>
     </div>
   </section>
 
@@ -828,6 +942,59 @@
     </svg>
   </a>
 
+  <!-- ══════════════════ TOURNAMENT POPUP MODAL ══════════════════ -->
+  <div id="promo-modal-overlay" aria-hidden="true">
+    <div id="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title" style="
+      position:relative;width:100%;max-width:440px;
+      background:linear-gradient(160deg,#0d2040 0%,#0a1628 100%);
+      border:1px solid rgba(196,18,48,.35);border-radius:14px;
+      padding:46px 38px 38px;text-align:center;overflow:hidden;
+      box-shadow:0 24px 70px rgba(0,0,0,.55);
+    ">
+      <!-- red top accent -->
+      <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#8f0d22,#e0173a,#8f0d22);"></div>
+
+      <!-- close X -->
+      <button id="promo-modal-close" aria-label="Close" style="
+        position:absolute;top:14px;right:14px;background:none;border:none;cursor:pointer;
+        color:rgba(255,255,255,.5);padding:6px;line-height:0;
+      ">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- date badge -->
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.16);border:1px solid rgba(196,18,48,.4);padding:7px 18px;border-radius:2px;margin-bottom:22px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:#e03050;">July 24, 2026</span>
+      </div>
+
+      <h3 id="promo-modal-title" class="shimmer-text" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+        font-size:2.1rem;text-transform:uppercase;line-height:1.02;letter-spacing:1px;margin:0 0 16px;
+      ">Sportplex Tournament</h3>
+
+      <div style="height:3px;width:56px;background:#c41230;border-radius:2px;margin:0 auto 18px;"></div>
+
+      <p style="font-family:'Barlow',sans-serif;font-size:.95rem;color:rgba(255,255,255,.72);line-height:1.65;margin:0 0 26px;">
+        Hardest Thrower &amp; Hardest Hit competitions. Book your <strong style="color:#fff;">FREE trial class</strong> — Fridays &amp; Saturdays — and get your athlete on the field.
+      </p>
+
+      <a href="/tournament" class="btn-shimmer" style="
+        background:#c41230;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:800;
+        font-size:.95rem;letter-spacing:2.5px;text-transform:uppercase;
+        padding:15px 0;text-decoration:none;display:block;width:100%;
+      ">Book Your Free Trial</a>
+
+      <button id="promo-modal-later" style="
+        background:none;border:none;cursor:pointer;margin-top:16px;
+        font-family:'Barlow Condensed',sans-serif;font-weight:600;
+        font-size:.78rem;letter-spacing:1.8px;text-transform:uppercase;
+        color:rgba(255,255,255,.4);
+      ">Maybe later</button>
+    </div>
+  </div>
+
   <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
   <script>
     /* ── Mobile nav hamburger ── */
@@ -1000,6 +1167,37 @@
       statsIO.disconnect();
     }, { threshold: 0.5 });
     statsIO.observe(document.getElementById('hero'));
+
+    /* ── Tournament promo modal (shows on every load, no localStorage) ── */
+    (function () {
+      const overlay = document.getElementById('promo-modal-overlay');
+      if (!overlay) return;
+
+      function openModal() {
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('promo-modal-close').addEventListener('click', closeModal);
+      document.getElementById('promo-modal-later').addEventListener('click', closeModal);
+      /* click outside the dialog closes it */
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+      });
+      /* Esc key closes it */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+      /* let the page paint first, then reveal */
+      setTimeout(openModal, 800);
+    })();
 
   </script>
 </body>
