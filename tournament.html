@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sportplex Tournament — TX Torque Baseball Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    @keyframes shimmer {
+      0%   { background-position: -300% center; }
+      100% { background-position:  300% center; }
+    }
+    .shimmer-text {
+      background: linear-gradient(105deg, #fff 20%, #c8deff 38%, #fff 45%, #e8f2ff 52%, #fff 60%);
+      background-size: 300% auto;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    @keyframes logoPulse {
+      0%,100% { filter: drop-shadow(0 0 6px rgba(196,18,48,.4)); }
+      50%      { filter: drop-shadow(0 0 26px rgba(196,18,48,.9)) drop-shadow(0 0 50px rgba(196,18,48,.3)); }
+    }
+    .logo-glow { animation: logoPulse 2.6s ease-in-out infinite; }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .stagger-item { opacity: 0; transform: translateY(22px); transition: opacity .5s ease, transform .5s ease; }
+    .stagger-item.visible { opacity: 1; transform: translateY(0); }
+
+    .red-divider { display: block; height: 3px; background: #c41230; width: 0; border-radius: 2px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+    .red-divider.visible { width: 68px; }
+
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+    .card-hover:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 16px 48px rgba(196,18,48,.22), 0 4px 16px rgba(0,0,0,.18);
+    }
+
+    @keyframes btnShimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    .btn-shimmer {
+      position: relative; overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-shimmer::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+      background-size: 200% auto; opacity: 0;
+    }
+    .btn-shimmer:hover::after { opacity: 1; animation: btnShimmer .55s linear; }
+    .btn-shimmer:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(196,18,48,.5); }
+
+    #main-nav { transition: background .35s ease, box-shadow .35s ease; }
+    #main-nav.scrolled { background: rgba(5,10,20,.98) !important; box-shadow: 0 2px 28px rgba(0,0,0,.5); }
+    .nav-link { position: relative; transition: color .2s; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 2px; background: #c41230;
+      transform: scaleX(0); transition: transform .25s ease; transform-origin: left;
+    }
+    .nav-link:hover { color: #e03050 !important; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .social-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.55);
+      text-decoration: none;
+      transition: background .2s, border-color .2s, color .2s, transform .2s;
+    }
+    .social-icon:hover { background: #c41230; border-color: #c41230; color: #fff; transform: translateY(-3px); }
+
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+      70%      { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+    }
+    #wa-btn {
+      position: fixed; bottom: 26px; right: 26px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%; background: #25d366;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      animation: waPulse 2.2s ease infinite;
+      transition: transform .2s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
+    #wa-btn:hover { transform: scale(1.1); }
+
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+    .form-field input, .form-field select {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; padding: 13px 16px; border-radius: 4px;
+      font-family: 'Barlow', sans-serif; font-size: .95rem;
+      outline: none; transition: border-color .2s, background .2s;
+      -webkit-appearance: none; appearance: none; width: 100%;
+    }
+    .form-field input::placeholder { color: rgba(255,255,255,.3); }
+    .form-field input:focus, .form-field select:focus {
+      border-color: #c41230; background: rgba(255,255,255,.1);
+    }
+    .form-field select option { background: #0d2040; color: #fff; }
+
+    #nav-hamburger {
+      display: none; align-items: center; justify-content: center;
+      width: 44px; height: 44px; background: transparent;
+      border: 1px solid rgba(255,255,255,.2); border-radius: 4px;
+      color: #fff; cursor: pointer; padding: 0;
+    }
+
+    #mobile-nav-drawer {
+      position: fixed; inset: 0; z-index: 998;
+      background: rgba(6,15,31,.97); backdrop-filter: blur(16px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 36px; transform: translateX(100%); visibility: hidden;
+      transition: transform .3s ease, visibility .3s ease;
+    }
+    #mobile-nav-drawer.open { transform: translateX(0); visibility: visible; }
+    #mobile-nav-drawer a {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-style: italic;
+      font-size: 2.2rem; letter-spacing: 2px; text-transform: uppercase;
+      color: #fff; text-decoration: none; transition: color .2s;
+    }
+    #mobile-nav-drawer a:hover { color: #c41230; }
+    #mobile-nav-drawer a.mob-cta {
+      background: #c41230; color: #fff; padding: 14px 36px;
+      font-style: normal; font-size: 1.1rem; letter-spacing: 2.5px;
+    }
+
+    @media (max-width: 768px) {
+      body { overflow-x: hidden; }
+      #main-nav { padding: 0 20px !important; }
+      #main-nav > ul { display: none !important; }
+      #main-nav > div > a { display: none !important; }
+      #nav-hamburger { display: flex !important; }
+      #tournament-hero { padding: 100px 20px 72px !important; }
+      #tournament-hero h1 { font-size: clamp(2.2rem, 10vw, 3.2rem) !important; }
+      #tournament-hero a.btn-shimmer { display: block !important; width: 100% !important; text-align: center !important; }
+      #events { padding: 60px 20px !important; }
+      #events > div > div:last-child { grid-template-columns: 1fr !important; }
+      #free-trial { padding: 60px 20px !important; }
+      #free-trial > div > div:last-child { grid-template-columns: 1fr !important; }
+      #trial-form { padding: 60px 20px !important; }
+      #trial-form .form-grid { grid-template-columns: 1fr !important; }
+      footer { padding: 48px 20px 32px !important; }
+      #wa-btn { width: 50px !important; height: 50px !important; bottom: 18px !important; right: 14px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
+
+  <!-- ══════════════════════════ NAVBAR ══════════════════════════ -->
+  <nav id="main-nav" style="
+    position:fixed;top:0;left:0;right:0;z-index:999;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 48px;height:68px;
+    background:rgba(8,18,34,0.96);backdrop-filter:blur(10px);
+  ">
+    <a href="/" style="display:flex;align-items:center;">
+      <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
+           alt="Torque Logo" class="logo-glow" style="height:44px;width:auto;object-fit:contain;" />
+    </a>
+
+    <ul style="list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:36px;">
+      <li><a href="/"          class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Home</a></li>
+      <li><a href="/#programs" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Programs</a></li>
+      <li><a href="/#coaches"  class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Coaches</a></li>
+      <li><a href="/#packages" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Packages</a></li>
+    </ul>
+
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="https://app.torquebaseball.us/" class="btn-shimmer" target="_blank" rel="noopener" style="
+        background:#c41230;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:800;
+        font-size:.82rem;letter-spacing:2px;text-transform:uppercase;
+        padding:11px 22px;text-decoration:none;display:inline-block;
+      ">Join Classes</a>
+      <button id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div id="mobile-nav-drawer" aria-hidden="true">
+    <a href="/"          onclick="closeMobileNav()">Home</a>
+    <a href="/#programs" onclick="closeMobileNav()">Programs</a>
+    <a href="/#coaches"  onclick="closeMobileNav()">Coaches</a>
+    <a href="/#packages" onclick="closeMobileNav()">Packages</a>
+    <a href="https://app.torquebaseball.us/" class="mob-cta" target="_blank" rel="noopener" onclick="closeMobileNav()">Join Classes</a>
+  </div>
+
+  <!-- ══════════════════════════ HERO ══════════════════════════ -->
+  <section id="tournament-hero" style="
+    position:relative;width:100%;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;background:#0a1628;
+    padding:100px 48px 80px;
+  ">
+    <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_1400,q_auto,f_auto/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.27_3_gszjif.jpg"
+         alt="" aria-hidden="true"
+         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.15;" />
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.55) 0%,rgba(10,22,40,.88) 100%);z-index:1;"></div>
+    <div style="position:absolute;bottom:0;left:0;width:100%;height:180px;z-index:1;pointer-events:none;overflow:hidden;">
+      <div style="position:absolute;bottom:-50px;left:-5%;width:38%;height:110px;background:#c41230;transform:skewX(-16deg);opacity:.14;"></div>
+      <div style="position:absolute;bottom:-20px;left:28%;width:20%;height:60px;background:#c41230;transform:skewX(-16deg);opacity:.08;"></div>
+    </div>
+
+    <div style="position:relative;z-index:2;max-width:800px;margin:0 auto;">
+      <!-- Date badge -->
+      <div class="reveal" style="display:inline-flex;align-items:center;gap:10px;background:rgba(196,18,48,.18);border:1px solid rgba(196,18,48,.4);padding:8px 20px;border-radius:2px;margin-bottom:30px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:2.5px;text-transform:uppercase;color:#e03050;">July 24, 2026</span>
+      </div>
+
+      <h1 class="shimmer-text reveal" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+        font-size:clamp(3rem,8vw,5.8rem);line-height:.92;margin:0 0 12px;
+        text-transform:uppercase;letter-spacing:2px;
+      ">Sportplex<br>Tournament</h1>
+
+      <div class="reveal" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:700;
+        font-size:1.1rem;letter-spacing:3px;text-transform:uppercase;
+        color:#c41230;margin:16px 0 8px;
+      ">TX Torque &times; Next Level Baseball</div>
+
+      <div class="reveal" style="
+        font-family:'Barlow',sans-serif;font-size:.92rem;
+        color:rgba(255,255,255,.55);margin:0 0 36px;
+        display:flex;align-items:center;justify-content:center;gap:7px;
+      ">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        El Paso, TX 79922
+      </div>
+
+      <span class="red-divider reveal" style="margin:0 auto 38px;"></span>
+
+      <a href="#trial-form" class="btn-shimmer reveal" style="
+        display:inline-block;background:#c41230;color:#fff;
+        font-family:'Barlow Condensed',sans-serif;font-weight:800;
+        font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
+        padding:18px 48px;text-decoration:none;
+      ">Book Your Free Trial</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ SKILL COMPETITIONS ══════════════════════════ -->
+  <section id="events" style="background:#060f1f;padding:88px 48px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span class="red-divider" style="margin:0 auto 22px;"></span>
+        <h2 class="reveal" style="
+          font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+          font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;
+          letter-spacing:1px;margin:0 0 14px;
+        ">Skill Competitions</h2>
+        <p class="reveal" style="
+          font-family:'Barlow',sans-serif;font-size:.97rem;
+          color:rgba(255,255,255,.52);max-width:540px;margin:0 auto;line-height:1.75;
+        ">Two elite showcase events designed to surface raw talent. Show up. Stand out. Get noticed.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <!-- Hardest Thrower -->
+        <div class="card-hover stagger-item" style="
+          background:linear-gradient(140deg,#0d2040 0%,#0a1628 100%);
+          border:1px solid rgba(196,18,48,.22);border-radius:10px;
+          padding:44px 40px;text-align:center;
+        ">
+          <div style="
+            width:76px;height:76px;border-radius:50%;
+            background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.32);
+            display:flex;align-items:center;justify-content:center;margin:0 auto 26px;
+          ">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </div>
+          <h3 style="
+            font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+            font-size:2rem;color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0 0 14px;
+          ">Hardest Thrower</h3>
+          <div style="height:2px;background:#c41230;width:44px;margin:0 auto 20px;border-radius:2px;"></div>
+          <p style="font-family:'Barlow',sans-serif;font-size:.9rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
+            Clock the fastest pitch of the day. All ages welcome — velocity is measured and ranked live on the mound.
+            Step up and let it fly.
+          </p>
+        </div>
+
+        <!-- Hardest Hit -->
+        <div class="card-hover stagger-item" style="
+          background:linear-gradient(140deg,#0d2040 0%,#0a1628 100%);
+          border:1px solid rgba(196,18,48,.22);border-radius:10px;
+          padding:44px 40px;text-align:center;
+        ">
+          <div style="
+            width:76px;height:76px;border-radius:50%;
+            background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.32);
+            display:flex;align-items:center;justify-content:center;margin:0 auto 26px;
+          ">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3 style="
+            font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+            font-size:2rem;color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0 0 14px;
+          ">Hardest Hit</h3>
+          <div style="height:2px;background:#c41230;width:44px;margin:0 auto 20px;border-radius:2px;"></div>
+          <p style="font-family:'Barlow',sans-serif;font-size:.9rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
+            Exit velocity tracked on every swing — the hardest ball off the bat wins.
+            Pure contact, pure power, pure competition.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ FREE TRIAL ══════════════════════════ -->
+  <section id="free-trial" style="background:#0a1628;padding:88px 48px;">
+    <div style="max-width:960px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:52px;">
+        <span class="red-divider" style="margin:0 auto 22px;"></span>
+        <h2 class="reveal" style="
+          font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+          font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;
+          letter-spacing:1px;margin:0 0 14px;
+        ">Free Trial Class</h2>
+        <p class="reveal" style="
+          font-family:'Barlow',sans-serif;font-size:.97rem;
+          color:rgba(255,255,255,.52);max-width:520px;margin:0 auto;line-height:1.75;
+        ">Experience elite training before committing. Available every Friday &amp; Saturday — come see what Torque-level development feels like.</p>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
+          <div style="flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(196,18,48,.16);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:#fff;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Fridays &amp; Saturdays</div>
+            <div style="font-family:'Barlow',sans-serif;font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.65;">Flexible scheduling — morning and afternoon slots available on request.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
+          <div style="flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(196,18,48,.16);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:#fff;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Pro-Level Coaching</div>
+            <div style="font-family:'Barlow',sans-serif;font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.65;">Train with coaches who've played at the highest levels. Real feedback, real reps.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
+          <div style="flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(196,18,48,.16);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:#fff;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">All Skill Levels</div>
+            <div style="font-family:'Barlow',sans-serif;font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.65;">Beginners to advanced — every athlete gets the same elite attention and development plan.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
+          <div style="flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(196,18,48,.16);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:#fff;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">$20 Refundable Deposit</div>
+            <div style="font-family:'Barlow',sans-serif;font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.65;">Secure your slot — fully refunded when you attend your scheduled trial session.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ LEAD FORM ══════════════════════════ -->
+  <section id="trial-form" style="background:#060f1f;padding:88px 48px;">
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="red-divider" style="margin:0 auto 22px;"></span>
+        <h2 class="reveal" style="
+          font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
+          font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;
+          letter-spacing:1px;margin:0 0 14px;
+        ">Book Your Free Trial</h2>
+        <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.48);line-height:1.75;margin:0;">
+          Fill out the form and we'll confirm your time slot within 24 hours.
+          A <strong style="color:#c41230;">$20 refundable deposit</strong> secures your spot.
+        </p>
+      </div>
+
+      <form id="lead-form" class="reveal" novalidate style="display:flex;flex-direction:column;gap:20px;">
+        <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="form-field">
+            <label for="parentName">Parent Name</label>
+            <input type="text" id="parentName" name="parentName" placeholder="Jane Smith" required autocomplete="name" />
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(915) 555-0100" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="form-field">
+            <label for="playerName">Player Name</label>
+            <input type="text" id="playerName" name="playerName" placeholder="Junior Smith" required />
+          </div>
+          <div class="form-field">
+            <label for="playerAge">Player Age</label>
+            <input type="number" id="playerAge" name="playerAge" placeholder="12" min="4" max="22" required />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="preferredDay">Preferred Day</label>
+          <select id="preferredDay" name="preferredDay" required>
+            <option value="" disabled selected>Select a day</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+
+        <div id="form-error" style="display:none;background:rgba(196,18,48,.14);border:1px solid rgba(196,18,48,.38);border-radius:4px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#e8bbc2;line-height:1.5;"></div>
+
+        <button type="submit" id="submit-btn" class="btn-shimmer" style="
+          background:#c41230;color:#fff;border:none;cursor:pointer;
+          font-family:'Barlow Condensed',sans-serif;font-weight:800;
+          font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
+          padding:18px 0;width:100%;margin-top:4px;
+        ">Book My Free Trial</button>
+
+        <p style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+          By submitting you agree to be contacted about your trial session.
+          The $20 deposit is collected separately after confirmation.
+        </p>
+      </form>
+
+      <div id="form-success" style="display:none;text-align:center;padding:52px 24px;">
+        <div style="
+          width:76px;height:76px;border-radius:50%;
+          background:rgba(196,18,48,.14);border:2px solid #c41230;
+          display:flex;align-items:center;justify-content:center;margin:0 auto 26px;
+        ">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:2.2rem;color:#fff;text-transform:uppercase;margin:0 0 14px;">You're In!</h3>
+        <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
+          Thanks! We'll reach out within 24 hours to schedule your free trial.<br>See you on the field.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+  <footer style="background:#060e1c;padding:52px 48px 36px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
+           alt="Torque" style="height:52px;width:auto;object-fit:contain;opacity:.88;" />
+      <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;">
+        <a href="/"          style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Home</a>
+        <a href="/#programs" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Programs</a>
+        <a href="/#coaches"  style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Coaches</a>
+        <a href="/#packages" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Packages</a>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <a href="#" class="social-icon" aria-label="Instagram">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="Facebook">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="X">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="YouTube">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);"></div>
+      <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:rgba(255,255,255,.28);margin:0;">
+        &copy; <span id="footer-year"></span> TX Torque Baseball Academy. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════ FLOATING WHATSAPP ══════════════════ -->
+  <a id="wa-btn" href="https://wa.me/19152423456" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* ── Form submit ── */
+    const LEAD_ENDPOINT = 'REPLACE_WITH_APPS_SCRIPT_URL';
+
+    const form       = document.getElementById('lead-form');
+    const submitBtn  = document.getElementById('submit-btn');
+    const errorBox   = document.getElementById('form-error');
+    const successBox = document.getElementById('form-success');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      errorBox.style.display = 'none';
+
+      const parentName   = form.parentName.value.trim();
+      const phone        = form.phone.value.trim();
+      const email        = form.email.value.trim();
+      const playerName   = form.playerName.value.trim();
+      const playerAge    = form.playerAge.value.trim();
+      const preferredDay = form.preferredDay.value;
+
+      if (!parentName || !phone || !email || !playerName || !playerAge || !preferredDay) {
+        errorBox.textContent = 'Please fill out all fields before submitting.';
+        errorBox.style.display = 'block';
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorBox.textContent = 'Please enter a valid email address.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      const payload = {
+        parentName,
+        phone,
+        email,
+        playerName,
+        playerAge,
+        preferredDay,
+        timestamp: new Date().toISOString(),
+        source:    'tournament-landing'
+      };
+
+      try {
+        await fetch(LEAD_ENDPOINT, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload)
+        });
+        form.style.display = 'none';
+        successBox.style.display = 'block';
+      } catch (err) {
+        errorBox.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.';
+        errorBox.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Book My Free Trial';
+      }
+    });
+
+    /* ── Nav scroll ── */
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 48);
+    }, { passive: true });
+
+    /* ── Reveal + red-divider ── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.reveal, .red-divider').forEach(el => io.observe(el));
+
+    /* ── Stagger items ── */
+    document.querySelectorAll('section').forEach(section => {
+      const items = section.querySelectorAll('.stagger-item');
+      if (!items.length) return;
+      const sio = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 115));
+        sio.disconnect();
+      }, { threshold: 0.08 });
+      sio.observe(section);
+    });
+
+    /* ── Hamburger ── */
+    (function () {
+      const hamburger = document.getElementById('nav-hamburger');
+      const drawer    = document.getElementById('mobile-nav-drawer');
+      const BARS  = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+      const CROSS = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+      window.closeMobileNav = function () {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        hamburger.innerHTML = BARS;
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+
+      hamburger.addEventListener('click', function () {
+        if (drawer.classList.contains('open')) {
+          window.closeMobileNav();
+        } else {
+          drawer.classList.add('open');
+          drawer.setAttribute('aria-hidden', 'false');
+          hamburger.innerHTML = CROSS;
+          hamburger.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
