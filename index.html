@@ -451,6 +451,9 @@
     }
     .form-field select option { background: #0d2040; color: #fff; }
 
+    /* ── DEPOSIT FEATURE FLAG: hide the copy variant that doesn't match REQUIRE_DEPOSIT ── */
+    [hidden] { display: none !important; }
+
     @media (max-width: 768px) {
       #tournament-bar .tb-full  { display:none !important; }
       #tournament-bar .tb-short { display:flex !important; }
@@ -474,25 +477,51 @@
     background-size:200% auto;animation:barSheen 6s linear infinite;
     box-shadow:0 2px 12px rgba(0,0,0,.35);
   ">
-    <span class="tb-text tb-full" style="
-      font-family:'Barlow Condensed',sans-serif;font-weight:700;
-      font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
-      white-space:nowrap;display:flex;align-items:center;gap:9px;
-    ">
-      <span>🔥 Book Your Trial Class</span>
-      <span style="opacity:.55;">·</span>
-      <span>$20 refundable when you join</span>
-      <span style="opacity:.55;">·</span>
-      <span class="tb-cta">Fri &amp; Sat only →</span>
+    <!-- FREE variant (REQUIRE_DEPOSIT = false) -->
+    <span class="flag-free" style="display:contents;">
+      <span class="tb-text tb-full" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:700;
+        font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
+        white-space:nowrap;display:flex;align-items:center;gap:9px;
+      ">
+        <span>🔥 Book Your Free Trial Class</span>
+        <span style="opacity:.55;">·</span>
+        <span>Fridays &amp; Saturdays</span>
+        <span style="opacity:.55;">·</span>
+        <span class="tb-cta">Book Now →</span>
+      </span>
+      <span class="tb-text tb-short" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:700;
+        font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
+        white-space:nowrap;align-items:center;gap:7px;
+      ">
+        <span>🔥 Free Trial · Fri &amp; Sat</span>
+        <span style="opacity:.55;">·</span>
+        <span class="tb-cta">Book Now →</span>
+      </span>
     </span>
-    <span class="tb-text tb-short" style="
-      font-family:'Barlow Condensed',sans-serif;font-weight:700;
-      font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
-      white-space:nowrap;align-items:center;gap:7px;
-    ">
-      <span>🔥 Trial Class · $20 refundable</span>
-      <span style="opacity:.55;">·</span>
-      <span class="tb-cta">Fri &amp; Sat →</span>
+    <!-- DEPOSIT variant (REQUIRE_DEPOSIT = true) -->
+    <span class="flag-deposit" hidden style="display:contents;">
+      <span class="tb-text tb-full" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:700;
+        font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
+        white-space:nowrap;display:flex;align-items:center;gap:9px;
+      ">
+        <span>🔥 Book Your Trial Class</span>
+        <span style="opacity:.55;">·</span>
+        <span>$20 refundable when you join</span>
+        <span style="opacity:.55;">·</span>
+        <span class="tb-cta">Fri &amp; Sat only →</span>
+      </span>
+      <span class="tb-text tb-short" style="
+        font-family:'Barlow Condensed',sans-serif;font-weight:700;
+        font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
+        white-space:nowrap;align-items:center;gap:7px;
+      ">
+        <span>🔥 Trial Class · $20 refundable</span>
+        <span style="opacity:.55;">·</span>
+        <span class="tb-cta">Fri &amp; Sat →</span>
+      </span>
     </span>
   </a>
 
@@ -933,14 +962,20 @@
         <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0 0 10px;">Try Torque</p>
         <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0 0 14px;">Book a Trial Class</h2>
         <span class="red-divider reveal" style="margin:0 auto 24px;"></span>
-        <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.75;margin:0 auto;max-width:544px;">
+        <p class="reveal flag-free" style="font-family:'Barlow',sans-serif;font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.75;margin:0 auto;max-width:544px;">
+          See what Torque-level training feels like — your first class is <strong style="color:#fff;">100% free, no deposit required</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round — book anytime.
+        </p>
+        <p class="reveal flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.75;margin:0 auto;max-width:544px;">
           See what Torque-level training feels like. Reserve your spot with a <strong style="color:#fff;">$20 deposit that's fully refunded when you sign up for a package</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round — book anytime.
         </p>
       </div>
 
       <!-- Value chips -->
       <div class="reveal" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:46px;">
-        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
+        <span class="flag-free" style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Free Trial Class
+        </span>
+        <span class="flag-deposit" hidden style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>$20 Refundable
         </span>
         <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
@@ -995,9 +1030,13 @@
           font-family:'Barlow Condensed',sans-serif;font-weight:800;
           font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
           padding:18px 0;width:100%;margin-top:4px;
-        ">Book My Trial Class</button>
+        ">Book My Free Trial</button>
 
-        <p style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+        <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+          By submitting you agree to be contacted about your trial class.
+          No deposit, no cost — just show up ready to train.
+        </p>
+        <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
           By submitting you agree to be contacted about your trial class.
           The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
         </p>
@@ -1110,6 +1149,22 @@
 
   <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
   <script>
+    /* ══════════════════════════════════════════════════════════════
+       DEPOSIT FEATURE FLAG
+       Flip to true to re-enable the $20 Stripe deposit + all deposit
+       messaging. false = FREE trial (no deposit, no Stripe).
+       ══════════════════════════════════════════════════════════════ */
+    const REQUIRE_DEPOSIT = false;  // set to true to re-enable the $20 Stripe deposit
+
+    /* Show the copy variant that matches the flag (deposit blocks are
+       marked .flag-deposit + hidden; free blocks are .flag-free). */
+    document.querySelectorAll('.flag-free').forEach(function (el) { el.hidden = REQUIRE_DEPOSIT; });
+    document.querySelectorAll('.flag-deposit').forEach(function (el) { el.hidden = !REQUIRE_DEPOSIT; });
+
+    /* Submit-button label follows the flag too. */
+    const SUBMIT_LABEL = REQUIRE_DEPOSIT ? 'Book My Trial Class' : 'Book My Free Trial';
+    (function () { const b = document.getElementById('submit-btn'); if (b) b.textContent = SUBMIT_LABEL; })();
+
     /* ── Mobile nav hamburger ── */
     (function () {
       const hamburger = document.getElementById('nav-hamburger');
@@ -1356,31 +1411,37 @@
           preferredDay,
           timestamp: new Date().toISOString(),
           source:    'main-landing-trial',
-          status:    'pending_payment'
+          status:    REQUIRE_DEPOSIT ? 'pending_payment' : 'booked'
         };
 
         try {
-          /* 1) Save the lead first. Apps Script sends no CORS headers → post as
-             text/plain (simple request, no preflight) with mode:'no-cors'.
-             doPost reads e.postData.contents and JSON.parses it. Opaque
-             response = lead saved. */
+          /* 1) Always save the lead first. Apps Script sends no CORS headers →
+             post as text/plain (simple request, no preflight) with
+             mode:'no-cors'. doPost reads e.postData.contents and JSON.parses
+             it. Opaque response = lead saved. */
           await fetch(LEAD_ENDPOINT, {
             method: 'POST',
             mode:   'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body:    JSON.stringify(payload)
           });
-          /* 2) Hand off to Stripe for the $20 deposit. Try to prefill the email
-             (Stripe ignores it gracefully if the link collects its own). The
-             thank-you page is the real confirmation, after payment. */
-          submitBtn.textContent = 'Redirecting you to secure payment…';
-          const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
-          setTimeout(function () { window.location.href = payUrl; }, 700);
+          /* 2) Branch on the flag. */
+          if (REQUIRE_DEPOSIT) {
+            /* Paid flow → hand off to Stripe for the $20 deposit (email prefilled,
+               ignored gracefully if the link collects its own). */
+            submitBtn.textContent = 'Redirecting you to secure payment…';
+            const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
+            setTimeout(function () { window.location.href = payUrl; }, 700);
+          } else {
+            /* Free flow → skip Stripe, go straight to the confirmation page. */
+            submitBtn.textContent = 'Booking your free trial…';
+            setTimeout(function () { window.location.href = '/thank-you'; }, 500);
+          }
         } catch (err) {
           errorBox.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.';
           errorBox.style.display = 'block';
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Book My Trial Class';
+          submitBtn.textContent = SUBMIT_LABEL;
         }
       });
     })();

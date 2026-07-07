@@ -146,6 +146,9 @@
     /* subtle seam between the three background columns */
     .hero-vid + .hero-vid { border-left: 1px solid rgba(196,18,48,.22); }
 
+    /* ── DEPOSIT FEATURE FLAG: hide the copy variant that doesn't match REQUIRE_DEPOSIT ── */
+    [hidden] { display: none !important; }
+
     @media (max-width: 768px) {
       body { overflow-x: hidden; }
       #main-nav { padding: 0 20px !important; }
@@ -407,7 +410,16 @@
             <div style="font-family:'Barlow',sans-serif;font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.65;">Beginners to advanced — every athlete gets the same elite attention and development plan.</div>
           </div>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
+        <div class="flag-free" style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
+          <div style="flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(196,18,48,.16);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:#fff;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">100% Free</div>
+            <div style="font-family:'Barlow',sans-serif;font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.65;">No deposit, no cost — just come train with us and feel the difference.</div>
+          </div>
+        </div>
+        <div class="flag-deposit" hidden style="display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;">
           <div style="flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(196,18,48,.16);display:flex;align-items:center;justify-content:center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
@@ -430,7 +442,11 @@
           font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;
           letter-spacing:1px;margin:0 0 14px;
         ">Book a Trial Class</h2>
-        <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.48);line-height:1.75;margin:0;">
+        <p class="reveal flag-free" style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.48);line-height:1.75;margin:0;">
+          An ongoing offer — trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round.
+          Fill out the form and we'll confirm your time slot within 24 hours. Your first class is <strong style="color:#c41230;">100% free</strong> — no deposit required.
+        </p>
+        <p class="reveal flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.48);line-height:1.75;margin:0;">
           An ongoing offer — trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round.
           Fill out the form and we'll confirm your time slot within 24 hours. A <strong style="color:#c41230;">$20 deposit</strong> holds your spot and is refunded when you join a package.
         </p>
@@ -480,9 +496,13 @@
           font-family:'Barlow Condensed',sans-serif;font-weight:800;
           font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
           padding:18px 0;width:100%;margin-top:4px;
-        ">Book My Trial Class</button>
+        ">Book My Free Trial</button>
 
-        <p style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+        <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+          By submitting you agree to be contacted about your trial class.
+          No deposit, no cost — just show up ready to train.
+        </p>
+        <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
           By submitting you agree to be contacted about your trial class.
           The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
         </p>
@@ -547,6 +567,21 @@
   <script>
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
+    /* ══════════════════════════════════════════════════════════════
+       DEPOSIT FEATURE FLAG
+       Flip to true to re-enable the $20 Stripe deposit + all deposit
+       messaging. false = FREE trial (no deposit, no Stripe).
+       ══════════════════════════════════════════════════════════════ */
+    const REQUIRE_DEPOSIT = false;  // set to true to re-enable the $20 Stripe deposit
+
+    /* Show the copy variant that matches the flag. */
+    document.querySelectorAll('.flag-free').forEach(function (el) { el.hidden = REQUIRE_DEPOSIT; });
+    document.querySelectorAll('.flag-deposit').forEach(function (el) { el.hidden = !REQUIRE_DEPOSIT; });
+
+    /* Submit-button label follows the flag too. */
+    const SUBMIT_LABEL = REQUIRE_DEPOSIT ? 'Book My Trial Class' : 'Book My Free Trial';
+    (function () { const b = document.getElementById('submit-btn'); if (b) b.textContent = SUBMIT_LABEL; })();
+
     /* ── Form submit ── */
     const LEAD_ENDPOINT      = 'https://script.google.com/macros/s/AKfycbzetU-RRWEOlavyO3ufeAAFCOCt_NXnHuwQ_chzs8_imkZGD8yld6IK1IhAL87Z78ip/exec';
     const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/3cI6oG5VQaeMaI5gcSfAc0i';
@@ -590,31 +625,37 @@
         preferredDay,
         timestamp: new Date().toISOString(),
         source:    'tournament-landing',
-        status:    'pending_payment'
+        status:    REQUIRE_DEPOSIT ? 'pending_payment' : 'booked'
       };
 
       try {
-        /* 1) Save the lead first. Apps Script sends no CORS headers, so we POST
-           as text/plain (a "simple request" — no preflight) with mode:'no-cors'.
-           doPost reads e.postData.contents and JSON.parses it. The response is
-           opaque, so a completed request = lead saved. */
+        /* 1) Always save the lead first. Apps Script sends no CORS headers, so we
+           POST as text/plain (a "simple request" — no preflight) with
+           mode:'no-cors'. doPost reads e.postData.contents and JSON.parses it.
+           The response is opaque, so a completed request = lead saved. */
         await fetch(LEAD_ENDPOINT, {
           method: 'POST',
           mode:   'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body:    JSON.stringify(payload)
         });
-        /* 2) Hand off to Stripe for the $20 deposit. Try to prefill the email
-           (Stripe ignores it gracefully if the link collects its own). The
-           thank-you page is the real confirmation, after payment. */
-        submitBtn.textContent = 'Redirecting you to secure payment…';
-        const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
-        setTimeout(function () { window.location.href = payUrl; }, 700);
+        /* 2) Branch on the flag. */
+        if (REQUIRE_DEPOSIT) {
+          /* Paid flow → hand off to Stripe for the $20 deposit (email prefilled,
+             ignored gracefully if the link collects its own). */
+          submitBtn.textContent = 'Redirecting you to secure payment…';
+          const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
+          setTimeout(function () { window.location.href = payUrl; }, 700);
+        } else {
+          /* Free flow → skip Stripe, go straight to the confirmation page. */
+          submitBtn.textContent = 'Booking your free trial…';
+          setTimeout(function () { window.location.href = '/thank-you'; }, 500);
+        }
       } catch (err) {
         errorBox.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.';
         errorBox.style.display = 'block';
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Book My Trial Class';
+        submitBtn.textContent = SUBMIT_LABEL;
       }
     });
 
