@@ -648,15 +648,13 @@
            keepalive:true so the request survives the imminent /thank-you (or
            Stripe) navigation — a normal fetch is cancelled on page unload,
            which is why app leads weren't arriving on real submits.
-           mode:'no-cors' + text/plain makes it a CORS "simple request" (no
-           preflight, which the endpoint doesn't need to answer); the server
-           still JSON.parses the body. If the endpoint is down, .catch
-           swallows it and the Sheet/email still work. */
+           The endpoint now returns proper CORS headers, so this is a normal
+           application/json POST. If the endpoint is down, .catch swallows it
+           and the Sheet/email still work. */
         fetch('https://app.torquebaseball.us/api/create-lead', {
           method: 'POST',
-          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
           keepalive: true,
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ ...payload, company: form.company.value }),
         }).catch(() => {});
         /* 2) Branch on the flag. */
