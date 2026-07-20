@@ -1430,11 +1430,19 @@
           });
           /* 1b) Additive & fire-and-forget: also send the lead to the app.
              NOT awaited — the success/redirect flow depends ONLY on the Apps
-             Script call above, exactly like before. If this endpoint is down,
-             .catch swallows it and the Sheet/email still work. */
+             Script call above, exactly like before.
+             keepalive:true so the request survives the imminent /thank-you (or
+             Stripe) navigation — a normal fetch is cancelled on page unload,
+             which is why app leads weren't arriving on real submits.
+             mode:'no-cors' + text/plain makes it a CORS "simple request" (no
+             preflight, which the endpoint doesn't need to answer); the server
+             still JSON.parses the body. If the endpoint is down, .catch
+             swallows it and the Sheet/email still work. */
           fetch('https://app.torquebaseball.us/api/create-lead', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors',
+            keepalive: true,
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify({ ...payload, company: form.company.value }),
           }).catch(() => {});
           /* 2) Branch on the flag. */
