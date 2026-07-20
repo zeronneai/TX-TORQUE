@@ -453,6 +453,9 @@
       </div>
 
       <form id="lead-form" class="reveal" novalidate style="display:flex;flex-direction:column;gap:20px;">
+        <!-- Honeypot (anti-bot): hidden from real users; the app endpoint checks it -->
+        <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true"
+               style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" />
         <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
           <div class="form-field">
             <label for="parentName">Parent Name</label>
@@ -639,6 +642,15 @@
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body:    JSON.stringify(payload)
         });
+        /* 1b) Additive & fire-and-forget: also send the lead to the app.
+           NOT awaited — the success/redirect flow depends ONLY on the Apps
+           Script call above, exactly like before. If this endpoint is down,
+           .catch swallows it and the Sheet/email still work. */
+        fetch('https://app.torquebaseball.us/api/create-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }).catch(() => {});
         /* 2) Branch on the flag. */
         if (REQUIRE_DEPOSIT) {
           /* Paid flow → hand off to Stripe for the $20 deposit (email prefilled,
