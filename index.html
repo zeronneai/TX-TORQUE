@@ -454,7 +454,47 @@
     /* ── DEPOSIT FEATURE FLAG: hide the copy variant that doesn't match REQUIRE_DEPOSIT ── */
     [hidden] { display: none !important; }
 
+    /* ── TRIAL DRAWER ── */
+    #trial-drawer-overlay {
+      position: fixed; inset: 0; z-index: 10002;
+      background: rgba(10,22,40,0.7);
+      opacity: 0; visibility: hidden;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+    #trial-drawer-overlay.open { opacity: 1; visibility: visible; }
+    #trial-drawer {
+      position: absolute; top: 0; right: 0; height: 100%;
+      width: 460px; max-width: 100%;
+      background: linear-gradient(180deg,#0d2040 0%,#0a1628 100%);
+      border-left: 1px solid rgba(196,18,48,.3);
+      box-shadow: -20px 0 60px rgba(0,0,0,.5);
+      transform: translateX(100%);
+      transition: transform .3s ease-out;
+      display: flex; flex-direction: column;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    #trial-drawer-overlay.open #trial-drawer { transform: translateX(0); }
+    #trial-drawer .drawer-head {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 26px; background: rgba(6,15,31,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    #trial-drawer .drawer-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-style: italic;
+      font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; color: #fff;
+    }
+    #trial-drawer-close {
+      background: none; border: none; color: rgba(255,255,255,.6);
+      cursor: pointer; padding: 6px; line-height: 0;
+      transition: color .2s, transform .2s;
+    }
+    #trial-drawer-close:hover { color: #fff; transform: rotate(90deg); }
+    #trial-drawer .drawer-body { padding: 26px 26px 44px; }
+
     @media (max-width: 768px) {
+      #trial-drawer { width: 100%; }
+      #trial-drawer .form-grid { grid-template-columns: 1fr !important; }
       #tournament-bar .tb-full  { display:none !important; }
       #tournament-bar .tb-short { display:flex !important; }
       #tournament-bar { height:34px !important; }
@@ -462,14 +502,13 @@
       #main-nav { top:34px !important; }
       #promo-modal { padding:40px 24px 32px !important; }
       #trial { padding: 60px 20px 72px !important; }
-      #trial .form-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
 <body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
 
   <!-- ══════════════════ TOURNAMENT ANNOUNCEMENT BAR ══════════════════ -->
-  <a id="tournament-bar" href="#trial" style="
+  <a id="tournament-bar" href="#trial" data-open-trial style="
     position:fixed;top:0;left:0;right:0;z-index:1000;
     display:flex;align-items:center;justify-content:center;
     height:38px;padding:0 16px;text-decoration:none;
@@ -986,73 +1025,13 @@
         </span>
       </div>
 
-      <form id="lead-form" class="reveal" novalidate style="display:flex;flex-direction:column;gap:20px;">
-        <!-- Honeypot (anti-bot): hidden from real users; the app endpoint checks it -->
-        <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true"
-               style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" />
-        <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-          <div class="form-field">
-            <label for="parentName">Parent Name</label>
-            <input type="text" id="parentName" name="parentName" placeholder="Jane Smith" required autocomplete="name" />
-          </div>
-          <div class="form-field">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(915) 555-0100" required autocomplete="tel" />
-          </div>
-        </div>
-
-        <div class="form-field">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" />
-        </div>
-
-        <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-          <div class="form-field">
-            <label for="playerName">Player Name</label>
-            <input type="text" id="playerName" name="playerName" placeholder="Junior Smith" required />
-          </div>
-          <div class="form-field">
-            <label for="playerAge">Player Age</label>
-            <input type="number" id="playerAge" name="playerAge" placeholder="12" min="4" max="22" required />
-          </div>
-        </div>
-
-        <div class="form-field">
-          <label for="preferredDay">Preferred Day</label>
-          <select id="preferredDay" name="preferredDay" required>
-            <option value="" disabled selected>Select a day</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-          </select>
-        </div>
-
-        <div id="form-error" style="display:none;background:rgba(196,18,48,.14);border:1px solid rgba(196,18,48,.38);border-radius:4px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#e8bbc2;line-height:1.5;"></div>
-
-        <button type="submit" id="submit-btn" class="btn-shimmer" style="
+      <div class="reveal" style="text-align:center;">
+        <button type="button" class="btn-shimmer" data-open-trial style="
           background:#c41230;color:#fff;border:none;cursor:pointer;
           font-family:'Barlow Condensed',sans-serif;font-weight:800;
           font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
-          padding:18px 0;width:100%;margin-top:4px;
-        ">Book My Free Trial</button>
-
-        <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
-          By submitting you agree to be contacted about your trial class.
-          No deposit, no cost — just show up ready to train.
-        </p>
-        <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
-          By submitting you agree to be contacted about your trial class.
-          The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
-        </p>
-      </form>
-
-      <div id="form-success" style="display:none;text-align:center;padding:52px 24px;">
-        <div style="width:76px;height:76px;border-radius:50%;background:rgba(196,18,48,.14);border:2px solid #c41230;display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:2.2rem;color:#fff;text-transform:uppercase;margin:0 0 14px;">You're In!</h3>
-        <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
-          Thanks! We'll reach out within 24 hours to schedule your trial class.<br>See you on the field — Friday or Saturday.
-        </p>
+          padding:17px 46px;
+        ">Book a Trial Class</button>
       </div>
     </div>
   </section>
@@ -1150,6 +1129,92 @@
     </div>
   </div>
 
+  <!-- ══════════════════ TRIAL BOOKING DRAWER ══════════════════ -->
+  <div id="trial-drawer-overlay" aria-hidden="true">
+    <aside id="trial-drawer" role="dialog" aria-modal="true" aria-label="Book a trial class">
+      <div class="drawer-head">
+        <div class="drawer-title">Book a Trial Class</div>
+        <button id="trial-drawer-close" type="button" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="drawer-body">
+        <p style="font-family:'Barlow',sans-serif;font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.7;margin:0 0 24px;">
+          Fridays &amp; Saturdays, year-round. Fill this out and we'll reach out within 24 hours to lock in your time.
+        </p>
+
+        <form id="lead-form" novalidate style="display:flex;flex-direction:column;gap:20px;">
+          <!-- Honeypot (anti-bot): hidden from real users; the app endpoint checks it -->
+          <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" />
+          <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div class="form-field">
+              <label for="parentName">Parent Name</label>
+              <input type="text" id="parentName" name="parentName" placeholder="Jane Smith" required autocomplete="name" />
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(915) 555-0100" required autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" />
+          </div>
+
+          <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div class="form-field">
+              <label for="playerName">Player Name</label>
+              <input type="text" id="playerName" name="playerName" placeholder="Junior Smith" required />
+            </div>
+            <div class="form-field">
+              <label for="playerAge">Player Age</label>
+              <input type="number" id="playerAge" name="playerAge" placeholder="12" min="4" max="22" required />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="preferredDay">Preferred Day</label>
+            <select id="preferredDay" name="preferredDay" required>
+              <option value="" disabled selected>Select a day</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+            </select>
+          </div>
+
+          <div id="form-error" style="display:none;background:rgba(196,18,48,.14);border:1px solid rgba(196,18,48,.38);border-radius:4px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#e8bbc2;line-height:1.5;"></div>
+
+          <button type="submit" id="submit-btn" class="btn-shimmer" style="
+            background:#c41230;color:#fff;border:none;cursor:pointer;
+            font-family:'Barlow Condensed',sans-serif;font-weight:800;
+            font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
+            padding:18px 0;width:100%;margin-top:4px;
+          ">Book My Free Trial</button>
+
+          <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+            By submitting you agree to be contacted about your trial class.
+            No deposit, no cost — just show up ready to train.
+          </p>
+          <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
+            By submitting you agree to be contacted about your trial class.
+            The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
+          </p>
+        </form>
+
+        <div id="form-success" style="display:none;text-align:center;padding:52px 24px;">
+          <div style="width:76px;height:76px;border-radius:50%;background:rgba(196,18,48,.14);border:2px solid #c41230;display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:2.2rem;color:#fff;text-transform:uppercase;margin:0 0 14px;">You're In!</h3>
+          <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
+            Thanks! We'll reach out within 24 hours to schedule your trial class.<br>See you on the field — Friday or Saturday.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
   <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
   <script>
     /* ══════════════════════════════════════════════════════════════
@@ -1167,6 +1232,33 @@
     /* Submit-button label follows the flag too. */
     const SUBMIT_LABEL = REQUIRE_DEPOSIT ? 'Book My Trial Class' : 'Book My Free Trial';
     (function () { const b = document.getElementById('submit-btn'); if (b) b.textContent = SUBMIT_LABEL; })();
+
+    /* ── Trial booking drawer (slides in from the right) ── */
+    (function () {
+      const overlay = document.getElementById('trial-drawer-overlay');
+      if (!overlay) return;
+      window.openTrialDrawer = function () {
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+      window.closeTrialDrawer = function () {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+      document.getElementById('trial-drawer-close').addEventListener('click', window.closeTrialDrawer);
+      /* click on the dark overlay (outside the panel) closes it */
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) window.closeTrialDrawer(); });
+      /* Esc closes it */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) window.closeTrialDrawer();
+      });
+      /* every [data-open-trial] trigger opens the drawer instead of scrolling */
+      document.querySelectorAll('[data-open-trial]').forEach(function (el) {
+        el.addEventListener('click', function (e) { e.preventDefault(); window.openTrialDrawer(); });
+      });
+    })();
 
     /* ── Mobile nav hamburger ── */
     (function () {
