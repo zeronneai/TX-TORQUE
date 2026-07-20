@@ -649,7 +649,7 @@
         fetch('https://app.torquebaseball.us/api/create-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({ ...payload, company: form.company.value }),
         }).catch(() => {});
         /* 2) Branch on the flag. */
         if (REQUIRE_DEPOSIT) {
