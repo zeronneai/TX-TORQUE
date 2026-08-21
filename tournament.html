@@ -112,6 +112,7 @@
       border-color: #c41230; background: rgba(255,255,255,.1);
     }
     .form-field select option { background: #0d2040; color: #fff; }
+    .form-field select optgroup { background: #0d2040; color: rgba(255,255,255,.6); font-style: normal; }
 
     #nav-hamburger {
       display: none; align-items: center; justify-content: center;
@@ -528,11 +529,19 @@
           </div>
 
           <div class="form-field">
-            <label for="preferredDay">Preferred Day</label>
+            <label for="preferredDay">Preferred Day &amp; Time</label>
             <select id="preferredDay" name="preferredDay" required>
-              <option value="" disabled selected>Select a day</option>
-              <option value="Friday">Friday</option>
-              <option value="Saturday">Saturday</option>
+              <option value="" disabled selected>Select a day &amp; time</option>
+              <optgroup label="Friday">
+                <option value="Friday 4:00 PM">Friday 4:00 PM</option>
+                <option value="Friday 5:00 PM">Friday 5:00 PM</option>
+                <option value="Friday 6:00 PM">Friday 6:00 PM</option>
+              </optgroup>
+              <optgroup label="Saturday">
+                <option value="Saturday 12:00 PM">Saturday 12:00 PM</option>
+                <option value="Saturday 1:00 PM">Saturday 1:00 PM</option>
+                <option value="Saturday 2:00 PM">Saturday 2:00 PM</option>
+              </optgroup>
             </select>
           </div>
 
