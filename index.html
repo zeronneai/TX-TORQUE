@@ -4,1104 +4,661 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TORQUE — Built by Pros. Driven by the Next Generation.</title>
+  <meta name="description" content="TORQUE Performance — an elite baseball development academy in El Paso, built by former MLB and pro players. TrackMan technology, pro-level coaching, and real recruiting connections." />
+  <link rel="icon" href="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_120/v1790046313/ChatGPT_Image_Sep_21_2026_09_05_04_PM_yiuj48.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    :root{
+      --bg:#080b12; --bg-2:#0a0e17; --panel:#111826; --panel-2:#0e141f;
+      --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.14);
+      --txt:#eef1f6; --muted:rgba(255,255,255,.56); --muted-2:rgba(255,255,255,.4);
+      --accent:#3f8cff; --accent-2:#6fb0ff; --accent-soft:rgba(63,140,255,.14);
+      --gold:#d8b46a;
+    }
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{ margin:0; padding:0; background:var(--bg); color:var(--txt);
+      font-family:'Barlow',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    img{ max-width:100%; }
+    a{ color:inherit; }
+    ::selection{ background:rgba(63,140,255,.28); }
 
-    /* ── SHIMMER (hero title) ── */
-    @keyframes shimmer {
-      0%   { background-position: -300% center; }
-      100% { background-position:  300% center; }
-    }
-    .shimmer-text {
-      background: linear-gradient(105deg,
-        #fff 20%, #c8deff 38%, #fff 45%, #e8f2ff 52%, #fff 60%);
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 4s linear infinite;
-    }
+    h1,h2,h3,h4{ font-family:'Barlow Condensed',sans-serif; margin:0; }
+    .kicker{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.76rem;
+      letter-spacing:4px; text-transform:uppercase; color:var(--accent); }
+    .display{ font-weight:900; font-style:italic; text-transform:uppercase; letter-spacing:1px; line-height:.98; color:#fff; }
+    .lead{ color:var(--muted); line-height:1.75; }
+    .rule{ display:block; height:2px; width:64px; background:linear-gradient(90deg,var(--accent),transparent);
+      border-radius:2px; margin-top:20px; }
 
-    /* ── LOGO PULSE GLOW ── */
-    @keyframes logoPulse {
-      0%,100% { filter: drop-shadow(0 0 6px rgba(196,18,48,.4)); }
-      50%      { filter: drop-shadow(0 0 26px rgba(196,18,48,.9)) drop-shadow(0 0 50px rgba(196,18,48,.3)); }
-    }
-    .logo-glow { animation: logoPulse 2.6s ease-in-out infinite; }
+    @keyframes shimmer{ 0%{ background-position:-300% center; } 100%{ background-position:300% center; } }
+    .shimmer-text{ background:linear-gradient(105deg,#fff 22%,#bcd6ff 40%,#fff 48%,#e6f0ff 56%,#fff 64%);
+      background-size:300% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+      animation:shimmer 5s linear infinite; }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal{ opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s ease; }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
+    .stagger-item{ opacity:0; transform:translateY(22px); transition:opacity .55s ease, transform .55s ease; }
+    .stagger-item.visible{ opacity:1; transform:translateY(0); }
+    [hidden]{ display:none !important; }
+    @media (prefers-reduced-motion: reduce){ .reveal,.stagger-item{ transition:none; opacity:1; transform:none; } }
 
-    /* ── STAGGER ITEMS ── */
-    .stagger-item {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .5s ease, transform .5s ease;
-    }
-    .stagger-item.visible { opacity: 1; transform: translateY(0); }
+    /* ── Buttons ── */
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; cursor:pointer;
+      font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.92rem; letter-spacing:2.5px;
+      text-transform:uppercase; text-decoration:none; border:none; border-radius:2px; padding:16px 38px;
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease; }
+    .btn-primary{ background:#f4f6fa; color:#0a0f1a; box-shadow:0 10px 34px rgba(0,0,0,.35); }
+    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 40px rgba(63,140,255,.28); background:#fff; }
+    .btn-ghost{ background:transparent; color:#fff; border:1px solid var(--line-2); }
+    .btn-ghost:hover{ transform:translateY(-2px); border-color:#fff; background:rgba(255,255,255,.06); }
+    .btn-sm{ padding:12px 24px; font-size:.8rem; letter-spacing:2px; }
+    .btn-shimmer{ position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease; }
+    .btn-shimmer::after{ content:''; position:absolute; inset:0;
+      background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+      background-size:200% auto; opacity:0; }
+    .btn-shimmer:hover::after{ opacity:1; animation:sheen .6s linear; }
+    @keyframes sheen{ 0%{ background-position:-160% center; } 100%{ background-position:160% center; } }
 
-    /* ── RED DIVIDER LINE ── */
-    .red-divider {
-      display: block;
-      height: 3px;
-      background: #c41230;
-      width: 0;
-      border-radius: 2px;
-      transition: width 1s cubic-bezier(.4,0,.2,1);
-    }
-    .red-divider.visible { width: 68px; }
+    /* ── Nav ── */
+    #main-nav{ position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:72px;
+      background:rgba(8,11,18,.55); backdrop-filter:blur(14px); border-bottom:1px solid transparent;
+      transition:background .35s ease, border-color .35s ease, height .35s ease; }
+    #main-nav.scrolled{ background:rgba(8,11,18,.92); border-bottom-color:var(--line); height:64px; }
+    #main-nav .wordmark{ height:30px; width:auto; object-fit:contain; display:block;
+      filter:brightness(0) invert(1); transition:opacity .2s; }
+    #main-nav .wordmark:hover{ opacity:.8; }
+    .nav-links{ list-style:none; margin:0; padding:0; display:flex; align-items:center; gap:34px; }
+    .nav-link{ position:relative; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.82rem;
+      letter-spacing:1.8px; text-transform:uppercase; color:rgba(255,255,255,.8); text-decoration:none; transition:color .2s; }
+    .nav-link::after{ content:''; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--accent);
+      transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
+    .nav-link:hover{ color:#fff; } .nav-link:hover::after,.nav-link.active::after{ transform:scaleX(1); }
+    .nav-link.active{ color:#fff; }
+    #nav-hamburger{ display:none; align-items:center; justify-content:center; width:44px; height:44px;
+      background:transparent; border:1px solid var(--line-2); border-radius:6px; color:#fff; cursor:pointer; padding:0; }
 
-    /* ── CARD HOVER (dark) ── */
-    .card-hover {
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 16px 48px rgba(196,18,48,.22), 0 4px 16px rgba(0,0,0,.18);
-    }
+    #mobile-nav-drawer{ position:fixed; inset:0; z-index:998; background:rgba(6,9,15,.98); backdrop-filter:blur(18px);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+      transform:translateX(100%); visibility:hidden; transition:transform .35s ease, visibility .35s ease; }
+    #mobile-nav-drawer.open{ transform:translateX(0); visibility:visible; }
+    #mobile-nav-drawer a{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:2rem;
+      letter-spacing:1.5px; text-transform:uppercase; color:#fff; text-decoration:none; }
+    #mobile-nav-drawer a:hover{ color:var(--accent); }
+    #mobile-nav-drawer a.mob-cta{ background:#f4f6fa; color:#0a0f1a; font-style:normal; font-size:1.05rem;
+      letter-spacing:2.5px; padding:14px 36px; border-radius:2px; }
 
-    /* ── COACH CARD HOVER (white) ── */
-    .coach-hover {
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-    .coach-hover:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 36px rgba(196,18,48,.16);
-      border-color: #c41230 !important;
-    }
+    /* ── Intro animation ── */
+    #intro{ position:fixed; inset:0; z-index:100000; display:flex; align-items:center; justify-content:center;
+      background:radial-gradient(circle at 50% 45%, rgba(10,16,26,.5), rgba(5,8,13,.86));
+      transition:opacity .85s ease, visibility .85s ease; }
+    #intro.done{ opacity:0; visibility:hidden; }
+    #intro .intro-logo{ width:min(52vw,360px); height:auto; filter:drop-shadow(0 18px 60px rgba(0,0,0,.6));
+      animation:introIn 1.1s cubic-bezier(.2,.7,.2,1) both; transition:transform .85s cubic-bezier(.5,0,.15,1); }
+    #intro.done .intro-logo{ transform:translateY(-22vh) scale(.26); }
+    @keyframes introIn{ 0%{ opacity:0; transform:scale(1.28); } 100%{ opacity:1; transform:scale(1); } }
 
-    /* ── BUTTON SHIMMER ── */
-    @keyframes btnShimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position:  200% center; }
-    }
-    .btn-shimmer {
-      position: relative;
-      overflow: hidden;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .btn-shimmer::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
-      background-size: 200% auto;
-      opacity: 0;
-    }
-    .btn-shimmer:hover::after {
-      opacity: 1;
-      animation: btnShimmer .55s linear;
-    }
-    .btn-shimmer:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(196,18,48,.5);
-    }
+    /* ── Hero ── */
+    #hero{ position:relative; width:100%; min-height:100svh; display:flex; align-items:center;
+      overflow:hidden; background:#05070c; }
+    #hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+    .hero-scrim{ position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:linear-gradient(180deg, rgba(5,7,12,.72) 0%, rgba(5,7,12,.45) 42%, rgba(5,7,12,.86) 100%); }
+    .hero-scrim::after{ content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 90% 70% at 50% 40%, transparent 40%, rgba(5,7,12,.6) 100%); }
+    .hero-content{ position:relative; z-index:2; width:100%; max-width:1180px; margin:0 auto; padding:120px 48px 90px;
+      opacity:0; transform:translateY(26px); transition:opacity 1s ease .1s, transform 1s ease .1s; }
+    #hero.intro-done .hero-content{ opacity:1; transform:none; }
+    .hero-content h1{ font-size:clamp(2.8rem,7vw,6rem); letter-spacing:.5px; max-width:14ch; }
+    .hero-sub{ font-size:clamp(1rem,1.4vw,1.18rem); color:rgba(255,255,255,.78); line-height:1.6; max-width:560px; margin:24px 0 0; }
+    .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; }
+    .hero-stats{ display:flex; gap:44px; margin-top:54px; flex-wrap:wrap; }
+    .hero-stats .num{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic;
+      font-size:2.6rem; color:#fff; line-height:1; display:block; }
+    .hero-stats .lbl{ font-size:.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted-2); margin-top:6px; display:block; }
+    .scroll-hint{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2;
+      color:rgba(255,255,255,.4); font-size:.68rem; letter-spacing:3px; text-transform:uppercase;
+      display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; transition:opacity 1s ease 1.2s; }
+    #hero.intro-done .scroll-hint{ opacity:1; }
+    @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+    .scroll-hint svg{ animation:bob 1.8s ease infinite; }
 
-    /* ── SUB BUTTON (packages) ── */
-    button.sub-btn {
-      transition: background .2s, transform .15s, box-shadow .2s;
-    }
-    button.sub-btn:hover {
-      background: #a50f28 !important;
-      transform: scale(1.03);
-      box-shadow: 0 4px 16px rgba(196,18,48,.4);
-    }
+    /* ── Section shell ── */
+    section{ position:relative; }
+    .wrap{ max-width:1180px; margin:0 auto; padding:0 48px; }
+    .sec-pad{ padding:110px 0; }
+    .sec-head{ text-align:center; max-width:640px; margin:0 auto 60px; }
+    .sec-head h2{ font-size:clamp(2rem,4.4vw,3.2rem); margin:14px 0 0; }
+    .sec-head .rule{ margin:20px auto 0; }
 
-    /* ── INFINITE TICKER CAROUSELS ── */
-    @keyframes ticker {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .ticker-track {
-      display: flex;
-      width: max-content;
-      will-change: transform;
-    }
-    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+    /* ── Story (This is Torque) ── */
+    #story{ background:linear-gradient(180deg,#05070c, #080b12); }
+    .story-grid{ display:grid; grid-template-columns:1fr; gap:48px; align-items:center; }
+    .story-video{ position:relative; border-radius:14px; overflow:hidden; aspect-ratio:16/9;
+      border:1px solid var(--line); box-shadow:0 30px 80px rgba(0,0,0,.55); background:#05070c; }
+    .story-video video{ width:100%; height:100%; object-fit:cover; display:block; }
+    .play-btn{ position:absolute; inset:0; margin:auto; width:88px; height:88px; border-radius:50%;
+      background:rgba(255,255,255,.12); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.4);
+      display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .2s, background .2s;
+      box-shadow:0 10px 40px rgba(0,0,0,.4); }
+    .play-btn:hover{ transform:scale(1.07); background:rgba(255,255,255,.2); }
+    .play-btn svg{ margin-left:5px; }
 
-    /* ── NAV ── */
-    #main-nav { transition: background .35s ease, box-shadow .35s ease; }
-    #main-nav.scrolled {
-      background: rgba(5,10,20,.98) !important;
-      box-shadow: 0 2px 28px rgba(0,0,0,.5);
-    }
-    .nav-link { position: relative; transition: color .2s; }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0; right: 0;
-      height: 2px; background: #c41230;
-      transform: scaleX(0);
-      transition: transform .25s ease;
-      transform-origin: left;
-    }
-    .nav-link:hover { color: #e03050 !important; }
-    .nav-link:hover::after,
-    .nav-link.active::after { transform: scaleX(1); }
-    .nav-link.active { color: #e03050 !important; }
+    /* ── Benefits (Why Torque) ── */
+    .benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .benefit{ background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
+      border-radius:14px; padding:34px 30px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .benefit:hover{ transform:translateY(-6px); border-color:var(--line-2); box-shadow:0 20px 50px rgba(0,0,0,.4); }
+    .benefit .ic{ width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+      background:var(--accent-soft); border:1px solid rgba(63,140,255,.3); color:var(--accent-2); margin-bottom:22px; }
+    .benefit h3{ font-weight:900; font-style:italic; font-size:1.32rem; color:#fff; text-transform:uppercase; letter-spacing:.4px; margin-bottom:10px; }
+    .benefit p{ font-size:.92rem; color:var(--muted); line-height:1.65; margin:0; }
 
-    /* ── HERO CANVAS ── */
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      opacity: .32;
-    }
+    /* ── Programs ── */
+    .prog-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .prog-card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s; }
+    .prog-card:hover{ transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,0,0,.45); border-color:var(--line-2); }
+    .prog-card img{ width:100%; height:300px; object-fit:cover; display:block; filter:saturate(.9); }
+    .prog-card .body{ padding:30px 32px 36px; }
+    .prog-card h3{ font-weight:900; font-style:italic; font-size:1.65rem; color:#fff; text-transform:uppercase; letter-spacing:.5px; margin-bottom:12px; }
+    .prog-card p{ font-size:.94rem; color:var(--muted); line-height:1.65; margin:0; }
 
-    /* ── DIAGONAL STRIPE ── */
-    .hero-stripe {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 180px;
-      z-index: 1; pointer-events: none;
-      overflow: hidden;
-    }
-    .hero-stripe::before {
-      content: '';
-      position: absolute;
-      bottom: -50px; left: -5%;
-      width: 38%; height: 110px;
-      background: #c41230;
-      transform: skewX(-16deg);
-      opacity: .14;
-    }
-    .hero-stripe::after {
-      content: '';
-      position: absolute;
-      bottom: -20px; left: 28%;
-      width: 20%; height: 60px;
-      background: #c41230;
-      transform: skewX(-16deg);
-      opacity: .08;
-    }
+    /* ── Coaches ── */
+    .coach-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+    .coach{ background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .coach:hover{ transform:translateY(-6px); box-shadow:0 22px 55px rgba(0,0,0,.5); border-color:rgba(63,140,255,.4); }
+    .coach img{ width:100%; height:250px; object-fit:cover; object-position:top center; display:block; }
+    .coach .body{ padding:22px 20px 26px; }
+    .coach .name{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:1.25rem;
+      color:#fff; text-transform:uppercase; letter-spacing:.4px; margin:0 0 5px; }
+    .coach .role{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.78rem; color:var(--accent-2);
+      text-transform:uppercase; letter-spacing:.6px; margin:0 0 2px; }
+    .coach .teams{ font-size:.75rem; color:var(--muted-2); line-height:1.5; margin:8px 0 10px; }
+    .coach .accolade{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.76rem; color:var(--gold); margin:0 0 8px; }
+    .coach .bio{ font-size:.78rem; color:var(--muted); line-height:1.6; margin:0; }
 
-    /* ── STATS ── */
-    .stats-row { display: flex; gap: 0; justify-content: center; flex-wrap: wrap; }
-    .stat-item { text-align: center; padding: 0 36px; }
-    .stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,.14); }
-    .stat-number {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-style: italic;
-      font-size: 2.8rem; color: #fff; line-height: 1;
-      display: block;
-    }
-    .stat-label {
-      font-family: 'Barlow', sans-serif;
-      font-size: .72rem; color: rgba(255,255,255,.55);
-      letter-spacing: 2px; text-transform: uppercase;
-      display: block; margin-top: 5px;
-    }
+    /* ── Ticker (Future Stars) ── */
+    @keyframes ticker{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+    .ticker-wrap{ overflow:hidden; width:100%; -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+    .ticker-track{ display:flex; width:max-content; will-change:transform; }
+    .ticker-wrap:hover .ticker-track{ animation-play-state:paused; }
+    .ticker-track .cell{ flex:0 0 340px; margin-right:16px; border-radius:12px; overflow:hidden; border:1px solid var(--line); }
+    .ticker-track .cell img{ width:100%; height:250px; object-fit:cover; object-position:top; display:block; }
 
-    /* ── FLOATING WHATSAPP ── */
-    @keyframes waPulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
-      70%      { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
-    }
-    #wa-btn {
-      position: fixed; bottom: 26px; right: 26px; z-index: 9999;
-      width: 58px; height: 58px; border-radius: 50%;
-      background: #25d366;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      animation: waPulse 2.2s ease infinite;
-      transition: transform .2s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,.3);
-    }
-    #wa-btn:hover { transform: scale(1.1); }
+    /* ── Packages ── */
+    #packages{ background:linear-gradient(180deg,#0a0e17,#080b12); }
+    .pkg-note{ display:flex; justify-content:center; flex-wrap:wrap; gap:8px 26px; margin:0 auto 40px; }
+    .pkg-note span{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); }
+    .pkg-note .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+    .pkg-list{ max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+    .pkg-row{ display:grid; grid-template-columns:200px 1fr 1fr 1fr 1.15fr;
+      background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+    .pkg-tier{ padding:24px 22px; border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:center; gap:6px;
+      background:linear-gradient(180deg,rgba(63,140,255,.06),transparent); }
+    .pkg-tier .lv{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.7rem; color:#fff; line-height:1; }
+    .pkg-tier .lv.gold{ color:var(--gold); }
+    .pkg-tier .cnt{ font-size:.76rem; color:var(--muted-2); }
+    .pkg-cell{ padding:18px 14px; border-right:1px solid var(--line); display:flex; flex-direction:column;
+      align-items:center; justify-content:space-between; gap:10px; text-align:center; }
+    .pkg-cell:last-child{ border-right:none; background:rgba(63,140,255,.05); }
+    .pkg-cell .plan{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.86rem; color:#fff; letter-spacing:.5px; }
+    .pkg-cell .disc{ font-size:.72rem; color:var(--accent-2); margin-top:2px; }
+    .pkg-cell .orig{ font-size:.75rem; color:var(--muted-2); text-decoration:line-through; }
+    .pkg-cell .price{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:#fff; }
+    .sub-btn{ background:var(--accent); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800;
+      font-size:.72rem; letter-spacing:1.6px; text-transform:uppercase; padding:10px 10px; border:none; cursor:pointer;
+      width:100%; border-radius:3px; transition:background .2s, transform .15s; }
+    .sub-btn:hover{ background:#2f6fe0; transform:translateY(-1px); }
 
-    /* ── SOCIAL ICONS ── */
-    .social-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 38px; height: 38px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.2);
-      color: rgba(255,255,255,.55);
-      text-decoration: none;
-      transition: background .2s, border-color .2s, color .2s, transform .2s;
-    }
-    .social-icon:hover {
-      background: #c41230; border-color: #c41230;
-      color: #fff; transform: translateY(-3px);
-    }
+    /* ── Trial CTA band ── */
+    #trial{ background:radial-gradient(circle at 80% 20%, rgba(63,140,255,.08), transparent 55%), #080b12; }
+    .chip{ display:inline-flex; align-items:center; gap:8px; background:var(--accent-soft);
+      border:1px solid rgba(63,140,255,.3); border-radius:40px; padding:9px 18px;
+      font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.72rem; letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--accent-2); }
 
-    /* ════════════════════════════════════════
-       HAMBURGER + MOBILE DRAWER  (all viewports)
-       ════════════════════════════════════════ */
-    #nav-hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-      flex-shrink: 0;
-      line-height: 0;
+    /* ── Footer ── */
+    footer{ background:#05070c; border-top:1px solid var(--line); padding:56px 48px 40px; }
+    .foot-inner{ max-width:1120px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:22px; }
+    .foot-inner .fw{ height:30px; filter:brightness(0) invert(1); opacity:.9; }
+    .foot-links{ display:flex; gap:30px; flex-wrap:wrap; justify-content:center; }
+    .foot-links a{ font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:.8rem; letter-spacing:1.8px;
+      text-transform:uppercase; color:var(--muted-2); text-decoration:none; transition:color .2s; }
+    .foot-links a:hover{ color:#fff; }
+    .social-icon{ display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--line-2); color:var(--muted); text-decoration:none; transition:all .2s; }
+    .social-icon:hover{ background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-3px); }
+
+    /* ── Form fields ── */
+    .form-field{ display:flex; flex-direction:column; gap:6px; }
+    .form-field label{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.8rem;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
+    .form-field input, .form-field select{ background:rgba(255,255,255,.06); border:1px solid var(--line-2);
+      color:#fff; padding:13px 16px; border-radius:6px; font-family:'Barlow',sans-serif; font-size:.95rem;
+      outline:none; transition:border-color .2s, background .2s; -webkit-appearance:none; appearance:none; width:100%; }
+    .form-field input::placeholder{ color:rgba(255,255,255,.3); }
+    .form-field input:focus, .form-field select:focus{ border-color:var(--accent); background:rgba(255,255,255,.09); }
+    .form-field select option{ background:#0e141f; color:#fff; }
+    .form-field select optgroup{ background:#0e141f; color:var(--muted); font-style:normal; }
+
+    /* ── Trial drawer ── */
+    #trial-drawer-overlay{ position:fixed; inset:0; z-index:10002; background:rgba(5,8,13,.72); backdrop-filter:blur(4px);
+      opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease; }
+    #trial-drawer-overlay.open{ opacity:1; visibility:visible; }
+    #trial-drawer{ position:absolute; top:0; right:0; height:100%; width:460px; max-width:100%;
+      background:linear-gradient(180deg,#0e141f 0%,#080b12 100%); border-left:1px solid rgba(63,140,255,.3);
+      box-shadow:-24px 0 70px rgba(0,0,0,.6); transform:translateX(100%); transition:transform .32s ease-out;
+      display:flex; flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+    #trial-drawer-overlay.open #trial-drawer{ transform:translateX(0); }
+    #trial-drawer .drawer-head{ position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between;
+      padding:22px 26px; background:rgba(6,9,15,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    #trial-drawer .drawer-title{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:1.5rem;
+      text-transform:uppercase; letter-spacing:1px; color:#fff; }
+    #trial-drawer-close{ background:none; border:none; color:var(--muted); cursor:pointer; padding:6px; line-height:0;
+      transition:color .2s, transform .2s; }
+    #trial-drawer-close:hover{ color:#fff; transform:rotate(90deg); }
+    #trial-drawer .drawer-body{ padding:26px 26px 44px; }
+
+    /* ── WhatsApp float ── */
+    @keyframes waPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(37,211,102,.5); } 70%{ box-shadow:0 0 0 16px rgba(37,211,102,0); } }
+    #wa-btn{ position:fixed; bottom:26px; right:26px; z-index:9999; width:56px; height:56px; border-radius:50%;
+      background:#25d366; display:flex; align-items:center; justify-content:center; text-decoration:none;
+      animation:waPulse 2.4s ease infinite; transition:transform .2s ease; box-shadow:0 6px 22px rgba(0,0,0,.4); }
+    #wa-btn:hover{ transform:scale(1.08); }
+
+    /* ── Responsive ── */
+    @media (max-width:1000px){
+      .benefit-grid{ grid-template-columns:1fr 1fr; }
+      .coach-grid{ grid-template-columns:1fr 1fr; }
     }
-    #mobile-nav-drawer {
-      position: fixed;
-      inset: 0;
-      z-index: 998;
-      background: rgba(4,10,22,.97);
-      display: flex;
-      flex-direction: column;
-      padding: 96px 36px 52px;
-      transform: translateX(100%);
-      transition: transform .38s cubic-bezier(.4,0,.2,1);
-      overflow-y: auto;
-      visibility: hidden;
-    }
-    #mobile-nav-drawer.open {
-      transform: translateX(0);
-      visibility: visible;
-    }
-    #mobile-nav-drawer a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-style: italic;
-      font-size: 2.1rem;
-      color: rgba(255,255,255,.85);
-      text-decoration: none;
-      text-transform: uppercase;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      transition: color .2s;
-      display: block;
-      letter-spacing: .5px;
-    }
-    #mobile-nav-drawer a:hover { color: #c41230; }
-    #mobile-nav-drawer .mob-cta {
-      margin-top: 28px;
-      background: #c41230;
-      color: #fff !important;
-      text-align: center;
-      padding: 18px !important;
-      border-bottom: none !important;
-      border-radius: 2px;
-      font-size: 1.1rem !important;
-      letter-spacing: 2.5px !important;
-    }
-
-    /* ════════════════════════════════════════
-       @media (max-width: 768px)
-       ════════════════════════════════════════ */
-    @media (max-width: 768px) {
-
-      body { overflow-x: hidden; }
-
-      /* ── NAV ── */
-      #main-nav { padding: 0 20px !important; }
-      #main-nav > ul { display: none !important; }
-      #main-nav > div > a { display: none !important; }
-      #nav-hamburger { display: flex !important; align-items: center; justify-content: center; }
-
-      /* ── HERO ── */
-      #hero h1 { font-size: clamp(1.75rem, 8vw, 2.4rem) !important; }
-      #hero p br { display: none; }
-      #hero a.btn-shimmer {
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
-        padding: 16px 20px !important;
-        min-height: 52px !important;
-        box-sizing: border-box !important;
-      }
-      .stats-row { flex-direction: column !important; gap: 18px !important; }
-      .stat-item { padding: 0 !important; }
-      .stat-item + .stat-item {
-        border-left: none !important;
-        border-top: 1px solid rgba(255,255,255,.14);
-        padding-top: 18px !important;
-      }
-
-      /* ── PROGRAMS ── */
-      #programs { padding: 60px 20px 68px !important; }
-      #programs > div { grid-template-columns: 1fr !important; gap: 20px !important; }
-      #programs .card-hover > div:last-child { padding: 20px 18px 24px !important; }
-
-      /* ── PERFORMANCE ── */
-      #performance { padding: 60px 20px !important; }
-      #performance > div { grid-template-columns: 1fr !important; gap: 32px !important; }
-      #performance > div > div.reveal { aspect-ratio: 16 / 9 !important; }
-      #performance > div > div:last-child > div:last-child {
-        grid-template-columns: 1fr !important;
-        gap: 24px 0 !important;
-      }
-
-      /* ── COACHES ── */
-      #coaches { padding: 60px 20px 72px !important; }
-      #coaches > div { grid-template-columns: 1fr !important; gap: 20px !important; }
-      #coaches .coach-hover > div { padding: 16px 14px 20px !important; }
-
-      /* ── CAROUSELS ── */
-      #pro-gallery { padding-top: 60px !important; padding-bottom: 72px !important; }
-      #future-stars { padding-top: 60px !important; padding-bottom: 72px !important; }
-
-      /* ── PACKAGES ── */
-      #packages { padding: 60px 16px 72px !important; }
-      #packages .stagger-item {
-        display: flex !important;
-        flex-direction: column !important;
-        overflow: hidden;
-      }
-      /* Tier header: horizontal strip */
-      #packages .stagger-item > div:first-child {
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 10px !important;
-        padding: 14px 16px !important;
-        border-right: none !important;
-        border-bottom: 2px solid #c9cdd6 !important;
-        background: #edf0f4 !important;
-      }
-      /* Pricing cells: horizontal layout */
-      #packages .stagger-item > div:not(:first-child) {
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 12px 14px !important;
-        border-right: none !important;
-        border-bottom: 1px solid #e4e8ed !important;
-        gap: 8px !important;
-      }
-      /* Label area gets remaining space, left-aligned */
-      #packages .stagger-item > div:not(:first-child) > div:first-child {
-        flex: 1 !important;
-        text-align: left !important;
-      }
-      #packages .stagger-item > div:not(:first-child) > div:first-child > div {
-        text-align: left !important;
-      }
-      /* Subscribe button: compact touch target */
-      #packages .stagger-item button.sub-btn {
-        width: auto !important;
-        min-width: 88px !important;
-        min-height: 44px !important;
-        flex-shrink: 0 !important;
-        padding: 8px 10px !important;
-        font-size: .63rem !important;
-        letter-spacing: 1px !important;
-      }
-
-      /* ── FOOTER ── */
-      footer { padding: 48px 20px 32px !important; }
-
-      /* ── WHATSAPP FLOAT ── */
-      #wa-btn {
-        width: 50px !important;
-        height: 50px !important;
-        bottom: 18px !important;
-        right: 14px !important;
-      }
-
-    }
-
-    /* ════════════════════════════════════════
-       TOURNAMENT PROMO — announcement bar + modal
-       ════════════════════════════════════════ */
-    @keyframes barSheen { 0% { background-position:0% center; } 100% { background-position:200% center; } }
-
-    #tournament-bar .tb-cta { text-decoration:underline; text-underline-offset:3px; transition:opacity .2s; }
-    #tournament-bar:hover .tb-cta { opacity:.82; }
-    #tournament-bar .tb-short { display:none; }
-
-    #camp-modal-overlay {
-      position:fixed; inset:0; z-index:10000;
-      background:rgba(10,22,40,0.7); backdrop-filter:blur(5px);
-      display:flex; align-items:center; justify-content:center; padding:24px;
-      opacity:0; visibility:hidden; overflow-y:auto;
-      transition:opacity .35s ease, visibility .35s ease;
-    }
-    #camp-modal-overlay.open { opacity:1; visibility:visible; }
-    #camp-modal {
-      position:relative; width:100%; max-width:440px; margin:auto;
-      transform:scale(.92) translateY(12px);
-      transition:transform .4s cubic-bezier(.34,1.35,.5,1);
-    }
-    #camp-modal-overlay.open #camp-modal { transform:scale(1) translateY(0); }
-    #camp-modal-link {
-      display:block; border-radius:14px; overflow:hidden; cursor:pointer;
-      border:2px solid rgba(196,18,48,.55);
-      box-shadow:0 24px 70px rgba(0,0,0,.6);
-    }
-    #camp-modal-link img { display:block; width:100%; height:auto; }
-    #camp-modal-close {
-      position:absolute; top:-12px; right:-12px; z-index:2;
-      width:38px; height:38px; border-radius:50%;
-      background:#c41230; border:2px solid #fff; color:#fff; cursor:pointer;
-      display:flex; align-items:center; justify-content:center; padding:0;
-      box-shadow:0 4px 14px rgba(0,0,0,.45);
-      transition:transform .2s;
-    }
-    #camp-modal-close:hover { transform:rotate(90deg) scale(1.05); }
-
-    /* ── TRIAL LEAD FORM ── */
-    .form-field { display: flex; flex-direction: column; gap: 6px; }
-    .form-field label {
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-      font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase;
-      color: rgba(255,255,255,.6);
-    }
-    .form-field input, .form-field select {
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
-      color: #fff; padding: 13px 16px; border-radius: 4px;
-      font-family: 'Barlow', sans-serif; font-size: .95rem;
-      outline: none; transition: border-color .2s, background .2s;
-      -webkit-appearance: none; appearance: none; width: 100%;
-    }
-    .form-field input::placeholder { color: rgba(255,255,255,.3); }
-    .form-field input:focus, .form-field select:focus {
-      border-color: #c41230; background: rgba(255,255,255,.1);
-    }
-    .form-field select option { background: #0d2040; color: #fff; }
-    .form-field select optgroup { background: #0d2040; color: rgba(255,255,255,.6); font-style: normal; }
-
-    /* ── DEPOSIT FEATURE FLAG: hide the copy variant that doesn't match REQUIRE_DEPOSIT ── */
-    [hidden] { display: none !important; }
-
-    /* ── TRIAL DRAWER ── */
-    #trial-drawer-overlay {
-      position: fixed; inset: 0; z-index: 10002;
-      background: rgba(10,22,40,0.7);
-      opacity: 0; visibility: hidden;
-      transition: opacity .3s ease, visibility .3s ease;
-    }
-    #trial-drawer-overlay.open { opacity: 1; visibility: visible; }
-    #trial-drawer {
-      position: absolute; top: 0; right: 0; height: 100%;
-      width: 460px; max-width: 100%;
-      background: linear-gradient(180deg,#0d2040 0%,#0a1628 100%);
-      border-left: 1px solid rgba(196,18,48,.3);
-      box-shadow: -20px 0 60px rgba(0,0,0,.5);
-      transform: translateX(100%);
-      transition: transform .3s ease-out;
-      display: flex; flex-direction: column;
-      overflow-y: auto; -webkit-overflow-scrolling: touch;
-    }
-    #trial-drawer-overlay.open #trial-drawer { transform: translateX(0); }
-    #trial-drawer .drawer-head {
-      position: sticky; top: 0; z-index: 2;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 26px; background: rgba(6,15,31,.92); backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    #trial-drawer .drawer-title {
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-style: italic;
-      font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; color: #fff;
-    }
-    #trial-drawer-close {
-      background: none; border: none; color: rgba(255,255,255,.6);
-      cursor: pointer; padding: 6px; line-height: 0;
-      transition: color .2s, transform .2s;
-    }
-    #trial-drawer-close:hover { color: #fff; transform: rotate(90deg); }
-    #trial-drawer .drawer-body { padding: 26px 26px 44px; }
-
-    @media (max-width: 768px) {
-      #trial-drawer { width: 100%; }
-      #trial-drawer .form-grid { grid-template-columns: 1fr !important; }
-      #tournament-bar .tb-full  { display:none !important; }
-      #tournament-bar .tb-short { display:flex !important; }
-      #tournament-bar { height:34px !important; }
-      #tournament-bar .tb-text  { font-size:.68rem !important; letter-spacing:1px !important; }
-      #main-nav { top:34px !important; }
-      #trial { padding: 60px 20px 72px !important; }
+    @media (max-width:768px){
+      #main-nav{ padding:0 20px; height:64px; }
+      .nav-links{ display:none; }
+      #main-nav .desk-cta{ display:none; }
+      #nav-hamburger{ display:flex; }
+      .wrap{ padding:0 20px; }
+      .sec-pad{ padding:72px 0; }
+      .hero-content{ padding:110px 20px 80px; }
+      .hero-stats{ gap:30px; }
+      .hero-cta .btn{ flex:1 1 100%; }
+      .benefit-grid{ grid-template-columns:1fr; }
+      .prog-grid{ grid-template-columns:1fr; }
+      .coach-grid{ grid-template-columns:1fr; }
+      footer{ padding:48px 20px 34px; }
+      #wa-btn{ width:50px; height:50px; bottom:18px; right:14px; }
+      .ticker-track .cell{ flex-basis:260px; }
+      .ticker-track .cell img{ height:200px; }
+      /* Packages → stacked cards */
+      .pkg-row{ grid-template-columns:1fr; }
+      .pkg-tier{ flex-direction:row; align-items:center; gap:12px; border-right:none; border-bottom:1px solid var(--line); }
+      .pkg-cell{ flex-direction:row; align-items:center; justify-content:space-between; border-right:none;
+        border-bottom:1px solid var(--line); text-align:left; padding:14px 18px; }
+      .pkg-cell:last-child{ border-bottom:none; }
+      .pkg-cell .sub-btn{ width:auto; min-width:110px; }
+      #trial-drawer{ width:100%; }
+      #trial-drawer .form-grid{ grid-template-columns:1fr !important; }
     }
   </style>
 </head>
-<body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
+<body>
 
-  <!-- ══════════════════ TOURNAMENT ANNOUNCEMENT BAR ══════════════════ -->
-  <a id="tournament-bar" href="#trial" data-open-trial style="
-    position:fixed;top:0;left:0;right:0;z-index:1000;
-    display:flex;align-items:center;justify-content:center;
-    height:38px;padding:0 16px;text-decoration:none;
-    background:linear-gradient(90deg,#8f0d22,#c41230 40%,#e0173a 50%,#c41230 60%,#8f0d22);
-    background-size:200% auto;animation:barSheen 6s linear infinite;
-    box-shadow:0 2px 12px rgba(0,0,0,.35);
-  ">
-    <!-- FREE variant (REQUIRE_DEPOSIT = false) -->
-    <span class="flag-free" style="display:contents;">
-      <span class="tb-text tb-full" style="
-        font-family:'Barlow Condensed',sans-serif;font-weight:700;
-        font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
-        white-space:nowrap;display:flex;align-items:center;gap:9px;
-      ">
-        <span>🔥 Book Your Free Trial Class</span>
-        <span style="opacity:.55;">·</span>
-        <span>Fridays &amp; Saturdays</span>
-        <span style="opacity:.55;">·</span>
-        <span class="tb-cta">Book Now →</span>
-      </span>
-      <span class="tb-text tb-short" style="
-        font-family:'Barlow Condensed',sans-serif;font-weight:700;
-        font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
-        white-space:nowrap;align-items:center;gap:7px;
-      ">
-        <span>🔥 Free Trial · Fri &amp; Sat</span>
-        <span style="opacity:.55;">·</span>
-        <span class="tb-cta">Book Now →</span>
-      </span>
-    </span>
-    <!-- DEPOSIT variant (REQUIRE_DEPOSIT = true) -->
-    <span class="flag-deposit" hidden style="display:contents;">
-      <span class="tb-text tb-full" style="
-        font-family:'Barlow Condensed',sans-serif;font-weight:700;
-        font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:#fff;
-        white-space:nowrap;display:flex;align-items:center;gap:9px;
-      ">
-        <span>🔥 Book Your Trial Class</span>
-        <span style="opacity:.55;">·</span>
-        <span>$20 refundable when you join</span>
-        <span style="opacity:.55;">·</span>
-        <span class="tb-cta">Fri &amp; Sat only →</span>
-      </span>
-      <span class="tb-text tb-short" style="
-        font-family:'Barlow Condensed',sans-serif;font-weight:700;
-        font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#fff;
-        white-space:nowrap;align-items:center;gap:7px;
-      ">
-        <span>🔥 Trial Class · $20 refundable</span>
-        <span style="opacity:.55;">·</span>
-        <span class="tb-cta">Fri &amp; Sat →</span>
-      </span>
-    </span>
-  </a>
+  <!-- ══════════════════ INTRO ANIMATION ══════════════════ -->
+  <div id="intro">
+    <img class="intro-logo" src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/v1790046313/ChatGPT_Image_Sep_21_2026_09_05_04_PM_yiuj48.png" alt="Torque" />
+  </div>
 
-  <!-- ══════════════════════════ NAVBAR ══════════════════════════ -->
-  <nav id="main-nav" style="
-    position:fixed;top:38px;left:0;right:0;z-index:999;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 48px;height:68px;
-    background:rgba(8,18,34,0.96);backdrop-filter:blur(10px);
-  ">
-    <a href="#hero" style="display:flex;align-items:center;">
-      <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
-           alt="Torque Logo" style="height:44px;width:auto;object-fit:contain;" />
+  <!-- ══════════════════ NAVBAR ══════════════════ -->
+  <nav id="main-nav">
+    <a href="#hero" aria-label="Torque home">
+      <img class="wordmark" src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,h_70/v1790045964/ChatGPT_Image_Sep_21_2026_08_59_12_PM_kgcula.png" alt="TORQUE" />
     </a>
-
-    <ul style="list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:36px;">
-      <li><a href="#hero"        class="nav-link" data-section="hero"        style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Home</a></li>
-      <li><a href="#programs"    class="nav-link" data-section="programs"    style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Programs</a></li>
-      <li><a href="#coaches"     class="nav-link" data-section="coaches"     style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Coaches</a></li>
-      <li><a href="#packages"    class="nav-link" data-section="packages"    style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;text-decoration:none;">Packages</a></li>
+    <ul class="nav-links">
+      <li><a href="#hero"     class="nav-link" data-section="hero">Home</a></li>
+      <li><a href="#why"      class="nav-link" data-section="why">Why Torque</a></li>
+      <li><a href="#coaches"  class="nav-link" data-section="coaches">Coaches</a></li>
+      <li><a href="#packages" class="nav-link" data-section="packages">Packages</a></li>
     </ul>
-
-    <div style="display:flex;align-items:center;gap:20px;">
-      <a href="https://app.torquebaseball.us/" class="btn-shimmer" style="
-        background:#c41230;color:#fff;
-        font-family:'Barlow Condensed',sans-serif;font-weight:800;
-        font-size:.82rem;letter-spacing:2px;text-transform:uppercase;
-        padding:11px 22px;text-decoration:none;display:inline-block;
-      ">Join Classes</a>
-      <a href="#" style="
-        display:flex;align-items:center;gap:6px;color:#fff;
-        font-family:'Barlow Condensed',sans-serif;font-weight:600;
-        font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
-      ">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-        </svg>
-        Login
-      </a>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="https://app.torquebaseball.us/" class="btn btn-primary btn-sm desk-cta" target="_blank" rel="noopener">Join Classes</a>
       <button id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </nav>
 
-  <!-- Mobile navigation drawer -->
   <div id="mobile-nav-drawer" aria-hidden="true">
     <a href="#hero"     onclick="closeMobileNav()">Home</a>
-    <a href="#programs" onclick="closeMobileNav()">Programs</a>
+    <a href="#why"      onclick="closeMobileNav()">Why Torque</a>
     <a href="#coaches"  onclick="closeMobileNav()">Coaches</a>
     <a href="#packages" onclick="closeMobileNav()">Packages</a>
-    <a href="https://app.torquebaseball.us/" class="mob-cta" target="_blank" rel="noopener" onclick="closeMobileNav()">Join Classes</a>
+    <a href="#" class="mob-cta" data-open-trial onclick="closeMobileNav()">Book a Trial</a>
+    <a href="https://app.torquebaseball.us/" class="mob-cta" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);" target="_blank" rel="noopener" onclick="closeMobileNav()">Join Classes</a>
   </div>
 
-  <!-- ══════════════════════════ HERO ══════════════════════════ -->
-  <section id="hero" style="
-    position:relative;width:100%;height:100vh;min-height:640px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;overflow:hidden;background:#0a1628;
-  ">
-    <!-- Photo bg -->
-    <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.27_3_gszjif.jpg"
-         alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;" />
-    <!-- Gradient overlay -->
-    <div style="position:absolute;inset:0;background:linear-gradient(rgba(8,18,34,.56),rgba(8,18,34,.70));z-index:0;"></div>
-    <!-- Animated dot-grid canvas -->
-    <canvas id="hero-canvas"></canvas>
-    <!-- Diagonal stripe accents -->
-    <div class="hero-stripe"></div>
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section id="hero">
+    <video id="hero-video" autoplay muted loop playsinline preload="auto"
+           poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_2,w_1280,q_auto,f_auto/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.jpg">
+      <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280,du_20/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.webm" type="video/webm" />
+      <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280,du_20/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-scrim"></div>
 
-    <!-- Content -->
-    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;padding:0 24px;max-width:760px;">
+    <div class="hero-content">
+      <p class="kicker">TX Torque · El Paso, TX</p>
+      <h1 class="display" style="margin-top:16px;text-shadow:0 2px 30px rgba(0,0,0,.5);">Built by Pros.<br>Driven by the Next Generation.</h1>
+      <p class="hero-sub">An elite baseball performance academy built on professional structure, MLB-level standards, and technology that turns raw talent into real results.</p>
+      <div class="hero-cta">
+        <button type="button" class="btn btn-primary" data-open-trial>Book a Free Trial</button>
+        <a href="https://app.torquebaseball.us/" class="btn btn-ghost" target="_blank" rel="noopener">Join Classes</a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="num" id="stat-athletes">0</span><span class="lbl">Athletes Trained</span></div>
+        <div><span class="num" id="stat-years">0</span><span class="lbl">Years of Excellence</span></div>
+        <div><span class="num">100%</span><span class="lbl">Pro-Led Coaching</span></div>
+      </div>
+    </div>
 
-      <!-- Logo with red glow -->
-      <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
-           alt="Torque" class="logo-glow"
-           style="width:140px;height:auto;object-fit:contain;" />
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    </div>
+  </section>
 
-      <!-- Shimmer headline -->
-      <h1 class="shimmer-text" style="
-        font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
-        font-size:clamp(2.6rem,5.5vw,4.4rem);text-transform:uppercase;
-        line-height:1.05;letter-spacing:1px;margin:0;
-      ">Built by Pros.<br>Driven by the Next Generation.</h1>
+  <!-- ══════════════════ THIS IS TORQUE ══════════════════ -->
+  <section id="story" class="sec-pad">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="kicker">Our Story</p>
+        <h2 class="display">This Is Torque</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="story-grid">
+        <div class="story-video reveal" id="story-video">
+          <video id="storyVid" playsinline preload="none"
+                 poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_1280,q_auto,f_auto/v1790046525/THIS_IS_TORQUE_hezgx2.jpg">
+            <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280/v1790046525/THIS_IS_TORQUE_hezgx2.webm" type="video/webm" />
+            <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280/v1790046525/THIS_IS_TORQUE_hezgx2.mp4" type="video/mp4" />
+          </video>
+          <button class="play-btn" id="storyPlay" aria-label="Play the Torque story">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <p class="lead reveal" style="text-align:center;max-width:720px;margin:36px auto 0;font-size:1.05rem;">
+          Torque was built by players who lived the professional game — and came home to raise the standard.
+          This is our story: where we come from, what we believe, and why the next generation of El Paso
+          baseball is being developed the right way.
+        </p>
+      </div>
+    </div>
+  </section>
 
-      <!-- Subtitle -->
-      <p style="
-        font-family:'Barlow',sans-serif;font-weight:400;font-size:1.05rem;
-        color:rgba(255,255,255,.8);line-height:1.6;max-width:520px;margin:0;
-      ">A baseball performance facility built on professional structure,<br>discipline, and elite development standards.</p>
+  <!-- ══════════════════ WHY TORQUE (BENEFITS) ══════════════════ -->
+  <section id="why" class="sec-pad" style="background:linear-gradient(180deg,#080b12,#0a0e17);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="kicker">The Torque Advantage</p>
+        <h2 class="display">Why Train Here</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="benefit-grid">
+        <div class="benefit stagger-item">
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></div>
+          <h3>MLB &amp; Pro Experience</h3>
+          <p>Coached by former MLB and professional players — draft picks, Hall of Famers, and pros who bring the real standards of the game to every session.</p>
+        </div>
+        <div class="benefit stagger-item">
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M12 12 7 7"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+          <h3>TrackMan Technology</h3>
+          <p>Every rep is measured. Velocity, spin rate, exit velo, launch angle — TrackMan data drives development the same way it does in the big leagues.</p>
+        </div>
+        <div class="benefit stagger-item">
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Recruiting &amp; Connections</h3>
+          <p>We open doors. Real college and pro connections, exposure events, and guidance to get your athlete seen, recruited, and to the next level.</p>
+        </div>
+        <div class="benefit stagger-item">
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+          <h3>Structured Development</h3>
+          <p>A professional development system — mechanics, strength &amp; conditioning, and mindset — built in stages. No random reps, only deliberate progress.</p>
+        </div>
+        <div class="benefit stagger-item">
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
+          <h3>Elite Facility</h3>
+          <p>A performance facility built to pro standards — cages, mounds, and training tech — with year-round programming and weekend trial access.</p>
+        </div>
+        <div class="benefit stagger-item">
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>The Complete Athlete</h3>
+          <p>We build discipline, leadership, and mental toughness on and off the field — because the game rewards the athletes who master both.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- CTA -->
-      <a href="https://app.torquebaseball.us/" class="btn-shimmer" style="
-        margin-top:6px;background:#c41230;color:#fff;
-        font-family:'Barlow Condensed',sans-serif;font-weight:800;
-        font-size:.92rem;letter-spacing:2.5px;text-transform:uppercase;
-        padding:15px 40px;text-decoration:none;display:inline-block;
-      ">Join Classes Now</a>
-
-      <!-- Stats counters -->
-      <div style="margin-top:18px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);width:100%;">
-        <div class="stats-row">
-          <div class="stat-item">
-            <span class="stat-number" id="stat-athletes">0</span>
-            <span class="stat-label">Athletes Trained</span>
+  <!-- ══════════════════ PROGRAMS ══════════════════ -->
+  <section id="programs" class="sec-pad">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="kicker">TX Torque</p>
+        <h2 class="display">Player Development Programs</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="prog-grid">
+        <div class="prog-card reveal">
+          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_800,q_auto,f_auto/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.26_2_ayu6ik.jpg" alt="Foundational Development" loading="lazy" />
+          <div class="body">
+            <h3>Foundational Development</h3>
+            <p>Establishes the technical and physical foundation every athlete needs to progress — mechanics, movement, and habits built the right way from day one.</p>
           </div>
-          <div class="stat-item">
-            <span class="stat-number" id="stat-years">0</span>
-            <span class="stat-label">Years of Excellence</span>
+        </div>
+        <div class="prog-card reveal">
+          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_800,q_auto,f_auto/v1777647677/WhatsApp_Image_2026-04-30_at_16.42.28_3_bqf0x8.jpg" alt="Advanced Development" loading="lazy" />
+          <div class="body">
+            <h3>Advanced Development</h3>
+            <p>Pushes athletes beyond high-school standards with pro-level training, data, and accountability — preparing them to compete at the next level.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ TOURNAMENT FEATURED BAND ══════════════════ -->
-  <section id="tournament-promo" style="
-    position:relative;overflow:hidden;
-    background:linear-gradient(135deg,#0d2040 0%,#0a1628 55%,#0f2244 100%);
-    padding:80px 48px;
-    border-top:1px solid rgba(196,18,48,.28);
-    border-bottom:1px solid rgba(196,18,48,.28);
-  ">
-    <!-- red diagonal accents -->
-    <div aria-hidden="true" style="position:absolute;top:0;right:-60px;width:320px;height:100%;background:linear-gradient(180deg,rgba(196,18,48,.16),transparent 70%);transform:skewX(-14deg);pointer-events:none;"></div>
-    <div aria-hidden="true" style="position:absolute;bottom:-40px;left:-50px;width:220px;height:120px;background:#c41230;opacity:.09;transform:skewX(-16deg);pointer-events:none;"></div>
+  <!-- ══════════════════ COACHES ══════════════════ -->
+  <section id="coaches" class="sec-pad" style="background:linear-gradient(180deg,#0a0e17,#080b12);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="kicker">Our Team</p>
+        <h2 class="display">Meet the Coaches</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="coach-grid">
 
-    <div style="position:relative;z-index:2;max-width:860px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;">
+        <div class="coach stagger-item">
+          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777676822/Captura_de_pantalla_2026-05-01_163730_uudbo5.png" alt="Justin Maese" loading="lazy" />
+          <div class="body">
+            <p class="name">Justin Maese</p>
+            <p class="role">Director of Facility Operations</p>
+            <p class="role">Director of Pitching</p>
+            <p class="teams">New York Yankees • Atlanta Braves • Toronto Blue Jays</p>
+            <p class="accolade">2015 El Paso Baseball Hall of Fame</p>
+            <p class="bio">A 3rd-round pick in the 2015 MLB Draft with nine years of pro experience. Oversees all training operations with a focus on structured development and high-level pitching.</p>
+          </div>
+        </div>
 
-      <!-- Date badge -->
-      <div class="reveal" style="display:inline-flex;align-items:center;gap:9px;background:rgba(196,18,48,.16);border:1px solid rgba(196,18,48,.4);padding:8px 20px;border-radius:2px;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:2.5px;text-transform:uppercase;color:#e03050;">July 24, 2026 · El Paso, TX</span>
+        <div class="coach stagger-item">
+          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777587918/WhatsApp_Image_2026-04-30_at_4.19.51_PM_4_djunua.jpg" alt="Alex Reyes" loading="lazy" />
+          <div class="body">
+            <p class="name">Alex Reyes</p>
+            <p class="role">Events &amp; Recruitment Director</p>
+            <p class="role">Fielding / Hitting / Pitching Coach</p>
+            <p class="teams">NMSU • Bravos de León • Guerreros de Oaxaca • Tigres de Aragua • Vaqueros de Montería • Venados de Mazatlán</p>
+            <p class="bio">Four years of collegiate two-way experience and five years of pro pitching across Mexico, Venezuela, and Colombia — developing athletes on both sides of the ball.</p>
+          </div>
+        </div>
+
+        <div class="coach stagger-item">
+          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787776032/EDURO_qg39ly.jpg" alt="Eudor Garcia" loading="lazy" />
+          <div class="body">
+            <p class="name">Eudor Garcia</p>
+            <p class="role">Fielding &amp; Hitting Director</p>
+            <p class="accolade">NJCAA Player of the Year · 2014 El Paso HOF</p>
+            <p class="teams">EPCC • New York Mets • Toros de Tijuana • Algodoneros de Torreón • Indios de Juárez</p>
+            <p class="bio">A 4th-round pick in the 2014 MLB Draft with twelve years of pro baseball. Detail-oriented instruction in hitting and defensive development rooted in pro standards.</p>
+          </div>
+        </div>
+
+        <div class="coach stagger-item">
+          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787776032/GABRIELBASE_mu5fkm.jpg" alt="Gabriel Aguilar" loading="lazy" />
+          <div class="body">
+            <p class="name">Gabriel Aguilar</p>
+            <p class="role">Team Operations</p>
+            <p class="role">Pitching, Strength &amp; Conditioning</p>
+            <p class="teams">UNM • Rieleros de Aguascalientes • Sultanes de Monterrey • Leones de Yucatán</p>
+            <p class="bio">Four years at UNM and ten years of pro pitching. A high-level understanding of pitching development and strength &amp; conditioning for youth and advanced athletes.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FUTURE STARS ══════════════════ -->
+  <section id="future-stars" class="sec-pad" style="padding-left:0;padding-right:0;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="kicker">The Next Generation</p>
+        <h2 class="display">Our Future Stars</h2>
+        <span class="rule"></span>
+        <p class="lead" style="margin-top:18px;font-size:.98rem;">The athletes in training today, building the foundation for tomorrow's game.</p>
+      </div>
+    </div>
+    <div class="ticker-wrap">
+      <div class="ticker-track" style="animation:ticker 34s linear infinite;">
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686908/TX_4_-_1.00_00_23_18.Imagen_fija004_tiayvq.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_13_21.Imagen_fija002_k6bx64.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_15_16.Imagen_fija003_apleam.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_24_21.Imagen_fija005_jyxdha.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_06_19.Imagen_fija001_zab69v.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_28_11.Imagen_fija006_abzasf.jpg" alt="Young athlete" loading="lazy" /></div>
+        <!-- clone for seamless loop -->
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686908/TX_4_-_1.00_00_23_18.Imagen_fija004_tiayvq.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_13_21.Imagen_fija002_k6bx64.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_15_16.Imagen_fija003_apleam.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_24_21.Imagen_fija005_jyxdha.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_06_19.Imagen_fija001_zab69v.jpg" alt="Young athlete" loading="lazy" /></div>
+        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_28_11.Imagen_fija006_abzasf.jpg" alt="Young athlete" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ PACKAGES ══════════════════ -->
+  <section id="packages" class="sec-pad">
+    <div class="wrap">
+      <div class="sec-head reveal" style="max-width:720px;">
+        <p class="kicker">Membership</p>
+        <h2 class="display">Training Packages</h2>
+        <span class="rule"></span>
+        <p class="lead" style="margin-top:18px;font-size:.9rem;">Review the age groups and class times before booking. Students must register in the correct age group.</p>
+      </div>
+      <div class="pkg-note reveal">
+        <span><span class="dot"></span>Ages 7–10: 4:00–6:00 PM</span>
+        <span><span class="dot"></span>Ages 11–14: 6:00–7:00 PM</span>
+        <span><span class="dot"></span>Ages 14+: 7:00–8:00 PM</span>
       </div>
 
-      <!-- Kicker -->
-      <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0;">Special Event</p>
+      <div class="pkg-list">
+        <!-- A -->
+        <div class="pkg-row stagger-item">
+          <div class="pkg-tier"><span class="lv">A</span><span class="cnt">4 Lessons / Month</span></div>
+          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$260.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$260.00</span><span class="price">$234.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$260.00</span><span class="price">$221.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$3,120.00</span><span class="price">$2,496.00</span><button class="sub-btn">Subscribe</button></div>
+        </div>
+        <!-- AA -->
+        <div class="pkg-row stagger-item">
+          <div class="pkg-tier"><span class="lv">AA</span><span class="cnt">8 Lessons / Month</span></div>
+          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$360.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$360.00</span><span class="price">$324.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$360.00</span><span class="price">$306.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$4,320.00</span><span class="price">$3,456.00</span><button class="sub-btn">Subscribe</button></div>
+        </div>
+        <!-- AAA -->
+        <div class="pkg-row stagger-item">
+          <div class="pkg-tier"><span class="lv gold">AAA</span><span class="cnt" style="color:var(--gold);">12 Lessons / Month</span></div>
+          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$440.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$440.00</span><span class="price">$396.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$440.00</span><span class="price">$374.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$5,280.00</span><span class="price">$4,224.00</span><button class="sub-btn">Subscribe</button></div>
+        </div>
+        <!-- MLB -->
+        <div class="pkg-row stagger-item">
+          <div class="pkg-tier"><span class="lv">MLB</span><span class="cnt">Unlimited / Month</span></div>
+          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$600.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$600.00</span><span class="price">$540.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$600.00</span><span class="price">$510.00</span><button class="sub-btn">Subscribe</button></div>
+          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$7,200.00</span><span class="price">$5,760.00</span><button class="sub-btn">Subscribe</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- Headline -->
-      <h2 class="shimmer-text reveal" style="
-        font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;
-        font-size:clamp(2.2rem,5vw,3.6rem);text-transform:uppercase;
-        line-height:1.02;letter-spacing:1px;margin:0;
-      ">Sportplex Tournament</h2>
-
-      <!-- Subtext / free-trial hook -->
-      <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:1.02rem;color:rgba(255,255,255,.72);line-height:1.65;max-width:600px;margin:0;">
-        Hardest Thrower &amp; Hardest Hit skill competitions. Book your <strong style="color:#fff;">FREE trial class</strong> — available Fridays &amp; Saturdays — and get your athlete on the field.
+  <!-- ══════════════════ BOOK A TRIAL ══════════════════ -->
+  <section id="trial" class="sec-pad">
+    <div class="wrap" style="max-width:720px;text-align:center;">
+      <p class="kicker reveal">Try Torque</p>
+      <h2 class="display reveal" style="font-size:clamp(2rem,4.4vw,3.2rem);margin-top:14px;">Book a Trial Class</h2>
+      <span class="rule reveal" style="margin:20px auto 26px;"></span>
+      <p class="lead reveal flag-free" style="max-width:560px;margin:0 auto 8px;">
+        See what Torque-level training feels like — your first class is <strong style="color:#fff;">100% free, no deposit required</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round.
       </p>
-
-      <span class="red-divider reveal" style="margin:6px auto 4px;"></span>
-
-      <!-- CTA -->
-      <a href="/tournament" class="btn-shimmer reveal" style="
-        background:#c41230;color:#fff;
-        font-family:'Barlow Condensed',sans-serif;font-weight:800;
-        font-size:.98rem;letter-spacing:2.5px;text-transform:uppercase;
-        padding:16px 44px;text-decoration:none;display:inline-block;
-      ">Book Your Free Trial</a>
-    </div>
-  </section>
-
-  <!-- ══════════════════ PLAYER DEVELOPMENT PROGRAMS ══════════════════ -->
-  <section id="programs" style="background:#0a1628;padding:96px 48px 100px;">
-    <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;text-align:center;margin:0 0 10px;">TX Torque</p>
-    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:0 0 14px;">Player Development Programs</h2>
-    <span class="red-divider reveal" style="margin:0 auto 52px;"></span>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1100px;margin:0 auto;">
-      <div class="card-hover reveal" style="background:#fff;border-radius:10px;overflow:hidden;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.26_2_ayu6ik.jpg"
-             alt="Foundational Development facility"
-             style="width:100%;height:290px;object-fit:cover;object-position:center;display:block;" />
-        <div style="padding:28px 30px 34px;">
-          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.55rem;color:#0a1628;text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;">Foundational Development</h3>
-          <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:#555;line-height:1.65;margin:0;">This program establishes the technical and physical foundation every athlete needs to progress.</p>
-        </div>
+      <p class="lead reveal flag-deposit" hidden style="max-width:560px;margin:0 auto 8px;">
+        See what Torque-level training feels like. Reserve your spot with a <strong style="color:#fff;">$20 deposit, fully refunded when you sign up for a package</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round.
+      </p>
+      <div class="reveal" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:32px 0 40px;">
+        <span class="chip flag-free"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Free Trial Class</span>
+        <span class="chip flag-deposit" hidden><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>$20 Refundable</span>
+        <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Fridays &amp; Saturdays</span>
+        <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All Skill Levels</span>
       </div>
-      <div class="card-hover reveal" style="background:#fff;border-radius:10px;overflow:hidden;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777647677/WhatsApp_Image_2026-04-30_at_16.42.28_3_bqf0x8.jpg"
-             alt="Advanced Development facility"
-             style="width:100%;height:290px;object-fit:cover;object-position:center;display:block;" />
-        <div style="padding:28px 30px 34px;">
-          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.55rem;color:#0a1628;text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;">Advanced Development</h3>
-          <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:#555;line-height:1.65;margin:0;">This program establishes the technical and physical foundation every athlete needs to progress.</p>
-        </div>
+      <div class="reveal">
+        <button type="button" class="btn btn-primary" data-open-trial>Book a Trial Class</button>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ TORQUE PERFORMANCE STANDARDS ══════════════════ -->
-  <section id="performance" style="background:linear-gradient(135deg,#0d2040 0%,#0a1628 50%,#0f2244 100%);padding:96px 60px;">
-    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.25fr;gap:72px;align-items:center;">
-
-      <!-- Facility image -->
-      <div class="reveal" style="border-radius:10px;overflow:hidden;aspect-ratio:4/5;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777587917/WhatsApp_Image_2026-04-30_at_4.19.51_PM_2_jqui1f.jpg"
-             alt="Torque Performance facility"
-             style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" />
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer>
+    <div class="foot-inner">
+      <img class="fw" src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,h_70/v1790045964/ChatGPT_Image_Sep_21_2026_08_59_12_PM_kgcula.png" alt="TORQUE" />
+      <div class="foot-links">
+        <a href="#hero">Home</a>
+        <a href="#why">Why Torque</a>
+        <a href="#coaches">Coaches</a>
+        <a href="#packages">Packages</a>
+        <a href="#" data-open-trial>Book Trial</a>
       </div>
-
-      <!-- Content -->
-      <div>
-        <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0 0 10px;">Performance</p>
-        <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(1.8rem,3.2vw,2.7rem);color:#fff;text-transform:uppercase;letter-spacing:1px;line-height:1.1;margin:0 0 14px;">Torque Performance Standards</h2>
-        <span class="red-divider reveal" style="margin-bottom:40px;"></span>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px 40px;">
-          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Developing Complete Athletes</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We build athletes who dominate mechanically, physically, and mentally — not athletes without structure, focus, or purpose.</p></div>
-          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Preparing Players for the Next Level</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">Our training pushes athletes beyond high school standards and prepares them to compete at higher levels of baseball.</p></div>
-          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Growth On and Off the Field</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We develop discipline, maturity, and decision-making alongside performance — because true athletes succeed everywhere.</p></div>
-          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Strong, Resilient Mindsets</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We teach athletes to handle pressure, adversity, and expectation. Mindset isn't a bonus — it's part of the program.</p></div>
-          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Pushing Athletes to Their Limits</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">We expect effort, discipline, and accountability. The standard is high because the results demand it.</p></div>
-          <div class="stagger-item"><h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:1.8px;text-transform:uppercase;color:#fff;margin:0 0 8px;">Building Alphas and Leaders</h4><p style="font-family:'Barlow',sans-serif;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.65;margin:0;">Our environment produces athletes who take ownership, lead by example, and elevate everyone around them.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════ MEET THE COACHES ══════════════════════ -->
-  <section id="coaches" style="background:#fff;padding:96px 48px 104px;">
-    <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;text-align:center;margin:0 0 10px;">Our Team</p>
-    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#0a1628;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:0 0 14px;">Meet the Coaches</h2>
-    <span class="red-divider reveal" style="margin:0 auto 56px;"></span>
-
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1200px;margin:0 auto;">
-
-      <!-- Jersey-number circle helper -->
-      <!-- JUSTIN MAESE -->
-      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777676822/Captura_de_pantalla_2026-05-01_163730_uudbo5.png"
-             alt="Justin Maese"
-             style="width:100%;height:240px;object-fit:cover;object-position:top center;display:block;" />
-        <div style="padding:20px 18px 24px;">
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Justin Maese</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 1px;">Director of Facility Operations</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Director of Pitching</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 4px;">New York Yankees • Atlanta Braves • Toronto Blue Jays</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;color:#c41230;margin:0 0 10px;">2015 El Paso Baseball Hall of Fame</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">Justin, a 3rd-round pick in the 2015 MLB Draft, brings nine years of professional baseball experience. He oversees all training operations with a focus on structured development, high-level pitching principles, and performance standards.</p>
-        </div>
-      </div>
-
-      <!-- ALEX REYES -->
-      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777587918/WhatsApp_Image_2026-04-30_at_4.19.51_PM_4_djunua.jpg"
-             alt="Alex Reyes"
-             style="width:100%;height:240px;object-fit:cover;object-position:top center;display:block;" />
-        <div style="padding:20px 18px 24px;">
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Alex Reyes</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 1px;">Events and Recruitment Director</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Fielding / Hitting Pitching Coach</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 10px;">NMSU • Bravos de León • Guerreros de Oaxaca • Tigres de Aragua • Vaqueros de Montería • Venados de Mazatlán</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">Alex brings four years of collegiate two-way experience and five years of professional pitching across Mexico, Venezuela, and Colombia. His background as both a shortstop and college hitter gives him a unique advantage in developing athletes on both sides of the ball.</p>
-        </div>
-      </div>
-
-      <!-- EUDOR GARCIA -->
-      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787776032/EDURO_qg39ly.jpg"
-             alt="Eudor Garcia"
-             style="width:100%;height:240px;object-fit:cover;object-position:top center;display:block;" />
-        <div style="padding:20px 18px 24px;">
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Eudor Garcia</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Fielding &amp; Hitting Director</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 2px;">NJCAA Player of the Year</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 2px;">2014 El Paso Baseball Hall of Fame</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 10px;">EPCC • New York Mets • Toros de Tijuana • Algodoneros de Torreón • Indios de Juárez</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">An NJCAA Player of the Year and 4th-round pick in the 2014 MLB Draft, Eudor brings twelve years of pro baseball. His expertise in both hitting and defensive development provides athletes with detail-oriented instruction rooted in professional standards.</p>
-        </div>
-      </div>
-
-      <!-- GABRIEL AGUILAR -->
-      <div class="coach-hover stagger-item" style="border:1px solid #e2e6ea;border-radius:6px;overflow:hidden;">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787776032/GABRIELBASE_mu5fkm.jpg"
-             alt="Gabriel Aguilar"
-             style="width:100%;height:240px;object-fit:cover;object-position:top center;display:block;" />
-        <div style="padding:20px 18px 24px;">
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;color:#0a1628;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px;">Gabriel Aguilar</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 1px;">Team Operations</p>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;color:#0a1628;margin:0 0 6px;">Pitching, Strength &amp; Conditioning Coach</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.76rem;color:#666;line-height:1.5;margin:0 0 10px;">UNM • Rieleros de Aguascalientes • Sultanes de Monterrey • Leones de Yucatán</p>
-          <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#444;line-height:1.6;margin:0;">With four years at UNM and ten years of professional pitching, Gabriel brings a high-level understanding of both pitching development and strength and conditioning. He develops athletes at both youth and advanced levels through detailed mechanics and disciplined training habits.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════ PRO GALLERY CAROUSEL ══════════════════════ -->
-  <section id="pro-gallery" style="background:#0a1628;padding:88px 0 96px;overflow:hidden;">
-    <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;text-align:center;margin:0 0 10px;">The Next Level</p>
-    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:0 0 12px;">From Torque to the Pros</h2>
-    <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.95rem;color:rgba(255,255,255,.6);text-align:center;max-width:560px;margin:0 auto 14px;line-height:1.6;">Our coaches have competed at the highest levels of the game — and they bring that experience to every athlete they develop.</p>
-    <span class="red-divider reveal" style="margin:0 auto 52px;"></span>
-
-    <div class="ticker-wrap" style="overflow:hidden;width:100%;">
-      <div class="ticker-track" style="animation:ticker 40s linear infinite;">
-        <!-- set 1 -->
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676203/IMG_5721.JPG_au0lre.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676201/54014C1E-06AD-4355-A302-AA3A62915EFB.JPG_zmsu0j.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777647677/WhatsApp_Image_2026-04-30_at_16.42.28_3_bqf0x8.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676946/WhatsApp_Image_2026-05-01_at_14.41.27_jhfp6y.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676945/1_ythz8w.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777647678/WhatsApp_Image_2026-04-30_at_16.42.30_2_e7pfap.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777647656/WhatsApp_Image_2026-04-30_at_16.42.28_4_brijff.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777587917/WhatsApp_Image_2026-04-30_at_4.19.51_PM_1_s6qvax.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <!-- set 2 (clone for seamless loop) -->
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676203/IMG_5721.JPG_au0lre.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676201/54014C1E-06AD-4355-A302-AA3A62915EFB.JPG_zmsu0j.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777647677/WhatsApp_Image_2026-04-30_at_16.42.28_3_bqf0x8.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676946/WhatsApp_Image_2026-05-01_at_14.41.27_jhfp6y.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777676945/1_ythz8w.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777647678/WhatsApp_Image_2026-04-30_at_16.42.30_2_e7pfap.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777647656/WhatsApp_Image_2026-04-30_at_16.42.28_4_brijff.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777587917/WhatsApp_Image_2026-04-30_at_4.19.51_PM_1_s6qvax.jpg" alt="Pro game" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block;" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════ FUTURE STARS ══════════════════════ -->
-  <section id="future-stars" style="background:#060f1f;padding:88px 0 96px;overflow:hidden;">
-    <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;text-align:center;margin:0 0 10px;">The Next Generation</p>
-    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:0 0 12px;">Our Future Stars</h2>
-    <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.95rem;color:rgba(255,255,255,.6);text-align:center;max-width:560px;margin:0 auto 14px;line-height:1.6;">Every great career starts with dedication. Meet the athletes in training today who are building the foundation for tomorrow's game.</p>
-    <span class="red-divider reveal" style="margin:0 auto 52px;"></span>
-
-    <div class="ticker-wrap" style="overflow:hidden;width:100%;">
-      <div class="ticker-track" style="animation:ticker 30s linear infinite;">
-        <!-- set 1 -->
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686908/TX_4_-_1.00_00_23_18.Imagen_fija004_tiayvq.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_13_21.Imagen_fija002_k6bx64.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_15_16.Imagen_fija003_apleam.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_24_21.Imagen_fija005_jyxdha.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_06_19.Imagen_fija001_zab69v.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_28_11.Imagen_fija006_abzasf.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <!-- set 2 (clone for seamless loop) -->
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686908/TX_4_-_1.00_00_23_18.Imagen_fija004_tiayvq.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_13_21.Imagen_fija002_k6bx64.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_15_16.Imagen_fija003_apleam.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_24_21.Imagen_fija005_jyxdha.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_06_19.Imagen_fija001_zab69v.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-        <div style="flex:0 0 380px;margin-right:16px;border-radius:8px;overflow:hidden;"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_28_11.Imagen_fija006_abzasf.jpg" alt="Young athlete" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:top;display:block;" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════ TRAINING PACKAGES ══════════════════════ -->
-  <section id="packages" style="background:#eef0f4;padding:96px 48px 104px;">
-    <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,4vw,2.8rem);color:#0a1628;text-transform:uppercase;letter-spacing:2px;text-align:center;margin:0 0 14px;">Training Packages</h2>
-    <span class="red-divider reveal" style="margin:0 auto 14px;"></span>
-    <p class="reveal" style="font-family:'Barlow',sans-serif;font-size:.88rem;color:#555;text-align:center;line-height:1.6;margin:0 0 18px;">Please make sure to review the age requirements and class times before booking.<br>Students must be registered in the correct age group.</p>
-    <div class="reveal" style="display:flex;justify-content:center;flex-wrap:wrap;gap:6px 28px;margin:0 0 40px;">
-      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;"><span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 7–10: 4:00 PM – 6:00 PM</span>
-      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;"><span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 11–14: 6:00 PM – 7:00 PM</span>
-      <span style="display:flex;align-items:center;gap:7px;font-family:'Barlow',sans-serif;font-size:.82rem;color:#333;"><span style="width:8px;height:8px;border-radius:50%;background:#c41230;flex-shrink:0;"></span>Ages 14 and up: 7:00 PM – 8:00 PM</span>
-    </div>
-
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
-
-      <!-- A -->
-      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
-        <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
-          <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#0a1628" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="14" fill="#0a1628">A</text></svg>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#0a1628;line-height:1;">A</span>
-          <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#888;">4 Lessons / Month</span>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$260.00</div>
-          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$260.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$234.00</div></div>
-          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$260.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$221.00</div></div>
-          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;">
-          <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div>
-          <div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$3,120.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$2,496.00</div></div>
-          <button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button>
-        </div>
-      </div>
-
-      <!-- AA -->
-      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
-        <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
-          <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#0a1628" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="11" fill="#0a1628">AA</text></svg>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#0a1628;line-height:1;">AA</span>
-          <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#888;">8 Lessons / Month</span>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$360.00</div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$360.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$324.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$360.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$306.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$4,320.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$3,456.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-      </div>
-
-      <!-- AAA -->
-      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
-        <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
-          <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#b8860b" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="9" fill="#b8860b">AAA</text></svg>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#b8860b;line-height:1;">AAA</span>
-          <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#b8860b;">12 Lessons / Month</span>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$440.00</div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$440.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$396.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$440.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$374.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$5,280.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$4,224.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-      </div>
-
-      <!-- MLB -->
-      <div class="stagger-item" style="display:grid;grid-template-columns:190px 1fr 1fr 1fr 1.15fr;background:#fff;border:1px solid #d8dde3;border-radius:4px;overflow:hidden;">
-        <div style="padding:22px 20px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;justify-content:center;gap:5px;">
-          <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.5" stroke="#0a1628" stroke-width="2" fill="none"/><text x="50%" y="67%" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="9" fill="#0a1628">MLB</text></svg>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:#0a1628;line-height:1;">MLB</span>
-          <span style="font-family:'Barlow',sans-serif;font-size:.75rem;color:#888;">Unlimited Lessons / Month</span>
-        </div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Month to Month</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#999;margin-top:2px;">Original Price</div></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$600.00</div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">6-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 10% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$600.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$540.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;border-right:1px solid #d8dde3;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">12-Month Contract</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 15% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$600.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$510.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-        <div style="padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;background:#fdf8f8;"><div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;color:#0a1628;letter-spacing:.5px;">Annual (Lump-Sum)</div><div style="font-family:'Barlow',sans-serif;font-size:.72rem;color:#c41230;margin-top:2px;">With 20% Discount:</div></div><div style="text-align:center;"><div style="font-family:'Barlow',sans-serif;font-size:.78rem;color:#bbb;text-decoration:line-through;">$7,200.00</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;color:#0a1628;">$5,760.00</div></div><button class="sub-btn" style="background:#c41230;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;padding:9px 10px;border:none;cursor:pointer;width:100%;">Subscribe Here</button></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════ BOOK A TRIAL ══════════════════════════ -->
-  <section id="trial" style="background:#0a1628;padding:96px 48px 104px;position:relative;overflow:hidden;">
-    <div aria-hidden="true" style="position:absolute;top:-40px;right:-60px;width:260px;height:140px;background:#c41230;opacity:.07;transform:skewX(-16deg);pointer-events:none;"></div>
-
-    <div style="max-width:640px;margin:0 auto;position:relative;z-index:2;">
-      <div style="text-align:center;margin-bottom:40px;">
-        <p class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#c41230;margin:0 0 10px;">Try Torque</p>
-        <h2 class="reveal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3rem);color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0 0 14px;">Book a Trial Class</h2>
-        <span class="red-divider reveal" style="margin:0 auto 24px;"></span>
-        <p class="reveal flag-free" style="font-family:'Barlow',sans-serif;font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.75;margin:0 auto;max-width:544px;">
-          See what Torque-level training feels like — your first class is <strong style="color:#fff;">100% free, no deposit required</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round — book anytime.
-        </p>
-        <p class="reveal flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.75;margin:0 auto;max-width:544px;">
-          See what Torque-level training feels like. Reserve your spot with a <strong style="color:#fff;">$20 deposit that's fully refunded when you sign up for a package</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round — book anytime.
-        </p>
-      </div>
-
-      <!-- Value chips -->
-      <div class="reveal" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:46px;">
-        <span class="flag-free" style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Free Trial Class
-        </span>
-        <span class="flag-deposit" hidden style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>$20 Refundable
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Fridays &amp; Saturdays
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(196,18,48,.12);border:1px solid rgba(196,18,48,.3);border-radius:40px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#e8bbc2;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All Skill Levels
-        </span>
-      </div>
-
-      <div class="reveal" style="text-align:center;">
-        <button type="button" class="btn-shimmer" data-open-trial style="
-          background:#c41230;color:#fff;border:none;cursor:pointer;
-          font-family:'Barlow Condensed',sans-serif;font-weight:800;
-          font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
-          padding:17px 46px;
-        ">Book a Trial Class</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
-  <footer style="background:#060e1c;padding:52px 48px 36px;">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
-      <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1774490841/TORQUE_hauofb.png"
-           alt="Torque" style="height:52px;width:auto;object-fit:contain;opacity:.88;" />
-      <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;">
-        <a href="#hero"        style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Home</a>
-        <a href="#programs"    style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Programs</a>
-        <a href="#coaches"     style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Coaches</a>
-        <a href="#packages"    style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;" onmouseover="this.style.color='#c41230'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Packages</a>
-      </div>
-      <!-- Social icons -->
       <div style="display:flex;gap:10px;">
-        <a href="#" class="social-icon" aria-label="Instagram">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="#" class="social-icon" aria-label="Facebook">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        </a>
-        <a href="#" class="social-icon" aria-label="X">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="#" class="social-icon" aria-label="YouTube">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-        </a>
+        <a href="#" class="social-icon" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" class="social-icon" aria-label="Facebook"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" class="social-icon" aria-label="X"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" class="social-icon" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
       </div>
-      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);"></div>
-      <p style="font-family:'Barlow',sans-serif;font-size:.78rem;color:rgba(255,255,255,.28);margin:0;">
-        &copy; <span id="footer-year"></span> TX Torque Baseball Academy. All rights reserved.
-      </p>
+      <div style="width:100%;max-width:1120px;height:1px;background:var(--line);"></div>
+      <p style="font-size:.78rem;color:var(--muted-2);margin:0;">&copy; <span id="footer-year"></span> TX Torque Baseball Academy. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- ══════════════════ FLOATING WHATSAPP ══════════════════ -->
   <a id="wa-btn" href="https://wa.me/19154740940" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
-
-  <!-- ══════════════════ LABOR DAY CAMP POPUP ══════════════════ -->
-  <div id="camp-modal-overlay" aria-hidden="true">
-    <div id="camp-modal" role="dialog" aria-modal="true" aria-label="Labor Day Baseball Camp">
-      <!-- close X -->
-      <button id="camp-modal-close" type="button" aria-label="Close">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <!-- clickable flyer → opens the app to sign up / log in -->
-      <a id="camp-modal-link" href="https://app.torquebaseball.us/" target="_blank" rel="noopener" aria-label="Labor Day Baseball Camp — sign up in the app">
-        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787264816/Creating_youth_baseball_camp_flyer_202608201625_iy6lkc.jpg"
-             alt="Labor Day Baseball Camp flyer — tap to sign up" />
-      </a>
-    </div>
-  </div>
 
   <!-- ══════════════════ TRIAL BOOKING DRAWER ══════════════════ -->
   <div id="trial-drawer-overlay" aria-hidden="true">
@@ -1165,28 +722,26 @@
             </select>
           </div>
 
-          <div id="form-error" style="display:none;background:rgba(196,18,48,.14);border:1px solid rgba(196,18,48,.38);border-radius:4px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#e8bbc2;line-height:1.5;"></div>
+          <div id="form-error" style="display:none;background:rgba(63,140,255,.12);border:1px solid rgba(63,140,255,.4);border-radius:6px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#bcd6ff;line-height:1.5;"></div>
 
           <button type="submit" id="submit-btn" class="btn-shimmer" style="
-            background:#c41230;color:#fff;border:none;cursor:pointer;
+            background:#f4f6fa;color:#0a0f1a;border:none;cursor:pointer;
             font-family:'Barlow Condensed',sans-serif;font-weight:800;
             font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
-            padding:18px 0;width:100%;margin-top:4px;
+            padding:18px 0;width:100%;margin-top:4px;border-radius:3px;
           ">Book My Free Trial</button>
 
-          <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
-            By submitting you agree to be contacted about your trial class.
-            No deposit, no cost — just show up ready to train.
+          <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.3);text-align:center;margin:0;line-height:1.6;">
+            By submitting you agree to be contacted about your trial class. No deposit, no cost — just show up ready to train.
           </p>
-          <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.28);text-align:center;margin:0;line-height:1.6;">
-            By submitting you agree to be contacted about your trial class.
-            The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
+          <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.3);text-align:center;margin:0;line-height:1.6;">
+            By submitting you agree to be contacted about your trial class. The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
           </p>
         </form>
 
         <div id="form-success" style="display:none;text-align:center;padding:52px 24px;">
-          <div style="width:76px;height:76px;border-radius:50%;background:rgba(196,18,48,.14);border:2px solid #c41230;display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c41230" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <div style="width:76px;height:76px;border-radius:50%;background:rgba(63,140,255,.14);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6fb0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
           <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:2.2rem;color:#fff;text-transform:uppercase;margin:0 0 14px;">You're In!</h3>
           <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
@@ -1197,8 +752,23 @@
     </aside>
   </div>
 
-  <!-- ══════════════════════════ SCRIPTS ══════════════════════════ -->
+  <!-- ══════════════════ SCRIPTS ══════════════════ -->
   <script>
+    /* ══ Intro animation: big logo + video → shrink, reveal hero ══ */
+    (function () {
+      const intro = document.getElementById('intro');
+      const hero  = document.getElementById('hero');
+      if (!intro || !hero) return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.body.style.overflow = 'hidden';
+      function finish() {
+        intro.classList.add('done');
+        hero.classList.add('intro-done');
+        setTimeout(function () { document.body.style.overflow = ''; intro.style.display = 'none'; }, 900);
+      }
+      if (reduce) finish(); else setTimeout(finish, 2400);
+    })();
+
     /* ══════════════════════════════════════════════════════════════
        DEPOSIT FEATURE FLAG
        Flip to true to re-enable the $20 Stripe deposit + all deposit
@@ -1206,8 +776,7 @@
        ══════════════════════════════════════════════════════════════ */
     const REQUIRE_DEPOSIT = false;  // set to true to re-enable the $20 Stripe deposit
 
-    /* Show the copy variant that matches the flag (deposit blocks are
-       marked .flag-deposit + hidden; free blocks are .flag-free). */
+    /* Show the copy variant that matches the flag. */
     document.querySelectorAll('.flag-free').forEach(function (el) { el.hidden = REQUIRE_DEPOSIT; });
     document.querySelectorAll('.flag-deposit').forEach(function (el) { el.hidden = !REQUIRE_DEPOSIT; });
 
@@ -1230,13 +799,10 @@
         document.body.style.overflow = '';
       };
       document.getElementById('trial-drawer-close').addEventListener('click', window.closeTrialDrawer);
-      /* click on the dark overlay (outside the panel) closes it */
       overlay.addEventListener('click', function (e) { if (e.target === overlay) window.closeTrialDrawer(); });
-      /* Esc closes it */
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && overlay.classList.contains('open')) window.closeTrialDrawer();
       });
-      /* every [data-open-trial] trigger opens the drawer instead of scrolling */
       document.querySelectorAll('[data-open-trial]').forEach(function (el) {
         el.addEventListener('click', function (e) { e.preventDefault(); window.openTrialDrawer(); });
       });
@@ -1246,9 +812,8 @@
     (function () {
       const hamburger = document.getElementById('nav-hamburger');
       const drawer    = document.getElementById('mobile-nav-drawer');
-      const BARS  = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
-      const CROSS = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-
+      const BARS  = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+      const CROSS = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
       window.closeMobileNav = function () {
         drawer.classList.remove('open');
         drawer.setAttribute('aria-hidden', 'true');
@@ -1256,7 +821,6 @@
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       };
-
       hamburger.addEventListener('click', function () {
         if (drawer.classList.contains('open')) {
           window.closeMobileNav();
@@ -1270,131 +834,61 @@
       });
     })();
 
+    /* ── Story video: click to play with sound ── */
+    (function () {
+      const v = document.getElementById('storyVid');
+      const b = document.getElementById('storyPlay');
+      if (!v || !b) return;
+      b.addEventListener('click', function () {
+        v.setAttribute('controls', '');
+        const p = v.play(); if (p && p.catch) p.catch(function(){});
+        b.style.display = 'none';
+      });
+    })();
+
     /* ── Footer year ── */
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-    /* ── Subscribe Here buttons ── */
-    document.querySelectorAll('button.sub-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        window.open('https://app.torquebaseball.us/', '_blank');
-      });
+    /* ── Subscribe Here buttons → app ── */
+    document.querySelectorAll('button.sub-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { window.open('https://app.torquebaseball.us/', '_blank'); });
     });
 
-    /* ── Hero animated dot-grid canvas ── */
-    (function () {
-      const canvas = document.getElementById('hero-canvas');
-      const ctx = canvas.getContext('2d');
-      const SPACING = 46;
-      let W, H, dots, cols;
-
-      function resize() {
-        W = canvas.width  = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
-        cols = Math.ceil(W / SPACING) + 1;
-        const rows = Math.ceil(H / SPACING) + 1;
-        dots = [];
-        for (let r = 0; r <= rows; r++) {
-          for (let c = 0; c <= cols; c++) {
-            dots.push({
-              ox: c * SPACING, oy: r * SPACING,
-              x: c * SPACING,  y: r * SPACING,
-              phase: Math.random() * Math.PI * 2,
-              amp:   2 + Math.random() * 3.5,
-              spd:   0.35 + Math.random() * 0.55
-            });
-          }
-        }
-      }
-
-      function draw(t) {
-        ctx.clearRect(0, 0, W, H);
-        const ts = t * 0.00075;
-
-        dots.forEach((d, i) => {
-          d.x = d.ox + Math.sin(ts * d.spd + d.phase) * d.amp;
-          d.y = d.oy + Math.cos(ts * d.spd + d.phase) * d.amp;
-
-          /* dot */
-          ctx.beginPath();
-          ctx.arc(d.x, d.y, 1.4, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255,255,255,.6)';
-          ctx.fill();
-
-          /* right neighbour line */
-          if ((i + 1) % cols !== 0 && i + 1 < dots.length) {
-            const n = dots[i + 1];
-            const dx = n.x - d.x, dy = n.y - d.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            ctx.beginPath();
-            ctx.moveTo(d.x, d.y);
-            ctx.lineTo(n.x, n.y);
-            ctx.strokeStyle = `rgba(255,255,255,${Math.max(0, .11 * (1 - dist / 58))})`;
-            ctx.lineWidth = .7;
-            ctx.stroke();
-          }
-
-          /* bottom neighbour line */
-          if (i + cols < dots.length) {
-            const n = dots[i + cols];
-            const dx = n.x - d.x, dy = n.y - d.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            ctx.beginPath();
-            ctx.moveTo(d.x, d.y);
-            ctx.lineTo(n.x, n.y);
-            ctx.strokeStyle = `rgba(255,255,255,${Math.max(0, .11 * (1 - dist / 58))})`;
-            ctx.lineWidth = .7;
-            ctx.stroke();
-          }
-        });
-
-        requestAnimationFrame(draw);
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-      requestAnimationFrame(draw);
-    })();
-
-    /* ── Nav: scroll opacity + active section ── */
-    const nav      = document.getElementById('main-nav');
+    /* ── Nav: scroll state + active section ── */
+    const nav = document.getElementById('main-nav');
     const navLinks = document.querySelectorAll('.nav-link');
-    const sectionIds = ['hero', 'programs', 'performance', 'coaches', 'packages'];
-
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 48);
+    const sectionIds = ['hero', 'why', 'coaches', 'packages'];
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
       let active = 'hero';
-      sectionIds.forEach(id => {
+      sectionIds.forEach(function (id) {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 130) active = id;
+        if (el && window.scrollY >= el.offsetTop - 140) active = id;
       });
-      navLinks.forEach(a => a.classList.toggle('active', a.dataset.section === active));
+      navLinks.forEach(function (a) { a.classList.toggle('active', a.dataset.section === active); });
     }, { passive: true });
 
-    /* ── Intersection Observer: reveal + red-divider ── */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      });
+    /* ── Reveal on scroll ── */
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.14 });
-
-    document.querySelectorAll('.reveal, .red-divider').forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
     /* ── Stagger items per section ── */
-    document.querySelectorAll('section').forEach(section => {
+    document.querySelectorAll('section').forEach(function (section) {
       const items = section.querySelectorAll('.stagger-item');
       if (!items.length) return;
-      const sio = new IntersectionObserver(entries => {
+      const sio = new IntersectionObserver(function (entries) {
         if (!entries[0].isIntersecting) return;
-        items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 115));
+        items.forEach(function (item, i) { setTimeout(function () { item.classList.add('visible'); }, i * 110); });
         sio.disconnect();
       }, { threshold: 0.08 });
       sio.observe(section);
     });
 
-    /* ── Stats counter ── */
+    /* ── Stats counters ── */
     function counter(el, target, suffix, ms) {
+      if (!el) return;
       let start = null;
       (function step(ts) {
         if (!start) start = ts;
@@ -1404,48 +898,15 @@
         if (p < 1) requestAnimationFrame(step);
       })(performance.now());
     }
-
-    const statsIO = new IntersectionObserver(entries => {
+    const statsIO = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) return;
-      counter(document.getElementById('stat-athletes'),  500, '+', 1800);
-      counter(document.getElementById('stat-years'),       10, '+', 1400);
+      counter(document.getElementById('stat-athletes'), 500, '+', 1800);
+      counter(document.getElementById('stat-years'),      10, '+', 1400);
       statsIO.disconnect();
-    }, { threshold: 0.5 });
+    }, { threshold: 0.4 });
     statsIO.observe(document.getElementById('hero'));
 
-    /* ── Labor Day Camp popup (shows on every load, no localStorage) ── */
-    (function () {
-      const overlay = document.getElementById('camp-modal-overlay');
-      if (!overlay) return;
-
-      function openModal() {
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal() {
-        overlay.classList.remove('open');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      document.getElementById('camp-modal-close').addEventListener('click', closeModal);
-      /* clicking the dark overlay (outside the flyer) closes it */
-      overlay.addEventListener('click', function (e) {
-        if (e.target === overlay) closeModal();
-      });
-      /* Esc key closes it */
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-      });
-      /* clicking the flyer opens the app (new tab) and closes the popup */
-      document.getElementById('camp-modal-link').addEventListener('click', closeModal);
-
-      /* let the page paint first, then reveal */
-      setTimeout(openModal, 800);
-    })();
-
-    /* ── Trial lead form → Apps Script (source: main-landing-trial) ── */
+    /* ── Trial lead form → Apps Script (Sheet+email) + app endpoint ── */
     (function () {
       const form = document.getElementById('lead-form');
       if (!form) return;
@@ -1493,25 +954,14 @@
         };
 
         try {
-          /* 1) Always save the lead first. Apps Script sends no CORS headers →
-             post as text/plain (simple request, no preflight) with
-             mode:'no-cors'. doPost reads e.postData.contents and JSON.parses
-             it. Opaque response = lead saved. */
+          /* 1) Always save the lead first (Apps Script — no CORS headers → text/plain, no-cors). */
           await fetch(LEAD_ENDPOINT, {
             method: 'POST',
             mode:   'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body:    JSON.stringify(payload)
           });
-          /* 1b) Additive & fire-and-forget: also send the lead to the app.
-             NOT awaited — the success/redirect flow depends ONLY on the Apps
-             Script call above, exactly like before.
-             keepalive:true so the request survives the imminent /thank-you (or
-             Stripe) navigation — a normal fetch is cancelled on page unload,
-             which is why app leads weren't arriving on real submits.
-             The endpoint now returns proper CORS headers, so this is a normal
-             application/json POST. If the endpoint is down, .catch swallows it
-             and the Sheet/email still work. */
+          /* 1b) Additive & fire-and-forget: also send to the app (keepalive survives the redirect). */
           fetch('https://app.torquebaseball.us/api/create-lead', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1520,13 +970,10 @@
           }).catch(() => {});
           /* 2) Branch on the flag. */
           if (REQUIRE_DEPOSIT) {
-            /* Paid flow → hand off to Stripe for the $20 deposit (email prefilled,
-               ignored gracefully if the link collects its own). */
             submitBtn.textContent = 'Redirecting you to secure payment…';
             const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
             setTimeout(function () { window.location.href = payUrl; }, 700);
           } else {
-            /* Free flow → skip Stripe, go straight to the confirmation page. */
             submitBtn.textContent = 'Booking your free trial…';
             setTimeout(function () { window.location.href = '/thank-you'; }, 500);
           }
@@ -1538,7 +985,6 @@
         }
       });
     })();
-
   </script>
 
   <!-- Vercel Web Analytics -->
