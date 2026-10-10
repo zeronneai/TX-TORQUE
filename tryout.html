@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Torque Youth Tryouts · Saturday, October 10 · TX Torque</title>
-  <meta name="description" content="Torque Youth club team tryouts on Saturday, October 10 at Del Valle HS. Free. Ages 13 and under. Coaches who are with your player in practice and in the game." />
+  <meta name="description" content="Torque Youth club team tryouts, Saturday, October 10 at Del Valle HS. Registration is closed. Ages 13 and under. Coaches who are with your player in practice and in the game." />
   <link rel="icon" href="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_120/v1790046313/ChatGPT_Image_Sep_21_2026_09_05_04_PM_yiuj48.png" />
   <!-- media are no-cors requests, so this preconnect is deliberately without crossorigin -->
   <link rel="preconnect" href="https://res.cloudinary.com" />
@@ -86,11 +86,6 @@
     #mobile-nav-drawer a:hover{ color:var(--accent); }
     #mobile-nav-drawer a.mob-cta{ background:#f4f6fa; color:#0a0f1a; font-style:normal; font-size:1.05rem;
       letter-spacing:2.5px; padding:14px 36px; border-radius:2px; }
-
-    /* ── Live dot (urgency) ── */
-    .live-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--accent);
-      margin-right:10px; vertical-align:middle; box-shadow:0 0 0 0 rgba(63,140,255,.7); animation:livePulse 1.8s ease infinite; }
-    @keyframes livePulse{ 0%{ box-shadow:0 0 0 0 rgba(63,140,255,.7); } 70%{ box-shadow:0 0 0 10px rgba(63,140,255,0); } 100%{ box-shadow:0 0 0 0 rgba(63,140,255,0); } }
 
     /* ── Hero: full-bleed video (same treatment as index hero) ── */
     #hero{ position:relative; width:100%; min-height:100svh; display:flex; align-items:center;
@@ -203,28 +198,17 @@
     .slot-note{ margin:18px auto 0; text-align:center; max-width:560px; font-size:.92rem; color:var(--muted); line-height:1.65; }
     .slot-note strong{ color:#fff; }
 
-    /* ── Register (restyle only — form markup and JS untouched) ── */
+    /* ── Registration closed ── */
     #register{ background:linear-gradient(180deg,#0a0e17,#080b12); }
-    .form-card{ max-width:620px; margin:0 auto; background:linear-gradient(180deg,var(--panel),var(--panel-2));
-      border:1px solid var(--line); border-radius:14px; padding:36px 34px 30px; box-shadow:0 30px 80px rgba(0,0,0,.45); }
-    #tryout-form{ display:flex; flex-direction:column; gap:18px; }
-    #tryout-form .row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    #tryout-form label{ display:flex; flex-direction:column; gap:7px; font-family:'Barlow Condensed',sans-serif;
-      font-weight:700; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
-    #tryout-form input, #tryout-form textarea{ background:rgba(255,255,255,.06); border:1px solid var(--line-2);
-      color:#fff; padding:13px 16px; border-radius:6px; font-family:'Barlow',sans-serif; font-size:1rem;
-      outline:none; transition:border-color .2s, background .2s; -webkit-appearance:none; appearance:none; width:100%;
-      text-transform:none; letter-spacing:normal; font-weight:400; }
-    #tryout-form textarea{ min-height:96px; resize:vertical; }
-    #tryout-form input:focus, #tryout-form textarea:focus{ border-color:var(--accent); background:rgba(255,255,255,.09); }
-    #ty-submit{ background:#f4f6fa; color:#0a0f1a; border:none; cursor:pointer; border-radius:3px; width:100%; margin-top:6px;
-      font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1rem; letter-spacing:2.5px; text-transform:uppercase;
-      padding:18px 0; box-shadow:0 10px 34px rgba(0,0,0,.35); }
-    #ty-submit:hover{ background:#fff; box-shadow:0 14px 40px rgba(63,140,255,.28); }
-    #ty-submit:disabled{ opacity:.6; cursor:default; }
-    .ty-hint{ margin:-8px 0 0; font-size:.82rem; color:var(--muted-2); line-height:1.5; }
-    #tryout-form input[aria-invalid="true"]{ border-color:var(--gold); background:rgba(216,180,106,.08); }
-    #ty-msg{ margin:2px 0 0; min-height:1.3em; text-align:center; font-size:.95rem; line-height:1.6; color:var(--accent-2); }
+    .closed-card{ max-width:620px; margin:0 auto; text-align:center; background:linear-gradient(180deg,var(--panel),var(--panel-2));
+      border:1px solid var(--line); border-radius:14px; padding:44px 34px 38px; box-shadow:0 30px 80px rgba(0,0,0,.45); }
+    .closed-badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:40px;
+      border:1px solid var(--line-2); background:rgba(255,255,255,.05); font-family:'Barlow Condensed',sans-serif;
+      font-weight:800; font-size:.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+    .closed-badge svg{ color:var(--gold); }
+    .closed-card h2{ font-size:clamp(2rem,4.6vw,3.2rem); margin:20px 0 0; }
+    .closed-card .lead{ margin:16px auto 0; max-width:460px; }
+    .closed-card .hero-cta{ margin-top:30px; }
 
     /* ── Closing ── */
     #closing{ background:radial-gradient(ellipse 70% 90% at 50% 100%, rgba(63,140,255,.14), transparent 70%), #05070c;
@@ -282,8 +266,7 @@
       .slot-grid{ grid-template-columns:1fr; gap:14px; }
       .slot{ padding:26px 24px 24px; }
       .slot .time{ font-size:2.8rem; }
-      .form-card{ padding:26px 20px 22px; }
-      #tryout-form .row{ grid-template-columns:1fr; }
+      .closed-card{ padding:34px 22px 30px; }
       footer{ padding:48px 20px 34px; }
       #wa-btn{ width:50px; height:50px; bottom:18px; right:14px; }
     }
@@ -304,7 +287,7 @@
       <li><a href="/tryout"    class="nav-link active" aria-current="page">Tryouts</a></li>
     </ul>
     <div style="display:flex;align-items:center;gap:16px;">
-      <a href="#register" class="btn btn-primary btn-sm desk-cta">Register</a>
+      <a href="https://wa.me/19154740940" target="_blank" rel="noopener" class="btn btn-primary btn-sm desk-cta">Contact Us</a>
       <button id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -316,7 +299,7 @@
     <a href="/#why"      onclick="closeMobileNav()">Why Torque</a>
     <a href="/#coaches"  onclick="closeMobileNav()">Coaches</a>
     <a href="#schedule"  onclick="closeMobileNav()">Age Groups</a>
-    <a href="#register" class="mob-cta" onclick="closeMobileNav()">Register</a>
+    <a href="https://wa.me/19154740940" target="_blank" rel="noopener" class="mob-cta" onclick="closeMobileNav()">Contact Us</a>
   </div>
 
   <!-- ══════════════════ HERO — full-bleed video ══════════════════ -->
@@ -330,7 +313,7 @@
     <div class="hero-scrim"></div>
 
     <div class="hero-content">
-      <p class="kicker"><span class="live-dot" aria-hidden="true"></span>Now Registering · Torque Youth Club Tryouts</p>
+      <p class="kicker">Registration Closed · Torque Youth Club Tryouts</p>
       <h1 class="display">Earn Your Spot.</h1>
       <p class="hero-sub">Open tryouts for the Torque Youth club teams. Show us what you've got, then develop with coaches who are with you in practice <em>and</em> in the game.</p>
       <div class="chips">
@@ -339,7 +322,7 @@
         <span class="chip chip-free"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Free · No Payment</span>
       </div>
       <div class="hero-cta">
-        <a href="#register" class="btn btn-primary btn-shimmer">Register Now</a>
+        <a href="#register" class="btn btn-primary btn-shimmer">Get Involved</a>
         <a href="#schedule" class="btn btn-ghost">Age Groups &amp; Times</a>
       </div>
       <div class="hero-stats">
@@ -442,7 +425,7 @@
         </h2>
         <p class="never-foot"><span class="ast">*</span>Unless you want to get better. A lot better.</p>
         <p class="lead">Once your player has coaches who see every rep, in practice and in games, there's no going back to hoping it clicks on its own.</p>
-        <a href="#register" class="btn btn-primary btn-shimmer">Prove It At Tryouts</a>
+        <a href="https://wa.me/19154740940" target="_blank" rel="noopener" class="btn btn-primary btn-shimmer">Talk To A Coach</a>
       </div>
       <div class="phone">
         <!-- No src / poster until it scrolls near view: nothing downloads on page load. -->
@@ -476,43 +459,21 @@
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Del Valle HS</span>
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Free, no payment</span>
       </div>
-      <p class="slot-note reveal">Your player's group and time are <strong>assigned automatically from their age</strong>, so you don't pick a slot. Just register and we'll confirm the details.</p>
+      <p class="slot-note reveal">Each player's group and time were <strong>assigned automatically from their age</strong>, so nobody had to pick a slot.</p>
     </div>
   </section>
 
-  <!-- ══════════════════ REGISTER ══════════════════ -->
+  <!-- ══════════════════ REGISTRATION CLOSED ══════════════════ -->
   <section id="register" class="sec-pad">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="kicker">Registration</p>
-        <h2 class="display">Register For The Tryout</h2>
-        <span class="rule"></span>
-        <p class="lead">Free to register. Fill this out and we'll confirm your player's group and time.</p>
-      </div>
-      <div class="form-card reveal">
-      <form id="tryout-form" novalidate class="reveal">
-        <input type="text" name="company" id="ty-company" tabindex="-1" autocomplete="off"
-               style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true" />
-
-        <div class="row">
-          <label>Parent/Guardian Name *<input type="text" id="ty-parentName" required maxlength="120" /></label>
-          <label>Phone<input type="tel" id="ty-parentPhone" maxlength="40" aria-describedby="ty-contact-hint" /></label>
+      <div class="closed-card reveal">
+        <span class="closed-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Registration Closed</span>
+        <h2 class="display">Registration For The October 10 Tryout Is Closed.</h2>
+        <p class="lead">Still want to get involved? Contact Torque and we'll help you find the right next step for your player.</p>
+        <div class="hero-cta">
+          <a href="https://wa.me/19154740940" target="_blank" rel="noopener" class="btn btn-primary btn-shimmer">Message Us</a>
+          <a href="/#trial" class="btn btn-ghost">Book A Free Trial</a>
         </div>
-        <label>Email<input type="email" id="ty-parentEmail" maxlength="160" aria-describedby="ty-contact-hint" /></label>
-        <p class="ty-hint" id="ty-contact-hint">Phone or email required. We need at least one to confirm your spot.</p>
-        <div class="row">
-          <label>Player Name *<input type="text" id="ty-playerName" required maxlength="120" /></label>
-          <label>Player Age *<input type="number" id="ty-playerAge" required min="1" max="13" inputmode="numeric" /></label>
-        </div>
-        <div class="row">
-          <label>Position (optional)<input type="text" id="ty-position" maxlength="60" /></label>
-          <label>Current Team (optional)<input type="text" id="ty-currentTeam" maxlength="120" /></label>
-        </div>
-        <label>Notes (optional)<textarea id="ty-notes" maxlength="1000"></textarea></label>
-
-        <button type="submit" id="ty-submit" class="btn-shimmer">Register for Tryout</button>
-        <p id="ty-msg" role="status" aria-live="polite"></p>
-      </form>
       </div>
     </div>
   </section>
@@ -522,9 +483,9 @@
     <div class="wrap">
       <p class="kicker reveal">Saturday, October 10 · Del Valle HS</p>
       <h2 class="display reveal">Real Coaching. Real Games. A Real Path.</h2>
-      <p class="lead reveal">This is where it starts. Bring your glove, bring your best. We'll see you on the field.</p>
+      <p class="lead reveal">This is where it starts. Want in? Reach out and we'll find the right next step for your player.</p>
       <div class="hero-cta reveal">
-        <a href="#register" class="btn btn-primary btn-shimmer">Register Now</a>
+        <a href="https://wa.me/19154740940" target="_blank" rel="noopener" class="btn btn-primary btn-shimmer">Contact Torque</a>
       </div>
     </div>
   </section>
@@ -538,7 +499,7 @@
         <a href="/#why">Why Torque</a>
         <a href="/#coaches">Coaches</a>
         <a href="/#packages">Packages</a>
-        <a href="#register">Register</a>
+        <a href="https://wa.me/19154740940" target="_blank" rel="noopener">Contact</a>
       </div>
       <div style="display:flex;gap:10px;">
         <a href="#" class="social-icon" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -638,96 +599,6 @@
         else { drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); hamburger.innerHTML = CROSS; hamburger.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; }
       });
     })();
-  </script>
-
-  <!-- ══════════════════ TRYOUT FORM (exact snippet) ══════════════════ -->
-  <script>
-(function () {
-  var TORQUE_API = 'https://app.torquebaseball.us';
-
-  var form = document.getElementById('tryout-form');
-  var btn  = document.getElementById('ty-submit');
-  var msg  = document.getElementById('ty-msg');
-
-  // clear the contact highlight as soon as the parent starts typing
-  ['ty-parentPhone', 'ty-parentEmail'].forEach(function (id) {
-    document.getElementById(id).addEventListener('input', function () {
-      document.getElementById('ty-parentPhone').removeAttribute('aria-invalid');
-      document.getElementById('ty-parentEmail').removeAttribute('aria-invalid');
-    });
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    if (document.getElementById('ty-company').value) {
-      msg.textContent = "Thanks! You're registered.";
-      form.reset();
-      return;
-    }
-
-    // Contact: phone OR email is required (at least one, and it must be valid)
-    var phoneEl  = document.getElementById('ty-parentPhone');
-    var emailEl  = document.getElementById('ty-parentEmail');
-    var phoneVal = phoneEl.value.trim();
-    var emailVal = emailEl.value.trim();
-    var phoneOk  = phoneVal.replace(/\D/g, '').length >= 10;
-    var emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
-    phoneEl.removeAttribute('aria-invalid');
-    emailEl.removeAttribute('aria-invalid');
-    if (!phoneOk && !emailOk) {
-      phoneEl.setAttribute('aria-invalid', 'true');
-      emailEl.setAttribute('aria-invalid', 'true');
-      if (!phoneVal && !emailVal) {
-        msg.textContent = 'Please enter a phone number or an email so we can confirm your spot.';
-      } else {
-        msg.textContent = 'Please check your contact info. Enter a valid phone number (10 digits) or a valid email.';
-      }
-      (phoneVal || !emailVal ? phoneEl : emailEl).focus();
-      return;
-    }
-
-    var age = parseInt(document.getElementById('ty-playerAge').value, 10);
-    if (!Number.isInteger(age) || age < 1 || age > 13) {
-      msg.textContent = 'This tryout is for players 13 and under. Please enter a valid age.';
-      return;
-    }
-
-    var payload = {
-      type:        'tryout',
-      parentName:  document.getElementById('ty-parentName').value,
-      parentEmail: document.getElementById('ty-parentEmail').value,
-      parentPhone: document.getElementById('ty-parentPhone').value,
-      playerName:  document.getElementById('ty-playerName').value,
-      playerAge:   age,
-      position:    document.getElementById('ty-position').value,
-      currentTeam: document.getElementById('ty-currentTeam').value,
-      notes:       document.getElementById('ty-notes').value,
-      company:     ''
-    };
-
-    btn.disabled = true;
-    msg.textContent = 'Submitting…';
-
-    fetch(TORQUE_API + '/api/create-lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true
-    })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (res) {
-        if (!res.ok) throw new Error((res.d && res.d.error) || 'Registration failed');
-        var slot = res.d.time_slot ? (' Your group is at ' + res.d.time_slot + ' (' + res.d.age_group + ').') : '';
-        msg.textContent = "You're registered for the Torque Youth tryout!" + slot;
-        form.reset();
-      })
-      .catch(function (err) {
-        msg.textContent = err.message || 'Something went wrong. Please try again.';
-        btn.disabled = false;
-      });
-  });
-})();
   </script>
 
   <!-- Vercel Web Analytics -->
