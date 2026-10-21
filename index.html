@@ -3,307 +3,429 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TORQUE — Built by Pros. Driven by the Next Generation.</title>
-  <meta name="description" content="TORQUE Performance — an elite baseball development academy in El Paso, built by former MLB and pro players. TrackMan technology, pro-level coaching, and real recruiting connections." />
+  <title>TX Torque Baseball | Built by Pros. El Paso Baseball Academy</title>
+  <meta name="description" content="TX Torque is El Paso's pro-led baseball and softball academy. Coached by former MLB draft picks and pro players, powered by TrackMan data. Ages 7+. Your first class is free." />
+  <meta property="og:title" content="TX Torque Baseball | Built by Pros." />
+  <meta property="og:description" content="Pro-led baseball development in El Paso. TrackMan data, ex-MLB coaches, ages 7+. First class free." />
+  <meta property="og:image" content="/assets/img/wide-coaches.jpg" />
+  <meta name="theme-color" content="#05080f" />
   <link rel="icon" href="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_120/v1790046313/ChatGPT_Image_Sep_21_2026_09_05_04_PM_yiuj48.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --bg:#080b12; --bg-2:#0a0e17; --panel:#111826; --panel-2:#0e141f;
-      --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.14);
-      --txt:#eef1f6; --muted:rgba(255,255,255,.56); --muted-2:rgba(255,255,255,.4);
-      --accent:#3f8cff; --accent-2:#6fb0ff; --accent-soft:rgba(63,140,255,.14);
-      --gold:#d8b46a;
+      --ink:#05080f; --ink-2:#08101d; --navy:#0a1628; --navy-2:#0d1d36; --panel:#0c1526;
+      --blue:#1a56a0; --electric:#3b82f6; --electric-2:#7cb4ff; --glow:rgba(59,130,246,.35);
+      --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.16);
+      --txt:#f3f6fb; --muted:rgba(232,238,248,.62); --muted-2:rgba(232,238,248,.42);
+      --gold:#d9b46a;
+      --display:'Anton',Impact,'Arial Narrow',sans-serif;
+      --cond:'Barlow Condensed','Arial Narrow',sans-serif;
+      --body:'Barlow',system-ui,sans-serif;
+      --gutter:clamp(20px,4vw,56px);
+      --max:1240px;
+      --ease:cubic-bezier(.2,.7,.2,1);
     }
     *,*::before,*::after{ box-sizing:border-box; }
     html{ scroll-behavior:smooth; }
-    body{ margin:0; padding:0; background:var(--bg); color:var(--txt);
-      font-family:'Barlow',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-    img{ max-width:100%; }
-    a{ color:inherit; }
-    ::selection{ background:rgba(63,140,255,.28); }
-
-    h1,h2,h3,h4{ font-family:'Barlow Condensed',sans-serif; margin:0; }
-    .kicker{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.76rem;
-      letter-spacing:4px; text-transform:uppercase; color:var(--accent); }
-    .display{ font-weight:900; font-style:italic; text-transform:uppercase; letter-spacing:1px; line-height:.98; color:#fff; }
-    .lead{ color:var(--muted); line-height:1.75; }
-    .rule{ display:block; height:2px; width:64px; background:linear-gradient(90deg,var(--accent),transparent);
-      border-radius:2px; margin-top:20px; }
-
-    @keyframes shimmer{ 0%{ background-position:-300% center; } 100%{ background-position:300% center; } }
-    .shimmer-text{ background:linear-gradient(105deg,#fff 22%,#bcd6ff 40%,#fff 48%,#e6f0ff 56%,#fff 64%);
-      background-size:300% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      animation:shimmer 5s linear infinite; }
-
-    .reveal{ opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s ease; }
-    .reveal.visible{ opacity:1; transform:translateY(0); }
-    .stagger-item{ opacity:0; transform:translateY(22px); transition:opacity .55s ease, transform .55s ease; }
-    .stagger-item.visible{ opacity:1; transform:translateY(0); }
+    body{ margin:0; background:var(--ink); color:var(--txt); font-family:var(--body); font-size:16px; line-height:1.6;
+      -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    img,video{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
+    button{ font:inherit; }
+    ::selection{ background:rgba(59,130,246,.35); }
     [hidden]{ display:none !important; }
-    @media (prefers-reduced-motion: reduce){ .reveal,.stagger-item{ transition:none; opacity:1; transform:none; } }
 
-    /* ── Buttons ── */
-    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; cursor:pointer;
-      font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.92rem; letter-spacing:2.5px;
-      text-transform:uppercase; text-decoration:none; border:none; border-radius:2px; padding:16px 38px;
-      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease; }
-    .btn-primary{ background:#f4f6fa; color:#0a0f1a; box-shadow:0 10px 34px rgba(0,0,0,.35); }
-    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 40px rgba(63,140,255,.28); background:#fff; }
-    .btn-ghost{ background:transparent; color:#fff; border:1px solid var(--line-2); }
-    .btn-ghost:hover{ transform:translateY(-2px); border-color:#fff; background:rgba(255,255,255,.06); }
-    .btn-sm{ padding:12px 24px; font-size:.8rem; letter-spacing:2px; }
-    .btn-shimmer{ position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease; }
-    .btn-shimmer::after{ content:''; position:absolute; inset:0;
-      background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
-      background-size:200% auto; opacity:0; }
-    .btn-shimmer:hover::after{ opacity:1; animation:sheen .6s linear; }
-    @keyframes sheen{ 0%{ background-position:-160% center; } 100%{ background-position:160% center; } }
+    /* film grain over everything */
+    body::after{ content:''; position:fixed; inset:-50%; z-index:9998; pointer-events:none; opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation:grain 1.2s steps(4) infinite; }
+    @keyframes grain{ 0%{transform:translate(0,0)} 25%{transform:translate(-3%,2%)} 50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-1%)} 100%{transform:translate(0,0)} }
 
-    /* ── Nav ── */
-    #main-nav{ position:fixed; top:0; left:0; right:0; z-index:999;
-      display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:72px;
-      background:rgba(8,11,18,.55); backdrop-filter:blur(14px); border-bottom:1px solid transparent;
-      transition:background .35s ease, border-color .35s ease, height .35s ease; }
-    #main-nav.scrolled{ background:rgba(8,11,18,.92); border-bottom-color:var(--line); height:64px; }
-    #main-nav .wordmark{ height:30px; width:auto; object-fit:contain; display:block;
-      filter:brightness(0) invert(1); transition:opacity .2s; }
-    #main-nav .wordmark:hover{ opacity:.8; }
-    .nav-links{ list-style:none; margin:0; padding:0; display:flex; align-items:center; gap:34px; }
-    .nav-link{ position:relative; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.82rem;
-      letter-spacing:1.8px; text-transform:uppercase; color:rgba(255,255,255,.8); text-decoration:none; transition:color .2s; }
-    .nav-link::after{ content:''; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--accent);
-      transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
-    .nav-link:hover{ color:#fff; } .nav-link:hover::after,.nav-link.active::after{ transform:scaleX(1); }
-    .nav-link.active{ color:#fff; }
-    #nav-hamburger{ display:none; align-items:center; justify-content:center; width:44px; height:44px;
-      background:transparent; border:1px solid var(--line-2); border-radius:6px; color:#fff; cursor:pointer; padding:0; }
+    .wrap{ width:100%; max-width:var(--max); margin:0 auto; padding:0 var(--gutter); }
+    .pin{ background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 34px); }
 
-    #mobile-nav-drawer{ position:fixed; inset:0; z-index:998; background:rgba(6,9,15,.98); backdrop-filter:blur(18px);
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
-      transform:translateX(100%); visibility:hidden; transition:transform .35s ease, visibility .35s ease; }
-    #mobile-nav-drawer.open{ transform:translateX(0); visibility:visible; }
-    #mobile-nav-drawer a{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:2rem;
-      letter-spacing:1.5px; text-transform:uppercase; color:#fff; text-decoration:none; }
-    #mobile-nav-drawer a:hover{ color:var(--accent); }
-    #mobile-nav-drawer a.mob-cta{ background:#f4f6fa; color:#0a0f1a; font-style:normal; font-size:1.05rem;
-      letter-spacing:2.5px; padding:14px 36px; border-radius:2px; }
+    /* type */
+    .display{ font-family:var(--display); font-weight:400; text-transform:uppercase; line-height:.9; letter-spacing:.01em;
+      transform:skewX(-7deg); transform-origin:left bottom; margin:0; }
+    .display .blue{ color:var(--electric); }
+    .display .stroke{ color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.75); }
+    .kicker{ font-family:var(--cond); font-weight:700; font-size:.8rem; letter-spacing:.32em; text-transform:uppercase;
+      color:var(--electric-2); display:inline-flex; align-items:center; gap:12px; margin:0; }
+    .kicker::before{ content:''; width:28px; height:2px; background:var(--electric); }
+    .lead{ color:var(--muted); font-size:clamp(1rem,1.25vw,1.12rem); line-height:1.75; margin:0; }
+    .label{ font-family:var(--cond); font-weight:700; font-size:.74rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted-2); }
 
-    /* ── Intro animation ── */
-    #intro{ position:fixed; inset:0; z-index:100000; display:flex; align-items:center; justify-content:center;
-      background:radial-gradient(circle at 50% 45%, rgba(10,16,26,.5), rgba(5,8,13,.86));
-      transition:opacity .85s ease, visibility .85s ease; }
-    #intro.done{ opacity:0; visibility:hidden; }
-    #intro .intro-logo{ width:min(52vw,360px); height:auto; filter:drop-shadow(0 18px 60px rgba(0,0,0,.6));
-      animation:introIn 1.1s cubic-bezier(.2,.7,.2,1) both; transition:transform .85s cubic-bezier(.5,0,.15,1); }
-    #intro.done .intro-logo{ transform:translateY(-22vh) scale(.26); }
-    @keyframes introIn{ 0%{ opacity:0; transform:scale(1.28); } 100%{ opacity:1; transform:scale(1); } }
+    /* buttons */
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:12px; cursor:pointer; border:0;
+      font-family:var(--cond); font-weight:800; font-size:.95rem; letter-spacing:.18em; text-transform:uppercase;
+      padding:18px 30px; border-radius:2px; transition:transform .25s var(--ease), background .25s, color .25s, box-shadow .25s, border-color .25s; }
+    .btn svg{ transition:transform .25s var(--ease); }
+    .btn:hover svg{ transform:translateX(4px); }
+    .btn-primary{ background:var(--electric); color:#fff; box-shadow:0 14px 40px -12px var(--glow); }
+    .btn-primary:hover{ background:#2f72e6; transform:translateY(-2px); box-shadow:0 18px 48px -10px var(--glow); }
+    .btn-light{ background:#fff; color:var(--ink); }
+    .btn-light:hover{ transform:translateY(-2px); background:#e9f1ff; }
+    .btn-ghost{ background:rgba(255,255,255,.04); color:#fff; border:1px solid var(--line-2); backdrop-filter:blur(6px); }
+    .btn-ghost:hover{ border-color:#fff; background:rgba(255,255,255,.08); transform:translateY(-2px); }
+    .btn-sm{ padding:12px 20px; font-size:.8rem; }
 
-    /* ── Hero ── */
-    #hero{ position:relative; width:100%; min-height:100svh; display:flex; align-items:center;
-      overflow:hidden; background:#05070c; }
-    #hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-    .hero-scrim{ position:absolute; inset:0; z-index:1; pointer-events:none;
-      background:linear-gradient(180deg, rgba(5,7,12,.72) 0%, rgba(5,7,12,.45) 42%, rgba(5,7,12,.86) 100%); }
-    .hero-scrim::after{ content:''; position:absolute; inset:0;
-      background:radial-gradient(ellipse 90% 70% at 50% 40%, transparent 40%, rgba(5,7,12,.6) 100%); }
-    .hero-content{ position:relative; z-index:2; width:100%; max-width:1180px; margin:0 auto; padding:120px 48px 90px;
-      text-align:center; display:flex; flex-direction:column; align-items:center;
-      opacity:0; transform:translateY(26px); transition:opacity 1s ease .1s, transform 1s ease .1s; }
-    #hero.intro-done .hero-content{ opacity:1; transform:none; }
-    .hero-content h1{ font-size:clamp(2.8rem,7vw,6rem); letter-spacing:.5px; max-width:16ch; margin-left:auto; margin-right:auto; }
-    .hero-sub{ font-size:clamp(1rem,1.4vw,1.18rem); color:rgba(255,255,255,.78); line-height:1.6; max-width:560px; margin:24px auto 0; }
-    .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; justify-content:center; }
-    .hero-stats{ display:flex; gap:44px; margin-top:54px; flex-wrap:wrap; justify-content:center; }
-    .hero-stats .num{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic;
-      font-size:2.6rem; color:#fff; line-height:1; display:block; }
-    .hero-stats .lbl{ font-size:.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted-2); margin-top:6px; display:block; }
-    .scroll-hint{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2;
-      color:rgba(255,255,255,.4); font-size:.68rem; letter-spacing:3px; text-transform:uppercase;
-      display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; transition:opacity 1s ease 1.2s; }
-    #hero.intro-done .scroll-hint{ opacity:1; }
-    @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
-    .scroll-hint svg{ animation:bob 1.8s ease infinite; }
+    /* reveal */
+    .rv{ opacity:0; transform:translateY(34px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+    .rv.in{ opacity:1; transform:none; }
+    .rv-d1{ transition-delay:.08s } .rv-d2{ transition-delay:.16s } .rv-d3{ transition-delay:.24s } .rv-d4{ transition-delay:.32s }
+    @media (prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; transition:none; } body::after{ animation:none; } .marquee-track{ animation:none !important; } }
 
-    /* ── Section shell ── */
+    /* ── announcement bar ── */
+    #announce{ position:relative; z-index:1001; background:var(--electric); color:#fff; font-family:var(--cond);
+      font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.78rem; }
+    #announce .in{ display:flex; align-items:center; justify-content:center; gap:10px 22px; flex-wrap:wrap; padding:10px var(--gutter); text-align:center; }
+    #announce .dot{ width:6px; height:6px; background:#fff; border-radius:50%; opacity:.7; }
+    #announce a{ text-decoration:underline; text-underline-offset:3px; }
+
+    /* ── nav ── */
+    #nav{ position:sticky; top:0; z-index:1000; transition:background .35s, border-color .35s; border-bottom:1px solid transparent; }
+    #nav.solid{ background:rgba(5,8,15,.86); backdrop-filter:blur(16px); border-bottom-color:var(--line); }
+    #nav .bar{ display:flex; align-items:center; justify-content:space-between; height:76px; gap:24px; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .brand img{ width:44px; height:44px; border-radius:50%; }
+    .brand span{ font-family:var(--display); font-size:1.35rem; letter-spacing:.06em; transform:skewX(-7deg); display:inline-block; }
+    .nav-links{ display:flex; gap:30px; list-style:none; margin:0; padding:0; }
+    .nav-links a{ font-family:var(--cond); font-weight:700; font-size:.86rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.75); position:relative; padding:6px 0; }
+    .nav-links a::after{ content:''; position:absolute; left:0; bottom:0; height:2px; width:100%; background:var(--electric); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ease); }
+    .nav-links a:hover{ color:#fff; } .nav-links a:hover::after{ transform:scaleX(1); }
+    .nav-cta{ display:flex; gap:10px; align-items:center; }
+    #burger{ display:none; width:46px; height:46px; border:1px solid var(--line-2); background:transparent; color:#fff; border-radius:2px; cursor:pointer; align-items:center; justify-content:center; }
+    #mnav{ visibility:hidden; position:fixed; inset:0; z-index:1002; background:rgba(5,8,15,.98); backdrop-filter:blur(18px); display:flex; flex-direction:column;
+      justify-content:center; padding:0 32px; gap:6px; transform:translateY(-100%); transition:transform .45s var(--ease); }
+    #mnav.open{ transform:none; visibility:visible; }
+    #mnav a.big{ font-family:var(--display); font-size:2.6rem; text-transform:uppercase; transform:skewX(-7deg); display:block; padding:4px 0; }
+    #mnav a.big:hover{ color:var(--electric-2); }
+    #mnav .row{ display:flex; gap:10px; margin-top:26px; flex-wrap:wrap; }
+    #mnav-close{ position:absolute; top:18px; right:20px; width:46px; height:46px; background:none; border:1px solid var(--line-2); color:#fff; cursor:pointer; }
+
+    /* ── hero ── */
+    #hero{ position:relative; min-height:calc(100svh - 38px); margin-top:-76px; display:flex; align-items:flex-end; overflow:hidden;
+      background:#04070d; }
+    #hero video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    #hero .scrim{ position:absolute; inset:0; background:
+      linear-gradient(180deg,rgba(5,8,15,.75) 0%,rgba(5,8,15,.15) 32%,rgba(5,8,15,.35) 62%,rgba(5,8,15,.97) 100%),
+      linear-gradient(90deg,rgba(5,8,15,.8) 0%,rgba(5,8,15,0) 60%); }
+    #hero .content{ position:relative; z-index:2; width:100%; padding-top:160px; padding-bottom:56px; }
+    #hero h1{ font-size:clamp(4.2rem,13.5vw,12.5rem); margin-top:22px; }
+    #hero h1 .line{ display:block; overflow:hidden; padding-right:.12em; }
+    #hero h1 .line span{ display:inline-block; transform:translateY(105%); animation:rise 1.1s var(--ease) forwards; }
+    #hero h1 .line:nth-child(2) span{ animation-delay:.12s; }
+    @keyframes rise{ to{ transform:none; } }
+    #hero .sub{ display:grid; grid-template-columns:minmax(0,520px) auto; gap:28px 48px; align-items:end; justify-content:space-between; margin-top:30px; }
+    #hero .sub p{ font-size:clamp(1.02rem,1.4vw,1.2rem); color:rgba(255,255,255,.82); margin:0; line-height:1.65; }
+    #hero .ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+    .fade-up{ opacity:0; transform:translateY(20px); animation:fadeUp 1s var(--ease) .55s forwards; }
+    @keyframes fadeUp{ to{ opacity:1; transform:none; } }
+    .proof{ margin-top:48px; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line-2); }
+    .proof div{ padding:22px 20px 4px 0; }
+    .proof div + div{ padding-left:24px; border-left:1px solid var(--line); }
+    .proof .n{ font-family:var(--display); font-size:clamp(2.2rem,3.6vw,3.3rem); line-height:1; display:block; transform:skewX(-7deg); }
+    .proof .n em{ font-style:normal; color:var(--electric); }
+    .proof .l{ font-family:var(--cond); font-weight:700; font-size:.76rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); display:block; margin-top:8px; }
+
+    /* ── marquee ── */
+    .marquee{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--ink-2); overflow:hidden; position:relative; }
+    .marquee .cap{ position:absolute; left:0; top:0; bottom:0; z-index:2; display:flex; align-items:center; padding:0 26px 0 var(--gutter);
+      background:linear-gradient(90deg,var(--ink-2) 75%,transparent); }
+    .marquee-track{ display:flex; width:max-content; animation:slide 48s linear infinite; padding:20px 0; }
+    .marquee-track span{ font-family:var(--display); font-size:1.5rem; text-transform:uppercase; letter-spacing:.04em; color:rgba(255,255,255,.28);
+      white-space:nowrap; padding:0 26px; display:flex; align-items:center; gap:52px; }
+    .marquee-track span::after{ content:''; width:7px; height:7px; background:var(--electric); transform:rotate(45deg); }
+    @keyframes slide{ to{ transform:translateX(-50%); } }
+
+    /* ── section shell ── */
     section{ position:relative; }
-    .wrap{ max-width:1180px; margin:0 auto; padding:0 48px; }
-    .sec-pad{ padding:110px 0; }
-    .sec-head{ text-align:center; max-width:640px; margin:0 auto 60px; }
-    .sec-head h2{ font-size:clamp(2rem,4.4vw,3.2rem); margin:14px 0 0; }
-    .sec-head .rule{ margin:20px auto 0; }
+    .sec{ padding:clamp(88px,11vw,150px) 0; }
+    .head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px 60px; flex-wrap:wrap; margin-bottom:clamp(44px,6vw,72px); }
+    .head h2{ font-size:clamp(3rem,7vw,6rem); margin-top:18px; }
+    .head .lead{ max-width:440px; }
 
-    /* ── Story (This is Torque) ── */
-    #story{ background:linear-gradient(180deg,#05070c, #080b12); }
-    .story-grid{ display:grid; grid-template-columns:1fr; gap:48px; align-items:center; }
-    .story-video{ position:relative; border-radius:14px; overflow:hidden; aspect-ratio:16/9;
-      border:1px solid var(--line); box-shadow:0 30px 80px rgba(0,0,0,.55); background:#05070c; }
-    .story-video video{ width:100%; height:100%; object-fit:cover; display:block; }
-    .play-btn{ position:absolute; inset:0; margin:auto; width:88px; height:88px; border-radius:50%;
-      background:rgba(255,255,255,.12); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.4);
-      display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .2s, background .2s;
-      box-shadow:0 10px 40px rgba(0,0,0,.4); }
-    .play-btn:hover{ transform:scale(1.07); background:rgba(255,255,255,.2); }
-    .play-btn svg{ margin-left:5px; }
+    /* ── manifesto ── */
+    #story{ background:var(--ink); overflow:hidden; }
+    .manifesto{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(40px,6vw,90px); align-items:center; }
+    .manifesto h2{ font-size:clamp(2.4rem,4.6vw,4.1rem); margin:18px 0 28px; }
+    .manifesto .lead + .lead{ margin-top:16px; }
+    .sign{ display:flex; gap:28px; margin-top:34px; flex-wrap:wrap; }
+    .sign div{ border-left:2px solid var(--electric); padding-left:14px; }
+    .sign b{ display:block; font-family:var(--cond); font-weight:800; font-size:1.05rem; letter-spacing:.06em; text-transform:uppercase; }
+    .sign small{ color:var(--muted-2); font-size:.82rem; }
+    .film{ position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden; background:#000; box-shadow:0 40px 100px -30px #000; }
+    .film video,.film > img{ width:100%; height:100%; object-fit:cover; }
+    .film .play{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; cursor:pointer;
+      background:linear-gradient(180deg,rgba(5,8,15,.1),rgba(5,8,15,.65)); border:0; color:#fff; }
+    .film .play i{ width:92px; height:92px; border-radius:50%; border:1px solid rgba(255,255,255,.55); display:grid; place-items:center;
+      background:rgba(255,255,255,.08); backdrop-filter:blur(6px); transition:transform .3s var(--ease), background .3s; }
+    .film .play:hover i{ transform:scale(1.08); background:var(--electric); border-color:var(--electric); }
+    .film .play span{ font-family:var(--cond); font-weight:700; letter-spacing:.24em; font-size:.8rem; text-transform:uppercase; }
+    .film .tag{ position:absolute; left:18px; top:18px; z-index:2; font-family:var(--cond); font-weight:700; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+      background:rgba(5,8,15,.6); border:1px solid var(--line-2); padding:7px 12px; backdrop-filter:blur(6px); }
 
-    /* ── Benefits (Why Torque) ── */
-    .benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .benefit{ background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
-      border-radius:14px; padding:34px 30px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
-    .benefit:hover{ transform:translateY(-6px); border-color:var(--line-2); box-shadow:0 20px 50px rgba(0,0,0,.4); }
-    .benefit .ic{ width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-      background:var(--accent-soft); border:1px solid rgba(63,140,255,.3); color:var(--accent-2); margin-bottom:22px; }
-    .benefit h3{ font-weight:900; font-style:italic; font-size:1.32rem; color:#fff; text-transform:uppercase; letter-spacing:.4px; margin-bottom:10px; }
-    .benefit p{ font-size:.92rem; color:var(--muted); line-height:1.65; margin:0; }
+    /* ── method ── */
+    #method{ background:var(--ink-2); }
+    .method{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .step{ position:relative; aspect-ratio:3/4.4; overflow:hidden; border-radius:3px; background:#000; isolation:isolate; }
+    .step img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.1) brightness(.7); transform:scale(1.04);
+      transition:filter .6s var(--ease), transform .9s var(--ease); }
+    .step:hover img{ filter:grayscale(0) contrast(1.05) brightness(.8); transform:scale(1.1); }
+    .step::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(5,8,15,0) 30%,rgba(5,8,15,.95) 100%); }
+    .step .no{ position:absolute; top:16px; left:18px; z-index:2; font-family:var(--cond); font-weight:700; letter-spacing:.2em; font-size:.8rem; color:var(--electric-2); }
+    .step .txt{ position:absolute; left:18px; right:18px; bottom:20px; z-index:2; }
+    .step h3{ font-family:var(--display); font-weight:400; font-size:clamp(2.2rem,3.4vw,3.2rem); text-transform:uppercase; transform:skewX(-7deg); margin:0 0 10px; line-height:.95; }
+    .step p{ margin:0; font-size:.92rem; color:rgba(255,255,255,.72); line-height:1.55; }
+    .step .bar{ height:3px; width:42px; background:var(--electric); margin-bottom:14px; transition:width .5s var(--ease); }
+    .step:hover .bar{ width:100%; }
+    .arrowline{ display:flex; align-items:center; gap:14px; margin-top:26px; color:var(--muted-2); font-family:var(--cond); font-weight:700; letter-spacing:.22em; font-size:.78rem; text-transform:uppercase; }
+    .arrowline::before{ content:''; flex:1; height:1px; background:var(--line-2); }
 
-    /* ── Programs ── */
-    .prog-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-    .prog-card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
-      transition:transform .25s ease, box-shadow .25s ease, border-color .25s; }
-    .prog-card:hover{ transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,0,0,.45); border-color:var(--line-2); }
-    .prog-card img{ width:100%; height:300px; object-fit:cover; display:block; filter:saturate(.9); }
-    .prog-card .body{ padding:30px 32px 36px; }
-    .prog-card h3{ font-weight:900; font-style:italic; font-size:1.65rem; color:#fff; text-transform:uppercase; letter-spacing:.5px; margin-bottom:12px; }
-    .prog-card p{ font-size:.94rem; color:var(--muted); line-height:1.65; margin:0; }
+    /* ── data ── */
+    #data{ background:radial-gradient(ellipse 70% 60% at 85% 30%,rgba(26,86,160,.35),transparent 70%),var(--ink); overflow:hidden; }
+    .data{ display:grid; grid-template-columns:.95fr 1.05fr; gap:clamp(40px,6vw,96px); align-items:center; }
+    .data h2{ font-size:clamp(3rem,6.4vw,5.6rem); margin:18px 0 26px; }
+    .metrics{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:36px; }
+    .metrics div{ background:var(--ink); padding:20px 22px; }
+    .metrics b{ display:block; font-family:var(--cond); font-weight:800; font-size:1.15rem; letter-spacing:.06em; text-transform:uppercase; }
+    .metrics small{ color:var(--muted-2); font-size:.84rem; }
+    .screen{ position:relative; }
+    .screen .img{ position:relative; border-radius:4px; overflow:hidden; aspect-ratio:4/5; transform:rotate(-2deg); box-shadow:0 50px 120px -30px rgba(0,0,0,.9); border:1px solid var(--line-2); }
+    .screen .img img{ width:100%; height:100%; object-fit:cover; }
+    .screen .chip{ position:absolute; z-index:2; background:rgba(8,16,29,.86); border:1px solid rgba(124,180,255,.35); backdrop-filter:blur(10px);
+      padding:14px 18px; border-radius:3px; min-width:170px; box-shadow:0 20px 50px -20px #000; }
+    .screen .chip .label{ color:var(--electric-2); }
+    .screen .chip strong{ display:block; font-family:var(--display); font-weight:400; font-size:1.9rem; line-height:1.05; margin-top:4px; transform:skewX(-7deg); }
+    .screen .c1{ top:8%; left:-8%; } .screen .c2{ bottom:12%; right:-6%; }
 
-    /* ── Coaches ── */
-    .coach-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
-    .coach{ background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
-      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-    .coach:hover{ transform:translateY(-6px); box-shadow:0 22px 55px rgba(0,0,0,.5); border-color:rgba(63,140,255,.4); }
-    .coach img{ width:100%; height:250px; object-fit:cover; object-position:top center; display:block; }
-    .coach .body{ padding:22px 20px 26px; }
-    .coach .name{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:1.25rem;
-      color:#fff; text-transform:uppercase; letter-spacing:.4px; margin:0 0 5px; }
-    .coach .role{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.78rem; color:var(--accent-2);
-      text-transform:uppercase; letter-spacing:.6px; margin:0 0 2px; }
-    .coach .teams{ font-size:.75rem; color:var(--muted-2); line-height:1.5; margin:8px 0 10px; }
-    .coach .accolade{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.76rem; color:var(--gold); margin:0 0 8px; }
-    .coach .bio{ font-size:.78rem; color:var(--muted); line-height:1.6; margin:0; }
+    /* ── programs ── */
+    #programs{ background:var(--navy); }
+    #programs.pin{ background-color:var(--navy); }
+    .ages{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .age{ position:relative; background:rgba(5,8,15,.55); border:1px solid var(--line); border-radius:3px; padding:30px 28px 28px; overflow:hidden;
+      transition:border-color .3s, transform .4s var(--ease); }
+    .age:hover{ border-color:rgba(124,180,255,.45); transform:translateY(-6px); }
+    .age .big{ position:absolute; right:-6px; top:-18px; font-family:var(--display); font-size:8.5rem; line-height:1; color:rgba(255,255,255,.04); transform:skewX(-7deg); }
+    .age h3{ font-family:var(--display); font-weight:400; font-size:2.6rem; text-transform:uppercase; transform:skewX(-7deg); margin:14px 0 4px; line-height:1; }
+    .age .time{ font-family:var(--cond); font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--electric-2); font-size:.95rem; }
+    .age p{ color:var(--muted); font-size:.95rem; margin:16px 0 0; }
+    .tracks{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .track{ position:relative; min-height:340px; border-radius:3px; overflow:hidden; display:flex; align-items:flex-end; padding:30px; isolation:isolate; }
+    .track img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; transition:transform .9s var(--ease); }
+    .track:hover img{ transform:scale(1.05); }
+    .track::before{ content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgba(5,8,15,.1) 0%,rgba(5,8,15,.55) 45%,rgba(5,8,15,.96) 100%); }
+    .track.soft{ background:radial-gradient(circle at 78% 34%,rgba(59,130,246,.22),transparent 55%),linear-gradient(160deg,#0d1d36,#05080f); }
+    .track.soft::before{ display:none; }
+    .sball{ position:absolute; right:8%; top:12%; width:clamp(130px,16vw,190px); aspect-ratio:1; border-radius:50%; z-index:-1;
+      background:radial-gradient(circle at 35% 30%,#f4ff7a,#d4e02a 45%,#9fae12 100%); box-shadow:0 30px 80px -10px rgba(212,224,42,.35), inset -14px -18px 30px rgba(0,0,0,.25); transform:rotate(-18deg); }
+    .sball::before,.sball::after{ content:''; position:absolute; top:6%; bottom:6%; width:46%; border:3px dashed #c8102e; border-radius:50%; }
+    .sball::before{ left:-22%; border-left-color:transparent; border-top-color:transparent; border-bottom-color:transparent; }
+    .sball::after{ right:-22%; border-right-color:transparent; border-top-color:transparent; border-bottom-color:transparent; }
+    .track h3{ font-family:var(--display); font-weight:400; font-size:clamp(2rem,3vw,2.7rem); text-transform:uppercase; transform:skewX(-7deg); margin:10px 0 8px; line-height:1; }
+    .track p{ margin:0; color:rgba(255,255,255,.75); max-width:440px; font-size:.95rem; }
+    .badge{ display:inline-flex; align-items:center; gap:8px; font-family:var(--cond); font-weight:800; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+      padding:6px 11px; background:var(--electric); color:#fff; border-radius:2px; }
+    .badge.ghost{ background:rgba(5,8,15,.6); border:1px solid var(--line-2); backdrop-filter:blur(6px); }
+    .track a.more{ display:inline-flex; gap:10px; align-items:center; margin-top:18px; font-family:var(--cond); font-weight:800; letter-spacing:.18em; text-transform:uppercase; font-size:.82rem; color:#fff; border-bottom:1px solid var(--electric); padding-bottom:4px; }
 
-    /* ── Ticker (Future Stars) ── */
-    @keyframes ticker{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
-    .ticker-wrap{ overflow:hidden; width:100%; -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-      mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
-    .ticker-track{ display:flex; width:max-content; will-change:transform; }
-    .ticker-wrap:hover .ticker-track{ animation-play-state:paused; }
-    .ticker-track .cell{ flex:0 0 340px; margin-right:16px; border-radius:12px; overflow:hidden; border:1px solid var(--line); }
-    .ticker-track .cell img{ width:100%; height:250px; object-fit:cover; object-position:top; display:block; }
+    /* ── coaches ── */
+    #coaches{ background:var(--ink); }
+    .coaches{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+    .coach{ position:relative; display:flex; flex-direction:column; background:var(--panel); border:1px solid var(--line); border-radius:3px; overflow:hidden;
+      transition:transform .4s var(--ease), border-color .3s; }
+    .coach:hover{ transform:translateY(-8px); border-color:rgba(124,180,255,.4); }
+    .coach .ph{ position:relative; aspect-ratio:4/5; overflow:hidden; background:linear-gradient(160deg,var(--navy-2),#04070d); }
+    .coach .ph img{ width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(.25) contrast(1.05); transition:filter .5s, transform .8s var(--ease); }
+    .coach:hover .ph img{ filter:none; transform:scale(1.04); }
+    .coach .ph .mono{ position:absolute; inset:0; display:grid; place-items:center; font-family:var(--display); font-size:5rem; color:rgba(255,255,255,.08); transform:skewX(-7deg); }
+    .coach .ph::after{ content:''; position:absolute; inset:auto 0 0 0; height:45%; background:linear-gradient(180deg,transparent,var(--panel)); }
+    .coach .draft{ position:absolute; z-index:2; top:12px; left:12px; }
+    .coach .body{ padding:4px 18px 22px; margin-top:-34px; position:relative; z-index:2; flex:1; display:flex; flex-direction:column; }
+    .coach h3{ font-family:var(--display); font-weight:400; font-size:1.7rem; text-transform:uppercase; transform:skewX(-7deg); margin:0; line-height:1; }
+    .coach .role{ font-family:var(--cond); font-weight:700; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--electric-2); margin:8px 0 0; }
+    .coach .acc{ font-family:var(--cond); font-weight:700; font-size:.8rem; color:var(--gold); margin:10px 0 0; letter-spacing:.04em; }
+    .coach .teams{ font-size:.8rem; color:var(--muted-2); margin:10px 0 0; line-height:1.5; }
+    .coach .bio{ font-size:.86rem; color:var(--muted); margin:12px 0 0; line-height:1.6; }
 
-    /* ── Packages ── */
-    #packages{ background:linear-gradient(180deg,#0a0e17,#080b12); }
-    .pkg-note{ display:flex; justify-content:center; flex-wrap:wrap; gap:8px 26px; margin:0 auto 40px; }
-    .pkg-note span{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); }
-    .pkg-note .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
-    .pkg-list{ max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
-    .pkg-row{ display:grid; grid-template-columns:200px 1fr 1fr 1fr 1.15fr;
-      background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
-    .pkg-tier{ padding:24px 22px; border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:center; gap:6px;
-      background:linear-gradient(180deg,rgba(63,140,255,.06),transparent); }
-    .pkg-tier .lv{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.7rem; color:#fff; line-height:1; }
-    .pkg-tier .lv.gold{ color:var(--gold); }
-    .pkg-tier .cnt{ font-size:.76rem; color:var(--muted-2); }
-    .pkg-cell{ padding:18px 14px; border-right:1px solid var(--line); display:flex; flex-direction:column;
-      align-items:center; justify-content:space-between; gap:10px; text-align:center; }
-    .pkg-cell:last-child{ border-right:none; background:rgba(63,140,255,.05); }
-    .pkg-cell .plan{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.86rem; color:#fff; letter-spacing:.5px; }
-    .pkg-cell .disc{ font-size:.72rem; color:var(--accent-2); margin-top:2px; }
-    .pkg-cell .orig{ font-size:.75rem; color:var(--muted-2); text-decoration:line-through; }
-    .pkg-cell .price{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:#fff; }
-    .sub-btn{ background:var(--accent); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800;
-      font-size:.72rem; letter-spacing:1.6px; text-transform:uppercase; padding:10px 10px; border:none; cursor:pointer;
-      width:100%; border-radius:3px; transition:background .2s, transform .15s; }
-    .sub-btn:hover{ background:#2f6fe0; transform:translateY(-1px); }
+    /* ── facility ── */
+    #facility{ background:linear-gradient(180deg,var(--ink-2),var(--navy)); overflow:hidden; }
+    .fac{ display:grid; grid-template-columns:1.25fr .75fr; gap:clamp(36px,5vw,70px); align-items:center; }
+    .plan{ position:relative; border-radius:4px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 100px -30px #000; }
+    .plan img{ width:100%; }
+    .hot{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:10px; }
+    .hot i{ position:relative; width:16px; height:16px; border-radius:50%; background:var(--electric); box-shadow:0 0 0 4px rgba(59,130,246,.3); flex-shrink:0; }
+    .hot i::after{ content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid var(--electric); animation:ping 2s ease-out infinite; }
+    @keyframes ping{ from{ transform:scale(1); opacity:.9; } to{ transform:scale(2.6); opacity:0; } }
+    .hot span{ font-family:var(--cond); font-weight:800; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; white-space:nowrap;
+      background:rgba(5,8,15,.82); border:1px solid var(--line-2); padding:6px 10px; border-radius:2px; backdrop-filter:blur(6px); }
+    .feat{ list-style:none; padding:0; margin:30px 0 0; border-top:1px solid var(--line-2); }
+    .feat li{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:15px 0; border-bottom:1px solid var(--line); }
+    .feat b{ font-family:var(--cond); font-weight:800; font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; }
+    .feat small{ color:var(--muted-2); font-size:.86rem; text-align:right; }
+    .addr{ margin-top:30px; display:flex; gap:14px; align-items:flex-start; padding:20px; border:1px solid rgba(124,180,255,.3); background:rgba(26,86,160,.14); border-radius:3px; }
+    .addr b{ display:block; font-family:var(--cond); font-weight:800; letter-spacing:.1em; text-transform:uppercase; font-size:1.05rem; }
+    .addr small{ color:var(--muted); }
+    .addr a{ color:var(--electric-2); font-family:var(--cond); font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.8rem; display:inline-block; margin-top:8px; }
 
-    /* ── Trial CTA band ── */
-    #trial{ background:radial-gradient(circle at 80% 20%, rgba(63,140,255,.08), transparent 55%), #080b12; }
-    .chip{ display:inline-flex; align-items:center; gap:8px; background:var(--accent-soft);
-      border:1px solid rgba(63,140,255,.3); border-radius:40px; padding:9px 18px;
-      font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.72rem; letter-spacing:1.5px;
-      text-transform:uppercase; color:var(--accent-2); }
+    /* ── gallery ── */
+    #gallery{ background:var(--ink); }
+    .gal{ display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:clamp(120px,13vw,190px); gap:10px; }
+    .gal figure{ margin:0; position:relative; overflow:hidden; border-radius:2px; background:#0b1220; }
+    .gal img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease), filter .5s; filter:saturate(.9); }
+    .gal figure:hover img{ transform:scale(1.06); filter:saturate(1.05); }
+    .g1{ grid-column:1/6; grid-row:1/4; } .g2{ grid-column:6/10; grid-row:1/3; } .g3{ grid-column:10/13; grid-row:1/3; }
+    .g4{ grid-column:6/9; grid-row:3/5; } .g5{ grid-column:9/13; grid-row:3/5; } .g6{ grid-column:1/6; grid-row:4/6; } .g7{ grid-column:6/13; grid-row:5/6; }
+    .gal .cap{ position:absolute; left:14px; bottom:12px; font-family:var(--cond); font-weight:700; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+      background:rgba(5,8,15,.6); padding:5px 9px; backdrop-filter:blur(6px); }
 
-    /* ── Footer ── */
-    footer{ background:#05070c; border-top:1px solid var(--line); padding:56px 48px 40px; }
-    .foot-inner{ max-width:1120px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:22px; }
-    .foot-inner .fw{ height:30px; filter:brightness(0) invert(1); opacity:.9; }
-    .foot-links{ display:flex; gap:30px; flex-wrap:wrap; justify-content:center; }
-    .foot-links a{ font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:.8rem; letter-spacing:1.8px;
-      text-transform:uppercase; color:var(--muted-2); text-decoration:none; transition:color .2s; }
-    .foot-links a:hover{ color:#fff; }
-    .social-icon{ display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%;
-      border:1px solid var(--line-2); color:var(--muted); text-decoration:none; transition:all .2s; }
-    .social-icon:hover{ background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-3px); }
+    /* ── how it starts ── */
+    #start{ background:var(--ink-2); }
+    .steps3{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line-2); }
+    .s3{ padding:34px 34px 10px 0; }
+    .s3 + .s3{ padding-left:34px; border-left:1px solid var(--line); }
+    .s3 .n{ font-family:var(--display); font-size:4.4rem; line-height:1; color:transparent; -webkit-text-stroke:1.5px var(--electric); transform:skewX(-7deg); display:inline-block; }
+    .s3 h3{ font-family:var(--cond); font-weight:800; font-size:1.5rem; letter-spacing:.06em; text-transform:uppercase; margin:18px 0 10px; }
+    .s3 p{ color:var(--muted); margin:0; font-size:.98rem; }
 
-    /* ── Form fields ── */
-    .form-field{ display:flex; flex-direction:column; gap:6px; }
-    .form-field label{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.8rem;
-      letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
-    .form-field input, .form-field select{ background:rgba(255,255,255,.06); border:1px solid var(--line-2);
-      color:#fff; padding:13px 16px; border-radius:6px; font-family:'Barlow',sans-serif; font-size:.95rem;
-      outline:none; transition:border-color .2s, background .2s; -webkit-appearance:none; appearance:none; width:100%; }
-    .form-field input::placeholder{ color:rgba(255,255,255,.3); }
-    .form-field input:focus, .form-field select:focus{ border-color:var(--accent); background:rgba(255,255,255,.09); }
-    .form-field select option{ background:#0e141f; color:#fff; }
-    .form-field select optgroup{ background:#0e141f; color:var(--muted); font-style:normal; }
+    /* ── membership ── */
+    #membership{ background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(26,86,160,.28),transparent 70%),var(--ink); }
+    .toggle{ display:inline-flex; padding:5px; border:1px solid var(--line-2); border-radius:3px; background:rgba(255,255,255,.03); flex-wrap:wrap; gap:4px; }
+    .toggle button{ background:transparent; border:0; color:var(--muted); cursor:pointer; font-family:var(--cond); font-weight:800; font-size:.82rem;
+      letter-spacing:.14em; text-transform:uppercase; padding:11px 16px; border-radius:2px; transition:background .25s, color .25s; }
+    .toggle button em{ font-style:normal; color:var(--electric-2); margin-left:6px; }
+    .toggle button.on{ background:#fff; color:var(--ink); } .toggle button.on em{ color:var(--blue); }
+    .tiers{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:34px; }
+    .tier{ position:relative; display:flex; flex-direction:column; background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid var(--line);
+      border-radius:3px; padding:30px 26px 26px; transition:transform .4s var(--ease), border-color .3s; }
+    .tier:hover{ transform:translateY(-6px); border-color:var(--line-2); }
+    .tier.top{ border-color:rgba(124,180,255,.55); background:linear-gradient(180deg,rgba(26,86,160,.32),rgba(26,86,160,.06)); }
+    .tier .lvl{ font-family:var(--display); font-weight:400; font-size:3.4rem; line-height:1; transform:skewX(-7deg); display:inline-block; }
+    .tier .lvl.gold{ color:var(--gold); }
+    .tier .les{ font-family:var(--cond); font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:.82rem; color:var(--muted); margin-top:8px; }
+    .tier .price{ margin:28px 0 4px; display:flex; align-items:baseline; gap:8px; }
+    .tier .price b{ font-family:var(--display); font-weight:400; font-size:3rem; line-height:1; }
+    .tier .price span{ color:var(--muted); font-size:.9rem; }
+    .tier .was{ min-height:22px; font-size:.86rem; color:var(--muted-2); }
+    .tier .was s{ margin-right:8px; }
+    .tier .was em{ font-style:normal; color:var(--electric-2); font-weight:600; }
+    .tier ul{ list-style:none; padding:0; margin:22px 0 26px; display:grid; gap:10px; font-size:.92rem; color:rgba(255,255,255,.8); flex:1; }
+    .tier li{ display:flex; gap:10px; align-items:flex-start; }
+    .tier li svg{ flex-shrink:0; margin-top:4px; color:var(--electric-2); }
+    .tier .btn{ width:100%; }
+    .note{ display:flex; gap:12px 26px; flex-wrap:wrap; justify-content:center; margin-top:28px; color:var(--muted-2); font-size:.88rem; text-align:center; }
 
-    /* ── Trial drawer ── */
-    #trial-drawer-overlay{ position:fixed; inset:0; z-index:10002; background:rgba(5,8,13,.72); backdrop-filter:blur(4px);
-      opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease; }
-    #trial-drawer-overlay.open{ opacity:1; visibility:visible; }
-    #trial-drawer{ position:absolute; top:0; right:0; height:100%; width:460px; max-width:100%;
-      background:linear-gradient(180deg,#0e141f 0%,#080b12 100%); border-left:1px solid rgba(63,140,255,.3);
-      box-shadow:-24px 0 70px rgba(0,0,0,.6); transform:translateX(100%); transition:transform .32s ease-out;
-      display:flex; flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-    #trial-drawer-overlay.open #trial-drawer{ transform:translateX(0); }
-    #trial-drawer .drawer-head{ position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between;
-      padding:22px 26px; background:rgba(6,9,15,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
-    #trial-drawer .drawer-title{ font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:1.5rem;
-      text-transform:uppercase; letter-spacing:1px; color:#fff; }
-    #trial-drawer-close{ background:none; border:none; color:var(--muted); cursor:pointer; padding:6px; line-height:0;
-      transition:color .2s, transform .2s; }
-    #trial-drawer-close:hover{ color:#fff; transform:rotate(90deg); }
-    #trial-drawer .drawer-body{ padding:26px 26px 44px; }
+    /* ── faq ── */
+    #faq{ background:var(--ink-2); }
+    .faq{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(36px,6vw,90px); }
+    .faq h2{ font-size:clamp(3rem,6vw,5rem); margin-top:18px; }
+    details{ border-bottom:1px solid var(--line); }
+    details:first-of-type{ border-top:1px solid var(--line-2); }
+    summary{ list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:20px; padding:24px 0;
+      font-family:var(--cond); font-weight:800; font-size:1.2rem; letter-spacing:.04em; text-transform:uppercase; }
+    summary::-webkit-details-marker{ display:none; }
+    summary i{ width:30px; height:30px; flex-shrink:0; border:1px solid var(--line-2); border-radius:50%; position:relative; transition:transform .3s, background .3s; }
+    summary i::before,summary i::after{ content:''; position:absolute; left:50%; top:50%; width:11px; height:1.5px; background:#fff; transform:translate(-50%,-50%); }
+    summary i::after{ transform:translate(-50%,-50%) rotate(90deg); transition:transform .3s; }
+    details[open] summary i{ background:var(--electric); border-color:var(--electric); }
+    details[open] summary i::after{ transform:translate(-50%,-50%) rotate(0); }
+    details p{ margin:0 0 24px; color:var(--muted); max-width:640px; }
 
-    /* ── WhatsApp float ── */
-    @keyframes waPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(37,211,102,.5); } 70%{ box-shadow:0 0 0 16px rgba(37,211,102,0); } }
-    #wa-btn{ position:fixed; bottom:26px; right:26px; z-index:9999; width:56px; height:56px; border-radius:50%;
-      background:#25d366; display:flex; align-items:center; justify-content:center; text-decoration:none;
-      animation:waPulse 2.4s ease infinite; transition:transform .2s ease; box-shadow:0 6px 22px rgba(0,0,0,.4); }
+    /* ── final cta ── */
+    #trial{ position:relative; overflow:hidden; padding:clamp(110px,14vw,190px) 0; background:#04070d; isolation:isolate; }
+    #trial > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; filter:grayscale(.3) brightness(.55); }
+    #trial::before{ content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(5,8,15,.96) 0%,rgba(5,8,15,.75) 45%,rgba(10,22,40,.45) 100%); }
+    #trial h2{ font-size:clamp(3.6rem,10vw,9rem); margin:22px 0 26px; }
+    #trial .lead{ max-width:520px; color:rgba(255,255,255,.8); }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; margin:28px 0 36px; }
+    .chips span{ font-family:var(--cond); font-weight:700; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; padding:9px 14px; border:1px solid var(--line-2); border-radius:2px; background:rgba(255,255,255,.04); }
+
+    /* ── footer ── */
+    footer{ background:#03050a; border-top:1px solid var(--line); padding:80px 0 36px; }
+    .fgrid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; }
+    .fbig{ font-family:var(--display); font-size:clamp(2.6rem,5vw,4rem); text-transform:uppercase; line-height:.95; transform:skewX(-7deg); margin:18px 0 0; }
+    footer h4{ font-family:var(--cond); font-weight:800; font-size:.8rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted-2); margin:0 0 18px; }
+    footer ul{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+    footer li a,footer li{ color:rgba(255,255,255,.78); font-size:.95rem; }
+    footer li a:hover{ color:var(--electric-2); }
+    .fbottom{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; color:var(--muted-2); font-size:.82rem; }
+
+    /* ── whatsapp float ── */
+    #wa-btn{ position:fixed; right:22px; bottom:22px; z-index:999; width:58px; height:58px; border-radius:50%; background:#25d366; display:grid; place-items:center;
+      box-shadow:0 12px 30px -8px rgba(0,0,0,.6); transition:transform .25s; }
     #wa-btn:hover{ transform:scale(1.08); }
 
-    /* ── Responsive ── */
-    @media (max-width:1000px){
-      .benefit-grid{ grid-template-columns:1fr 1fr; }
-      .coach-grid{ grid-template-columns:1fr 1fr; }
+    /* ── trial drawer (unchanged behavior) ── */
+    #trial-drawer-overlay{ position:fixed; inset:0; z-index:10002; background:rgba(3,5,10,.72); backdrop-filter:blur(4px); opacity:0; visibility:hidden; transition:opacity .3s, visibility .3s; }
+    #trial-drawer-overlay.open{ opacity:1; visibility:visible; }
+    #trial-drawer{ position:absolute; top:0; right:0; height:100%; width:480px; max-width:100%; background:linear-gradient(180deg,#0c1526,#05080f);
+      border-left:1px solid rgba(124,180,255,.3); box-shadow:-30px 0 80px rgba(0,0,0,.6); transform:translateX(100%); transition:transform .38s var(--ease);
+      display:flex; flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+    #trial-drawer-overlay.open #trial-drawer{ transform:none; }
+    .drawer-head{ position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:22px 26px; background:rgba(5,8,15,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    .drawer-title{ font-family:var(--display); font-size:1.7rem; text-transform:uppercase; transform:skewX(-7deg); }
+    #trial-drawer-close{ background:none; border:0; color:var(--muted); cursor:pointer; padding:6px; line-height:0; transition:color .2s, transform .2s; }
+    #trial-drawer-close:hover{ color:#fff; transform:rotate(90deg); }
+    .drawer-body{ padding:26px 26px 44px; }
+    .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .form-field{ display:flex; flex-direction:column; gap:7px; }
+    .form-field label{ font-family:var(--cond); font-weight:700; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+    .form-field input,.form-field select{ background:rgba(255,255,255,.05); border:1px solid var(--line-2); color:#fff; padding:14px 16px; border-radius:2px;
+      font-family:var(--body); font-size:.98rem; outline:none; transition:border-color .2s, background .2s; -webkit-appearance:none; appearance:none; width:100%; }
+    .form-field input::placeholder{ color:rgba(255,255,255,.3); }
+    .form-field input:focus,.form-field select:focus{ border-color:var(--electric); background:rgba(255,255,255,.08); }
+    .form-field select option,.form-field select optgroup{ background:#0c1526; color:#fff; }
+    #submit-btn{ width:100%; margin-top:6px; }
+    #submit-btn:disabled{ opacity:.7; cursor:wait; }
+
+    /* ── responsive ── */
+    @media (max-width:1100px){
+      .coaches{ grid-template-columns:repeat(3,1fr); }
+      .tiers{ grid-template-columns:1fr 1fr; }
+      .method{ grid-template-columns:1fr 1fr; }
     }
-    @media (max-width:768px){
-      #main-nav{ padding:0 20px; height:64px; }
-      .nav-links{ display:none; }
-      #main-nav .desk-cta{ display:none; }
-      #nav-hamburger{ display:flex; }
-      .wrap{ padding:0 20px; }
-      .sec-pad{ padding:72px 0; }
-      .hero-content{ padding:110px 20px 80px; }
-      .hero-stats{ gap:30px; }
-      .hero-cta .btn{ flex:1 1 100%; }
-      .benefit-grid{ grid-template-columns:1fr; }
-      .prog-grid{ grid-template-columns:1fr; }
-      .coach-grid{ grid-template-columns:1fr; }
-      footer{ padding:48px 20px 34px; }
-      #wa-btn{ width:50px; height:50px; bottom:18px; right:14px; }
-      .ticker-track .cell{ flex-basis:260px; }
-      .ticker-track .cell img{ height:200px; }
-      /* Packages → stacked cards */
-      .pkg-row{ grid-template-columns:1fr; }
-      .pkg-tier{ flex-direction:row; align-items:center; gap:12px; border-right:none; border-bottom:1px solid var(--line); }
-      .pkg-cell{ flex-direction:row; align-items:center; justify-content:space-between; border-right:none;
-        border-bottom:1px solid var(--line); text-align:left; padding:14px 18px; }
-      .pkg-cell:last-child{ border-bottom:none; }
-      .pkg-cell .sub-btn{ width:auto; min-width:110px; }
+    @media (max-width:900px){
+      .nav-links,.nav-cta .hide-m{ display:none; }
+      #burger{ display:flex; }
+      #hero .sub{ grid-template-columns:1fr; }
+      .proof{ grid-template-columns:1fr 1fr; }
+      .proof div:nth-child(3){ border-left:0; padding-left:0; }
+      .manifesto,.data,.fac,.faq{ grid-template-columns:1fr; }
+      .film{ aspect-ratio:16/10; }
+      .screen{ max-width:440px; margin:0 auto; }
+      .screen .c1{ left:-4%; } .screen .c2{ right:-3%; }
+      .ages{ grid-template-columns:1fr; }
+      .tracks{ grid-template-columns:1fr; }
+      .coaches{ grid-template-columns:1fr 1fr; }
+      .gal{ grid-template-columns:repeat(6,1fr); grid-auto-rows:150px; }
+      .gal .g1{ grid-column:1/7; grid-row:span 3; } .gal .g2,.gal .g3,.gal .g4,.gal .g5{ grid-column:span 3; grid-row:span 2; } .gal .g6,.gal .g7{ grid-column:1/7; grid-row:span 2; }
+      .steps3{ grid-template-columns:1fr; }
+      .s3,.s3 + .s3{ padding:28px 0 6px; border-left:0; border-top:1px solid var(--line); }
+      .s3:first-child{ border-top:0; }
+      .fgrid{ grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:560px){
+      #nav .bar{ height:66px; }
+      #hero{ margin-top:-66px; }
+      .brand span{ display:none; }
+      .nav-cta .btn{ padding:11px 14px; font-size:.74rem; }
+      #hero .ctas .btn{ flex:1 1 100%; }
+      .method{ grid-template-columns:1fr; }
+      .step{ aspect-ratio:4/4.2; }
+      .coaches{ grid-template-columns:1fr; }
+      .coach .ph{ aspect-ratio:1/1; }
+      .tiers{ grid-template-columns:1fr; }
+      .metrics{ grid-template-columns:1fr; }
+      .hot span{ display:none; }
+      .marquee .cap{ display:none; }
+      .form-grid{ grid-template-columns:1fr; }
       #trial-drawer{ width:100%; }
-      #trial-drawer .form-grid{ grid-template-columns:1fr !important; }
+      .fgrid{ grid-template-columns:1fr; }
+      .toggle{ width:100%; } .toggle button{ flex:1 1 45%; }
+      #wa-btn{ width:52px; height:52px; right:14px; bottom:14px; }
     }
   </style>
   <!-- Roots Engine: analítica web (sin cookies) -->
@@ -311,359 +433,402 @@
 </head>
 <body>
 
-  <!-- ══════════════════ INTRO ANIMATION ══════════════════ -->
-  <div id="intro">
-    <img class="intro-logo" src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/v1790046313/ChatGPT_Image_Sep_21_2026_09_05_04_PM_yiuj48.png" alt="Torque" />
+  <!-- ══════════ ANNOUNCEMENT (auto-updates by date) ══════════ -->
+  <div id="announce" role="region" aria-label="Facility announcement">
+    <div class="in" id="announce-text">
+      <span>We're moving up</span><i class="dot"></i>
+      <span>Closed Oct 23 to Nov 1</span><i class="dot"></i>
+      <span>Grand opening Monday, Nov 2 at 2010 Bassett Ave</span>
+    </div>
   </div>
 
-  <!-- ══════════════════ NAVBAR ══════════════════ -->
-  <nav id="main-nav">
-    <a href="#hero" aria-label="Torque home">
-      <img class="wordmark" src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,h_70/v1790045964/ChatGPT_Image_Sep_21_2026_08_59_12_PM_kgcula.png" alt="TORQUE" />
-    </a>
-    <ul class="nav-links">
-      <li><a href="#hero"     class="nav-link" data-section="hero">Home</a></li>
-      <li><a href="#why"      class="nav-link" data-section="why">Why Torque</a></li>
-      <li><a href="#coaches"  class="nav-link" data-section="coaches">Coaches</a></li>
-      <li><a href="#packages" class="nav-link" data-section="packages">Packages</a></li>
-    </ul>
-    <div style="display:flex;align-items:center;gap:16px;">
-      <a href="https://app.torquebaseball.us/" class="btn btn-primary btn-sm desk-cta" target="_blank" rel="noopener">Join Classes</a>
-      <button id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+  <!-- ══════════ NAV ══════════ -->
+  <header id="nav">
+    <div class="wrap bar">
+      <a href="#hero" class="brand" aria-label="TX Torque home">
+        <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_120/v1790046313/ChatGPT_Image_Sep_21_2026_09_05_04_PM_yiuj48.png" alt="" width="44" height="44" />
+        <span>TX TORQUE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#method">Method</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#facility">New Facility</a></li>
+        <li><a href="#membership">Membership</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://app.torquebaseball.us/" class="btn btn-ghost btn-sm hide-m" target="_blank" rel="noopener">Member Login</a>
+        <button type="button" class="btn btn-primary btn-sm" data-open-trial>Free Trial</button>
+        <button id="burger" aria-label="Open menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav id="mnav" aria-hidden="true">
+    <button id="mnav-close" aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <a class="big" href="#method">Method</a>
+    <a class="big" href="#programs">Programs</a>
+    <a class="big" href="#coaches">Coaches</a>
+    <a class="big" href="#facility">New Facility</a>
+    <a class="big" href="#membership">Membership</a>
+    <a class="big" href="#faq">FAQ</a>
+    <div class="row">
+      <button type="button" class="btn btn-primary" data-open-trial>Book a Free Trial</button>
+      <a href="https://app.torquebaseball.us/" class="btn btn-ghost" target="_blank" rel="noopener">Member Login</a>
     </div>
   </nav>
 
-  <div id="mobile-nav-drawer" aria-hidden="true">
-    <a href="#hero"     onclick="closeMobileNav()">Home</a>
-    <a href="#why"      onclick="closeMobileNav()">Why Torque</a>
-    <a href="#coaches"  onclick="closeMobileNav()">Coaches</a>
-    <a href="#packages" onclick="closeMobileNav()">Packages</a>
-    <a href="#" class="mob-cta" data-open-trial onclick="closeMobileNav()">Book a Trial</a>
-    <a href="https://app.torquebaseball.us/" class="mob-cta" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);" target="_blank" rel="noopener" onclick="closeMobileNav()">Join Classes</a>
-  </div>
-
-  <!-- ══════════════════ HERO ══════════════════ -->
+  <main>
+  <!-- ══════════ HERO ══════════ -->
   <section id="hero">
     <video id="hero-video" autoplay muted loop playsinline preload="auto"
            poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_2,w_1280,q_auto,f_auto/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.jpg">
       <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280,du_20/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.webm" type="video/webm" />
       <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280,du_20/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.mp4" type="video/mp4" />
     </video>
-    <div class="hero-scrim"></div>
-
-    <div class="hero-content">
-      <p class="kicker">TX Torque · El Paso, TX</p>
-      <h1 class="display" style="margin-top:16px;text-shadow:0 2px 30px rgba(0,0,0,.5);">Built by Pros.<br>Driven by the Next Generation.</h1>
-      <p class="hero-sub">An elite baseball performance academy built on professional structure, MLB-level standards, and technology that turns raw talent into real results.</p>
-      <div class="hero-cta">
-        <button type="button" class="btn btn-primary" data-open-trial>Book a Free Trial</button>
-        <a href="https://app.torquebaseball.us/" class="btn btn-ghost" target="_blank" rel="noopener">Join Classes</a>
-      </div>
-      <div class="hero-stats">
-        <div><span class="num" id="stat-athletes">0</span><span class="lbl">Athletes Trained</span></div>
-        <div><span class="num" id="stat-years">0</span><span class="lbl">Years of Excellence</span></div>
-        <div><span class="num">100%</span><span class="lbl">Pro-Led Coaching</span></div>
-      </div>
-    </div>
-
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-    </div>
-  </section>
-
-  <!-- ══════════════════ THIS IS TORQUE ══════════════════ -->
-  <section id="story" class="sec-pad">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="kicker">Our Story</p>
-        <h2 class="display">This Is Torque</h2>
-        <span class="rule"></span>
-      </div>
-      <div class="story-grid">
-        <div class="story-video reveal" id="story-video">
-          <video id="storyVid" playsinline preload="none"
-                 poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_1280,q_auto,f_auto/v1790046525/THIS_IS_TORQUE_hezgx2.jpg">
-            <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280/v1790046525/THIS_IS_TORQUE_hezgx2.webm" type="video/webm" />
-            <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280/v1790046525/THIS_IS_TORQUE_hezgx2.mp4" type="video/mp4" />
-          </video>
-          <button class="play-btn" id="storyPlay" aria-label="Play the Torque story">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-          </button>
+    <div class="scrim"></div>
+    <div class="wrap content">
+      <p class="kicker fade-up" style="animation-delay:.2s">El Paso, TX · Baseball &amp; Softball Academy</p>
+      <h1 class="display"><span class="line"><span>Built</span></span><span class="line"><span>by <span class="blue">Pros.</span></span></span></h1>
+      <div class="sub">
+        <p class="fade-up">Pro coaching, real data and a real plan for every athlete. Former MLB draft picks and pro players developing the next generation of El Paso baseball, ages 7 and up.</p>
+        <div class="ctas fade-up" style="animation-delay:.7s">
+          <button type="button" class="btn btn-primary" data-open-trial>Book a Free Trial
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <a href="#programs" class="btn btn-ghost">See Programs</a>
         </div>
-        <p class="lead reveal" style="text-align:center;max-width:720px;margin:36px auto 0;font-size:1.05rem;">
-          Torque was built by players who lived the professional game — and came home to raise the standard.
-          This is our story: where we come from, what we believe, and why the next generation of El Paso
-          baseball is being developed the right way.
-        </p>
+      </div>
+      <div class="proof fade-up" style="animation-delay:.9s">
+        <div><span class="n">2</span><span class="l">MLB draft picks on staff</span></div>
+        <div><span class="n" data-count="36">36<em>+</em></span><span class="l">Years of pro baseball</span></div>
+        <div><span class="n" data-count="500">500<em>+</em></span><span class="l">Athletes trained</span></div>
+        <div><span class="n">Track<em>Man</em></span><span class="l">Every rep measured</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ WHY TORQUE (BENEFITS) ══════════════════ -->
-  <section id="why" class="sec-pad" style="background:linear-gradient(180deg,#080b12,#0a0e17);">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="kicker">The Torque Advantage</p>
-        <h2 class="display">Why Train Here</h2>
-        <span class="rule"></span>
+  <!-- ══════════ CREDENTIALS MARQUEE ══════════ -->
+  <div class="marquee" aria-label="Where our coaches have played">
+    <div class="cap"><span class="label">Our coaches wore</span></div>
+    <div class="marquee-track" aria-hidden="true">
+      <span>New York Yankees</span><span>Atlanta Braves</span><span>Toronto Blue Jays</span><span>New York Mets</span><span>Toros de Tijuana</span><span>Sultanes de Monterrey</span><span>Leones de Yucatán</span><span>Algodoneros</span><span>Pericos de Puebla</span><span>Bravos de León</span><span>Tigres de Aragua</span><span>Indios de Juárez</span><span>NMSU</span><span>UNM</span><span>EPCC</span>
+      <span>New York Yankees</span><span>Atlanta Braves</span><span>Toronto Blue Jays</span><span>New York Mets</span><span>Toros de Tijuana</span><span>Sultanes de Monterrey</span><span>Leones de Yucatán</span><span>Algodoneros</span><span>Pericos de Puebla</span><span>Bravos de León</span><span>Tigres de Aragua</span><span>Indios de Juárez</span><span>NMSU</span><span>UNM</span><span>EPCC</span>
+    </div>
+  </div>
+
+  <!-- ══════════ STORY / MANIFESTO ══════════ -->
+  <section id="story" class="sec">
+    <div class="wrap manifesto">
+      <div>
+        <p class="kicker rv">This is Torque</p>
+        <h2 class="display rv rv-d1">We played it at<br>the highest level.<br><span class="blue">Now we bring it home.</span></h2>
+        <p class="lead rv rv-d2">Torque was built by El Paso players who lived the professional game: draft day, minor league bus rides, winter ball in Mexico and Venezuela. We came back to raise the standard for the kids coming up behind us.</p>
+        <p class="lead rv rv-d3">No random reps. Every athlete gets pro-level coaching, measurable goals and the structure to reach them, on the field and off it.</p>
+        <div class="sign rv rv-d4">
+          <div><b>Justin Maese</b><small>3rd round, 2015 MLB Draft</small></div>
+          <div><b>Eudor Garcia</b><small>4th round, 2014 MLB Draft</small></div>
+        </div>
       </div>
-      <div class="benefit-grid">
-        <div class="benefit stagger-item">
-          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></div>
-          <h3>MLB &amp; Pro Experience</h3>
-          <p>Coached by former MLB and professional players — draft picks, Hall of Famers, and pros who bring the real standards of the game to every session.</p>
-        </div>
-        <div class="benefit stagger-item">
-          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M12 12 7 7"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></div>
-          <h3>TrackMan Technology</h3>
-          <p>Every rep is measured. Velocity, spin rate, exit velo, launch angle — TrackMan data drives development the same way it does in the big leagues.</p>
-        </div>
-        <div class="benefit stagger-item">
-          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Recruiting &amp; Connections</h3>
-          <p>We open doors. Real college and pro connections, exposure events, and guidance to get your athlete seen, recruited, and to the next level.</p>
-        </div>
-        <div class="benefit stagger-item">
-          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-          <h3>Structured Development</h3>
-          <p>A professional development system — mechanics, strength &amp; conditioning, and mindset — built in stages. No random reps, only deliberate progress.</p>
-        </div>
-        <div class="benefit stagger-item">
-          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
-          <h3>Elite Facility</h3>
-          <p>A performance facility built to pro standards — cages, mounds, and training tech — with year-round programming and weekend trial access.</p>
-        </div>
-        <div class="benefit stagger-item">
-          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <h3>The Complete Athlete</h3>
-          <p>We build discipline, leadership, and mental toughness on and off the field — because the game rewards the athletes who master both.</p>
-        </div>
+      <div class="film rv rv-d2" id="story-film">
+        <span class="tag">Film · This Is Torque</span>
+        <video id="storyVid" playsinline preload="none"
+               poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_0,w_1280,q_auto,f_auto/v1790046525/THIS_IS_TORQUE_hezgx2.jpg">
+          <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280/v1790046525/THIS_IS_TORQUE_hezgx2.webm" type="video/webm" />
+          <source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_1280/v1790046525/THIS_IS_TORQUE_hezgx2.mp4" type="video/mp4" />
+        </video>
+        <button class="play" id="storyPlay" aria-label="Play the Torque story">
+          <i><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i>
+          <span>Watch our story</span>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ PROGRAMS ══════════════════ -->
-  <section id="programs" class="sec-pad">
+  <!-- ══════════ THE METHOD ══════════ -->
+  <section id="method" class="sec">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="kicker">TX Torque</p>
-        <h2 class="display">Player Development Programs</h2>
-        <span class="rule"></span>
+      <div class="head">
+        <div>
+          <p class="kicker rv">The Torque Method</p>
+          <h2 class="display rv rv-d1">Strength. Power.<br><span class="blue">Swing. Data.</span></h2>
+        </div>
+        <p class="lead rv rv-d2">Every session follows the same pro system. It all connects: what we build in the weight room shows up in the cage, and the numbers prove it.</p>
       </div>
-      <div class="prog-grid">
-        <div class="prog-card reveal">
-          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_800,q_auto,f_auto/v1777647676/WhatsApp_Image_2026-04-30_at_16.42.26_2_ayu6ik.jpg" alt="Foundational Development" loading="lazy" />
-          <div class="body">
-            <h3>Foundational Development</h3>
-            <p>Establishes the technical and physical foundation every athlete needs to progress — mechanics, movement, and habits built the right way from day one.</p>
+      <div class="method">
+        <article class="step rv"><img src="/assets/img/train-strength.jpg" alt="Athlete doing a trap bar deadlift" loading="lazy" /><span class="no">01</span>
+          <div class="txt"><div class="bar"></div><h3>Strength</h3><p>Age-appropriate strength and conditioning that builds a durable, athletic body.</p></div></article>
+        <article class="step rv rv-d1"><img src="/assets/img/train-power.jpg" alt="Athlete throwing a medicine ball" loading="lazy" /><span class="no">02</span>
+          <div class="txt"><div class="bar"></div><h3>Power</h3><p>Rotational power and speed work that turns strength into bat speed and velo.</p></div></article>
+        <article class="step rv rv-d2"><img src="/assets/img/train-swing.jpg" alt="Hitter in the batting cage" loading="lazy" /><span class="no">03</span>
+          <div class="txt"><div class="bar"></div><h3>Swing</h3><p>Hitting, pitching and fielding mechanics taught by coaches who did it as pros.</p></div></article>
+        <article class="step rv rv-d3"><img src="/assets/img/train-data.jpg" alt="TrackMan data on a tablet" loading="lazy" /><span class="no">04</span>
+          <div class="txt"><div class="bar"></div><h3>Data</h3><p>TrackMan numbers on every rep, so progress is measured, not guessed.</p></div></article>
+      </div>
+      <p class="arrowline rv">One system · Every session · Every athlete</p>
+    </div>
+  </section>
+
+  <!-- ══════════ DATA / TRACKMAN ══════════ -->
+  <section id="data" class="sec">
+    <div class="wrap data">
+      <div>
+        <p class="kicker rv">TrackMan Technology</p>
+        <h2 class="display rv rv-d1">We don't guess.<br><span class="blue">We measure.</span></h2>
+        <p class="lead rv rv-d2">The same technology used by MLB organizations tracks every swing and every pitch. Players and parents see real progress, and college coaches get the numbers they want to see.</p>
+        <div class="metrics rv rv-d3">
+          <div><b>Exit Velocity</b><small>How hard the ball comes off the bat</small></div>
+          <div><b>Launch Angle</b><small>The flight that turns contact into damage</small></div>
+          <div><b>Pitch Velocity</b><small>Bullpen and position throws, in MPH</small></div>
+          <div><b>Spin Rate</b><small>Movement and quality of every pitch</small></div>
+        </div>
+      </div>
+      <div class="screen rv rv-d2">
+        <div class="img"><img src="/assets/img/train-data.jpg" alt="TrackMan session readout" loading="lazy" /></div>
+        <div class="chip c1"><span class="label">Measured on</span><strong>TrackMan</strong></div>
+        <div class="chip c2"><span class="label">Recruiting ready</span><strong>Real numbers</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROGRAMS ══════════ -->
+  <section id="programs" class="sec pin">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="kicker rv">Programs</p>
+          <h2 class="display rv rv-d1">A path for<br><span class="blue">every age.</span></h2>
+        </div>
+        <p class="lead rv rv-d2">Classes are grouped by age so every athlete trains with peers at their level. Register in the correct age group, then pick the membership that fits.</p>
+      </div>
+      <div class="ages">
+        <article class="age rv"><span class="big">7</span><span class="label">Group 01</span><h3>Ages 7 to 10</h3><span class="time">4:00 to 6:00 PM</span>
+          <p>Foundations done right: throwing, catching, swing basics and athletic movement, in a fun, high-energy environment.</p></article>
+        <article class="age rv rv-d1"><span class="big">11</span><span class="label">Group 02</span><h3>Ages 11 to 14</h3><span class="time">6:00 to 7:00 PM</span>
+          <p>Sharper mechanics, more strength and the first TrackMan baselines as players get ready for high school ball.</p></article>
+        <article class="age rv rv-d2"><span class="big">14</span><span class="label">Group 03</span><h3>Ages 14+</h3><span class="time">7:00 to 8:00 PM</span>
+          <p>Advanced development with pro-level training, data and accountability for athletes chasing the next level.</p></article>
+      </div>
+      <div class="tracks">
+        <article class="track rv"><img src="/assets/img/wide-team.jpg" alt="Torque youth club tryouts" loading="lazy" />
+          <div><span class="badge">New</span><h3>Torque Youth Club Team</h3><p>Our first-ever club team. Train at the facility and get coached by our staff in real games, building baseball IQ and the habits that lead to the recruiting process.</p>
+            <a class="more" href="https://wa.me/19154740940" target="_blank" rel="noopener">Ask about the team <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+        <article class="track soft rv rv-d1"><span class="sball" aria-hidden="true"></span>
+          <div><span class="badge ghost">Coming soon</span><h3>Torque Softball</h3><p>Everything we built for baseball, now for softball. Clinics, coaching and development for players of every age.</p>
+            <a class="more" href="https://www.instagram.com/tx.torque/" target="_blank" rel="noopener">Follow for the launch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ COACHES ══════════ -->
+  <section id="coaches" class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="kicker rv">The Staff</p>
+          <h2 class="display rv rv-d1">Coached by<br><span class="blue">people who did it.</span></h2>
+        </div>
+        <p class="lead rv rv-d2">MLB draft picks, El Paso Hall of Famers and pros from the U.S., Mexico and Latin America. This is who your athlete learns from.</p>
+      </div>
+      <div class="coaches">
+        <article class="coach rv">
+          <div class="ph"><span class="mono">JM</span><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/v1777676822/Captura_de_pantalla_2026-05-01_163730_uudbo5.png" alt="Justin Maese" loading="lazy" /><span class="badge draft">MLB Draft · R3</span></div>
+          <div class="body"><h3>Justin Maese</h3><p class="role">Director of Facility Operations · Pitching</p><p class="acc">2015 El Paso Baseball Hall of Fame</p>
+            <p class="teams">Yankees · Braves · Blue Jays</p><p class="bio">3rd round pick in the 2015 MLB Draft with nine years of pro experience. Leads all training operations and pitching.</p></div>
+        </article>
+        <article class="coach rv rv-d1">
+          <div class="ph"><span class="mono">EG</span><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/v1787776032/EDURO_qg39ly.jpg" alt="Eudor Garcia" loading="lazy" /><span class="badge draft">MLB Draft · R4</span></div>
+          <div class="body"><h3>Eudor Garcia</h3><p class="role">Fielding &amp; Hitting Director</p><p class="acc">NJCAA Player of the Year · 2014 El Paso HOF</p>
+            <p class="teams">EPCC · Mets · Toros de Tijuana · Algodoneros · Indios de Juárez</p><p class="bio">4th round pick in the 2014 MLB Draft with twelve years of pro baseball. Detail-driven hitting and defense.</p></div>
+        </article>
+        <article class="coach rv rv-d2">
+          <div class="ph"><span class="mono">AR</span><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/v1777587918/WhatsApp_Image_2026-04-30_at_4.19.51_PM_4_djunua.jpg" alt="Alex Reyes" loading="lazy" /></div>
+          <div class="body"><h3>Alex Reyes</h3><p class="role">Events &amp; Recruitment Director</p><p class="acc">College two-way · 5 years pro</p>
+            <p class="teams">NMSU · Bravos de León · Tigres de Aragua · Venados de Mazatlán</p><p class="bio">Four years of college two-way baseball and five pro seasons across Mexico, Venezuela and Colombia.</p></div>
+        </article>
+        <article class="coach rv rv-d3">
+          <div class="ph"><span class="mono">GA</span><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/v1787776032/GABRIELBASE_mu5fkm.jpg" alt="Gabriel Aguilar" loading="lazy" /></div>
+          <div class="body"><h3>Gabriel Aguilar</h3><p class="role">Team Operations · Pitching · S&amp;C</p><p class="acc">10 years of pro pitching</p>
+            <p class="teams">UNM · Sultanes de Monterrey · Leones de Yucatán · Rieleros</p><p class="bio">Four years at UNM and a decade of pro pitching. Pitching development plus strength and conditioning.</p></div>
+        </article>
+        <article class="coach rv rv-d4">
+          <div class="ph"><span class="mono">AV</span><span class="badge draft">Catching</span></div>
+          <div class="body"><h3>Angel Vega</h3><p class="role">Catching &amp; Hitting Specialist</p><p class="acc">ABCA/Rawlings All-Region First Team</p>
+            <p class="teams">St. Mary's · San Jacinto · Algodoneros · Pericos de Puebla</p><p class="bio">College and Liga Mexicana catcher. Specialized catching coaching, one session per week.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ NEW FACILITY ══════════ -->
+  <section id="facility" class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="kicker rv">Opening November 2</p>
+          <h2 class="display rv rv-d1">New home.<br><span class="blue">Twice the space.</span></h2>
+        </div>
+        <p class="lead rv rv-d2">Right in the heart of the city, closer to both East and West side. A facility built from the ground up for how we train.</p>
+      </div>
+      <div class="fac">
+        <div class="plan rv">
+          <img src="/assets/img/facility-plan.jpg" alt="3D floor plan of the new Torque facility" loading="lazy" />
+          <div class="hot" style="left:25%;top:23%"><i></i><span>Lobby</span></div>
+          <div class="hot" style="left:50%;top:34%"><i></i><span>Pitching lane</span></div>
+          <div class="hot" style="left:80%;top:26%"><i></i><span>5 batting cages</span></div>
+          <div class="hot" style="left:78%;top:63%"><i></i><span>Open turf field</span></div>
+          <div class="hot" style="left:30%;top:63%"><i></i><span>Strength area</span></div>
+        </div>
+        <div>
+          <ul class="feat rv rv-d1">
+            <li><b>5 Batting cages</b><small>Machines on every lane</small></li>
+            <li><b>Pitching lane</b><small>With a pitching mound</small></li>
+            <li><b>Open turf field</b><small>Defense and fielding</small></li>
+            <li><b>Weight &amp; strength</b><small>Full performance area</small></li>
+            <li><b>Parent lobby</b><small>Watch, wait, connect</small></li>
+          </ul>
+          <div class="addr rv rv-d2">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7cb4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <div><b>2010 Bassett Ave</b><small>El Paso, TX 79901</small><br>
+              <a href="https://maps.google.com/?q=2010+Bassett+Ave,+El+Paso,+TX+79901" target="_blank" rel="noopener">Get directions</a></div>
           </div>
         </div>
-        <div class="prog-card reveal">
-          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_800,q_auto,f_auto/v1777647677/WhatsApp_Image_2026-04-30_at_16.42.28_3_bqf0x8.jpg" alt="Advanced Development" loading="lazy" />
-          <div class="body">
-            <h3>Advanced Development</h3>
-            <p>Pushes athletes beyond high-school standards with pro-level training, data, and accountability — preparing them to compete at the next level.</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ COACHES ══════════════════ -->
-  <section id="coaches" class="sec-pad" style="background:linear-gradient(180deg,#0a0e17,#080b12);">
+  <!-- ══════════ GALLERY ══════════ -->
+  <section id="gallery" class="sec" style="padding-top:0">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="kicker">Our Team</p>
-        <h2 class="display">Meet the Coaches</h2>
-        <span class="rule"></span>
+      <div class="head">
+        <div>
+          <p class="kicker rv">Inside Torque</p>
+          <h2 class="display rv rv-d1">This is what<br><span class="blue">the work looks like.</span></h2>
+        </div>
+        <a href="https://www.instagram.com/tx.torque/" class="btn btn-ghost rv rv-d2" target="_blank" rel="noopener">@tx.torque on Instagram</a>
       </div>
-      <div class="coach-grid">
-
-        <div class="coach stagger-item">
-          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777676822/Captura_de_pantalla_2026-05-01_163730_uudbo5.png" alt="Justin Maese" loading="lazy" />
-          <div class="body">
-            <p class="name">Justin Maese</p>
-            <p class="role">Director of Facility Operations</p>
-            <p class="role">Director of Pitching</p>
-            <p class="teams">New York Yankees • Atlanta Braves • Toronto Blue Jays</p>
-            <p class="accolade">2015 El Paso Baseball Hall of Fame</p>
-            <p class="bio">A 3rd-round pick in the 2015 MLB Draft with nine years of pro experience. Oversees all training operations with a focus on structured development and high-level pitching.</p>
-          </div>
-        </div>
-
-        <div class="coach stagger-item">
-          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1777587918/WhatsApp_Image_2026-04-30_at_4.19.51_PM_4_djunua.jpg" alt="Alex Reyes" loading="lazy" />
-          <div class="body">
-            <p class="name">Alex Reyes</p>
-            <p class="role">Events &amp; Recruitment Director</p>
-            <p class="role">Fielding / Hitting / Pitching Coach</p>
-            <p class="teams">NMSU • Bravos de León • Guerreros de Oaxaca • Tigres de Aragua • Vaqueros de Montería • Venados de Mazatlán</p>
-            <p class="bio">Four years of collegiate two-way experience and five years of pro pitching across Mexico, Venezuela, and Colombia — developing athletes on both sides of the ball.</p>
-          </div>
-        </div>
-
-        <div class="coach stagger-item">
-          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787776032/EDURO_qg39ly.jpg" alt="Eudor Garcia" loading="lazy" />
-          <div class="body">
-            <p class="name">Eudor Garcia</p>
-            <p class="role">Fielding &amp; Hitting Director</p>
-            <p class="accolade">NJCAA Player of the Year · 2014 El Paso HOF</p>
-            <p class="teams">EPCC • New York Mets • Toros de Tijuana • Algodoneros de Torreón • Indios de Juárez</p>
-            <p class="bio">A 4th-round pick in the 2014 MLB Draft with twelve years of pro baseball. Detail-oriented instruction in hitting and defensive development rooted in pro standards.</p>
-          </div>
-        </div>
-
-        <div class="coach stagger-item">
-          <img src="https://res.cloudinary.com/dsprn0ew4/image/upload/v1787776032/GABRIELBASE_mu5fkm.jpg" alt="Gabriel Aguilar" loading="lazy" />
-          <div class="body">
-            <p class="name">Gabriel Aguilar</p>
-            <p class="role">Team Operations</p>
-            <p class="role">Pitching, Strength &amp; Conditioning</p>
-            <p class="teams">UNM • Rieleros de Aguascalientes • Sultanes de Monterrey • Leones de Yucatán</p>
-            <p class="bio">Four years at UNM and ten years of pro pitching. A high-level understanding of pitching development and strength &amp; conditioning for youth and advanced athletes.</p>
-          </div>
-        </div>
-
+      <div class="gal">
+        <figure class="g1 rv"><img src="/assets/img/kids26_bateo.jpg" alt="Young hitter making contact" loading="lazy" /><figcaption class="cap">Tryouts 2026</figcaption></figure>
+        <figure class="g2 rv rv-d1"><img src="/assets/img/kids14_pitcheo.jpg" alt="Young pitcher with a coach evaluating" loading="lazy" /></figure>
+        <figure class="g3 rv rv-d2"><img src="/assets/img/staff48_coach.jpg" alt="Torque coach" loading="lazy" /></figure>
+        <figure class="g4 rv"><img src="/assets/img/kids28_bn.jpg" alt="Young athlete in a Torque cap" loading="lazy" /></figure>
+        <figure class="g5 rv rv-d1"><img src="/assets/img/kids54_contacto.jpg" alt="Hitter in the cage" loading="lazy" /></figure>
+        <figure class="g6 rv rv-d2"><img src="/assets/img/staff52_coaches.jpg" alt="Torque coaches smiling" loading="lazy" /></figure>
+        <figure class="g7 rv rv-d3"><img src="/assets/img/wide-coaches.jpg" alt="Torque coaches evaluating players" loading="lazy" style="object-position:center 30%" /></figure>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ FUTURE STARS ══════════════════ -->
-  <section id="future-stars" class="sec-pad" style="padding-left:0;padding-right:0;">
+  <!-- ══════════ HOW IT STARTS ══════════ -->
+  <section id="start" class="sec">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="kicker">The Next Generation</p>
-        <h2 class="display">Our Future Stars</h2>
-        <span class="rule"></span>
-        <p class="lead" style="margin-top:18px;font-size:.98rem;">The athletes in training today, building the foundation for tomorrow's game.</p>
+      <div class="head">
+        <div>
+          <p class="kicker rv">Getting Started</p>
+          <h2 class="display rv rv-d1">Three steps<br><span class="blue">to day one.</span></h2>
+        </div>
+        <p class="lead rv rv-d2">No commitment to try it. Come see the facility, meet the coaches and let your athlete feel what Torque-level training is like.</p>
       </div>
-    </div>
-    <div class="ticker-wrap">
-      <div class="ticker-track" style="animation:ticker 34s linear infinite;">
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686908/TX_4_-_1.00_00_23_18.Imagen_fija004_tiayvq.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_13_21.Imagen_fija002_k6bx64.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_15_16.Imagen_fija003_apleam.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_24_21.Imagen_fija005_jyxdha.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_06_19.Imagen_fija001_zab69v.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_28_11.Imagen_fija006_abzasf.jpg" alt="Young athlete" loading="lazy" /></div>
-        <!-- clone for seamless loop -->
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686908/TX_4_-_1.00_00_23_18.Imagen_fija004_tiayvq.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_13_21.Imagen_fija002_k6bx64.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_15_16.Imagen_fija003_apleam.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_24_21.Imagen_fija005_jyxdha.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_06_19.Imagen_fija001_zab69v.jpg" alt="Young athlete" loading="lazy" /></div>
-        <div class="cell"><img src="https://res.cloudinary.com/dsprn0ew4/image/upload/w_700,q_auto,f_auto/v1777686907/TX_4_-_1.00_00_28_11.Imagen_fija006_abzasf.jpg" alt="Young athlete" loading="lazy" /></div>
+      <div class="steps3">
+        <div class="s3 rv"><span class="n">01</span><h3>Book a free trial</h3><p>Pick a Friday or Saturday slot. Your first class is free, no deposit.</p></div>
+        <div class="s3 rv rv-d1"><span class="n">02</span><h3>Train with the staff</h3><p>Your athlete trains with our coaches in the right age group.</p></div>
+        <div class="s3 rv rv-d2"><span class="n">03</span><h3>Choose your plan</h3><p>Join with the membership that fits your schedule and goals.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ PACKAGES ══════════════════ -->
-  <section id="packages" class="sec-pad">
+  <!-- ══════════ MEMBERSHIP ══════════ -->
+  <section id="membership" class="sec">
     <div class="wrap">
-      <div class="sec-head reveal" style="max-width:720px;">
-        <p class="kicker">Membership</p>
-        <h2 class="display">Training Packages</h2>
-        <span class="rule"></span>
-        <p class="lead" style="margin-top:18px;font-size:.9rem;">Review the age groups and class times before booking. Students must register in the correct age group.</p>
+      <div class="head">
+        <div>
+          <p class="kicker rv">Membership</p>
+          <h2 class="display rv rv-d1">Pick your<br><span class="blue">level.</span></h2>
+        </div>
+        <div class="rv rv-d2">
+          <div class="toggle" role="tablist" aria-label="Billing">
+            <button type="button" class="on" data-bill="m">Monthly</button>
+            <button type="button" data-bill="6">6 months<em>−10%</em></button>
+            <button type="button" data-bill="12">12 months<em>−15%</em></button>
+            <button type="button" data-bill="y">Annual<em>−20%</em></button>
+          </div>
+        </div>
       </div>
-      <div class="pkg-note reveal">
-        <span><span class="dot"></span>Ages 7–10: 4:00–6:00 PM</span>
-        <span><span class="dot"></span>Ages 11–14: 6:00–7:00 PM</span>
-        <span><span class="dot"></span>Ages 14+: 7:00–8:00 PM</span>
-      </div>
+      <div class="tiers" id="tiers"></div>
+      <div class="note rv"><span>Ages 7 to 10: 4:00 to 6:00 PM</span><span>Ages 11 to 14: 6:00 to 7:00 PM</span><span>Ages 14+: 7:00 to 8:00 PM</span></div>
+    </div>
+  </section>
 
-      <div class="pkg-list">
-        <!-- A -->
-        <div class="pkg-row stagger-item">
-          <div class="pkg-tier"><span class="lv">A</span><span class="cnt">4 Lessons / Month</span></div>
-          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$260.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$260.00</span><span class="price">$234.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$260.00</span><span class="price">$221.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$3,120.00</span><span class="price">$2,496.00</span><button class="sub-btn">Subscribe</button></div>
-        </div>
-        <!-- AA -->
-        <div class="pkg-row stagger-item">
-          <div class="pkg-tier"><span class="lv">AA</span><span class="cnt">8 Lessons / Month</span></div>
-          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$360.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$360.00</span><span class="price">$324.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$360.00</span><span class="price">$306.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$4,320.00</span><span class="price">$3,456.00</span><button class="sub-btn">Subscribe</button></div>
-        </div>
-        <!-- AAA -->
-        <div class="pkg-row stagger-item">
-          <div class="pkg-tier"><span class="lv gold">AAA</span><span class="cnt" style="color:var(--gold);">12 Lessons / Month</span></div>
-          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$440.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$440.00</span><span class="price">$396.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$440.00</span><span class="price">$374.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$5,280.00</span><span class="price">$4,224.00</span><button class="sub-btn">Subscribe</button></div>
-        </div>
-        <!-- MLB -->
-        <div class="pkg-row stagger-item">
-          <div class="pkg-tier"><span class="lv">MLB</span><span class="cnt">Unlimited / Month</span></div>
-          <div class="pkg-cell"><span class="plan">Month to Month</span><span class="price">$600.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">6-Month <span class="disc">−10%</span></span><span class="orig">$600.00</span><span class="price">$540.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">12-Month <span class="disc">−15%</span></span><span class="orig">$600.00</span><span class="price">$510.00</span><button class="sub-btn">Subscribe</button></div>
-          <div class="pkg-cell"><span class="plan">Annual <span class="disc">−20%</span></span><span class="orig">$7,200.00</span><span class="price">$5,760.00</span><button class="sub-btn">Subscribe</button></div>
-        </div>
+  <!-- ══════════ FAQ ══════════ -->
+  <section id="faq" class="sec">
+    <div class="wrap faq">
+      <div>
+        <p class="kicker rv">For Parents</p>
+        <h2 class="display rv rv-d1">Questions,<br><span class="blue">answered.</span></h2>
+        <p class="lead rv rv-d2" style="margin-top:22px">Still have one? Message us on WhatsApp and a coach will get back to you.</p>
+        <a href="https://wa.me/19154740940" class="btn btn-ghost rv rv-d3" style="margin-top:26px" target="_blank" rel="noopener">WhatsApp +1 915-474-0940</a>
+      </div>
+      <div class="rv rv-d1">
+        <details open><summary>Is the first class really free?<i></i></summary><p>Yes. Your athlete's first trial class is free with no deposit. Trials run Fridays and Saturdays, year-round, for all skill levels.</p></details>
+        <details><summary>What ages do you train?<i></i></summary><p>Ages 7 and up, in three groups: 7 to 10, 11 to 14 and 14+. Each group trains at its own time so athletes work with peers at their level.</p></details>
+        <details><summary>What should my athlete bring?<i></i></summary><p>Athletic clothes, turf shoes or sneakers, a glove, a bat if they have one and a water bottle. We take care of the rest.</p></details>
+        <details><summary>How do memberships work?<i></i></summary><p>Choose a level by lessons per month (A, AA, AAA or MLB unlimited) and pay monthly, or save 10%, 15% or 20% with 6-month, 12-month or annual plans. Everything is managed in the Torque app.</p></details>
+        <details><summary>Do you help with recruiting?<i></i></summary><p>Yes. Our staff has real college and pro connections, runs exposure events and guides families through the recruiting process. TrackMan numbers give coaches the data they ask for.</p></details>
+        <details><summary>Where are you located?<i></i></summary><p>Starting Monday, November 2 we train at our new facility: 2010 Bassett Ave, El Paso, TX 79901.</p></details>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════ BOOK A TRIAL ══════════════════ -->
-  <section id="trial" class="sec-pad">
-    <div class="wrap" style="max-width:720px;text-align:center;">
-      <p class="kicker reveal">Try Torque</p>
-      <h2 class="display reveal" style="font-size:clamp(2rem,4.4vw,3.2rem);margin-top:14px;">Book a Trial Class</h2>
-      <span class="rule reveal" style="margin:20px auto 26px;"></span>
-      <p class="lead reveal flag-free" style="max-width:560px;margin:0 auto 8px;">
-        See what Torque-level training feels like — your first class is <strong style="color:#fff;">100% free, no deposit required</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round.
-      </p>
-      <p class="lead reveal flag-deposit" hidden style="max-width:560px;margin:0 auto 8px;">
-        See what Torque-level training feels like. Reserve your spot with a <strong style="color:#fff;">$20 deposit, fully refunded when you sign up for a package</strong>. Trial classes run <strong style="color:#fff;">Fridays &amp; Saturdays</strong>, year-round.
-      </p>
-      <div class="reveal" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:32px 0 40px;">
-        <span class="chip flag-free"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Free Trial Class</span>
-        <span class="chip flag-deposit" hidden><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>$20 Refundable</span>
-        <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Fridays &amp; Saturdays</span>
-        <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All Skill Levels</span>
-      </div>
-      <div class="reveal">
-        <button type="button" class="btn btn-primary" data-open-trial>Book a Trial Class</button>
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section id="trial">
+    <img src="/assets/img/wide-coaches.jpg" alt="" loading="lazy" />
+    <div class="wrap">
+      <p class="kicker rv">Try Torque</p>
+      <h2 class="display rv rv-d1">Your first<br>class is <span class="blue">free.</span></h2>
+      <p class="lead rv rv-d2 flag-free">See what Torque-level training feels like. No deposit, no commitment. Trial classes run Fridays and Saturdays, year-round.</p>
+      <p class="lead rv rv-d2 flag-deposit" hidden>Reserve your spot with a $20 deposit, fully refunded when you sign up for a package. Trial classes run Fridays and Saturdays, year-round.</p>
+      <div class="chips rv rv-d3"><span class="flag-free">Free trial class</span><span class="flag-deposit" hidden>$20 refundable</span><span>Fridays &amp; Saturdays</span><span>All skill levels</span><span>Ages 7+</span></div>
+      <div class="rv rv-d4" style="display:flex;gap:12px;flex-wrap:wrap">
+        <button type="button" class="btn btn-primary" data-open-trial>Book My Free Trial
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <a href="https://wa.me/19154740940" class="btn btn-ghost" target="_blank" rel="noopener">Message us</a>
       </div>
     </div>
   </section>
+  </main>
 
-  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <!-- ══════════ FOOTER ══════════ -->
   <footer>
-    <div class="foot-inner">
-      <img class="fw" src="https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,h_70/v1790045964/ChatGPT_Image_Sep_21_2026_08_59_12_PM_kgcula.png" alt="TORQUE" />
-      <div class="foot-links">
-        <a href="#hero">Home</a>
-        <a href="#why">Why Torque</a>
-        <a href="#coaches">Coaches</a>
-        <a href="#packages">Packages</a>
-        <a href="#" data-open-trial>Book Trial</a>
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <p class="kicker">TX Torque Baseball Academy</p>
+          <p class="fbig">Built<br>by <span style="color:var(--electric)">Pros.</span></p>
+        </div>
+        <div>
+          <h4>Visit</h4>
+          <ul><li>2010 Bassett Ave</li><li>El Paso, TX 79901</li><li><a href="https://maps.google.com/?q=2010+Bassett+Ave,+El+Paso,+TX+79901" target="_blank" rel="noopener">Directions</a></li></ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul><li><a href="https://wa.me/19154740940" target="_blank" rel="noopener">WhatsApp +1 915-474-0940</a></li><li><a href="https://www.instagram.com/tx.torque/" target="_blank" rel="noopener">Instagram @tx.torque</a></li><li><a href="#" data-open-trial>Book a free trial</a></li></ul>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul><li><a href="#programs">Programs</a></li><li><a href="#coaches">Coaches</a></li><li><a href="#membership">Membership</a></li><li><a href="/tournament">Tournaments</a></li><li><a href="https://app.torquebaseball.us/" target="_blank" rel="noopener">Member login</a></li></ul>
+        </div>
       </div>
-      <div style="display:flex;gap:10px;">
-        <a href="#" class="social-icon" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" class="social-icon" aria-label="Facebook"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#" class="social-icon" aria-label="X"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-        <a href="#" class="social-icon" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
-      </div>
-      <div style="width:100%;max-width:1120px;height:1px;background:var(--line);"></div>
-      <p style="font-size:.78rem;color:var(--muted-2);margin:0;">&copy; <span id="footer-year"></span> TX Torque Baseball Academy. All rights reserved.</p>
+      <div class="fbottom"><span>&copy; <span id="footer-year"></span> TX Torque Baseball Academy. All rights reserved.</span><span>El Paso, Texas</span></div>
     </div>
   </footer>
 
-  <!-- ══════════════════ FLOATING WHATSAPP ══════════════════ -->
+  <!-- ══════════ WHATSAPP FLOAT ══════════ -->
   <a id="wa-btn" href="https://wa.me/19154740940" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <!-- ══════════════════ TRIAL BOOKING DRAWER ══════════════════ -->
+  <!-- ══════════ TRIAL BOOKING DRAWER ══════════ -->
   <div id="trial-drawer-overlay" aria-hidden="true">
     <aside id="trial-drawer" role="dialog" aria-modal="true" aria-label="Book a trial class">
       <div class="drawer-head">
@@ -673,41 +838,20 @@
         </button>
       </div>
       <div class="drawer-body">
-        <p style="font-family:'Barlow',sans-serif;font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.7;margin:0 0 24px;">
-          Fridays &amp; Saturdays, year-round. Fill this out and we'll reach out within 24 hours to lock in your time.
-        </p>
-
-        <form id="lead-form" novalidate style="display:flex;flex-direction:column;gap:20px;">
+        <p style="font-size:.92rem;color:var(--muted);line-height:1.7;margin:0 0 24px;">Fridays &amp; Saturdays, year-round. Fill this out and we'll reach out within 24 hours to lock in your time.</p>
+        <form id="lead-form" novalidate style="display:flex;flex-direction:column;gap:18px;">
           <!-- Honeypot (anti-bot): hidden from real users; the app endpoint checks it -->
           <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true"
                  style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" />
-          <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-            <div class="form-field">
-              <label for="parentName">Parent Name</label>
-              <input type="text" id="parentName" name="parentName" placeholder="Jane Smith" required autocomplete="name" />
-            </div>
-            <div class="form-field">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="(915) 555-0100" required autocomplete="tel" />
-            </div>
+          <div class="form-grid">
+            <div class="form-field"><label for="parentName">Parent Name</label><input type="text" id="parentName" name="parentName" placeholder="Jane Smith" required autocomplete="name" /></div>
+            <div class="form-field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="(915) 555-0100" required autocomplete="tel" /></div>
           </div>
-
-          <div class="form-field">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" />
+          <div class="form-field"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" /></div>
+          <div class="form-grid">
+            <div class="form-field"><label for="playerName">Player Name</label><input type="text" id="playerName" name="playerName" placeholder="Junior Smith" required /></div>
+            <div class="form-field"><label for="playerAge">Player Age</label><input type="number" id="playerAge" name="playerAge" placeholder="12" min="4" max="22" required /></div>
           </div>
-
-          <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-            <div class="form-field">
-              <label for="playerName">Player Name</label>
-              <input type="text" id="playerName" name="playerName" placeholder="Junior Smith" required />
-            </div>
-            <div class="form-field">
-              <label for="playerAge">Player Age</label>
-              <input type="number" id="playerAge" name="playerAge" placeholder="12" min="4" max="22" required />
-            </div>
-          </div>
-
           <div class="form-field">
             <label for="preferredDay">Preferred Day &amp; Time</label>
             <select id="preferredDay" name="preferredDay" required>
@@ -724,190 +868,113 @@
               </optgroup>
             </select>
           </div>
-
-          <div id="form-error" style="display:none;background:rgba(63,140,255,.12);border:1px solid rgba(63,140,255,.4);border-radius:6px;padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.88rem;color:#bcd6ff;line-height:1.5;"></div>
-
-          <button type="submit" id="submit-btn" class="btn-shimmer" style="
-            background:#f4f6fa;color:#0a0f1a;border:none;cursor:pointer;
-            font-family:'Barlow Condensed',sans-serif;font-weight:800;
-            font-size:1rem;letter-spacing:2.5px;text-transform:uppercase;
-            padding:18px 0;width:100%;margin-top:4px;border-radius:3px;
-          ">Book My Free Trial</button>
-
-          <p class="flag-free" style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.3);text-align:center;margin:0;line-height:1.6;">
-            By submitting you agree to be contacted about your trial class. No deposit, no cost — just show up ready to train.
-          </p>
-          <p class="flag-deposit" hidden style="font-family:'Barlow',sans-serif;font-size:.75rem;color:rgba(255,255,255,.3);text-align:center;margin:0;line-height:1.6;">
-            By submitting you agree to be contacted about your trial class. The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.
-          </p>
+          <div id="form-error" style="display:none;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.4);border-radius:2px;padding:14px 18px;font-size:.9rem;color:#bcd6ff;line-height:1.5;"></div>
+          <button type="submit" id="submit-btn" class="btn btn-light">Book My Free Trial</button>
+          <p class="flag-free" style="font-size:.76rem;color:var(--muted-2);text-align:center;margin:0;line-height:1.6;">By submitting you agree to be contacted about your trial class. No deposit, no cost. Just show up ready to train.</p>
+          <p class="flag-deposit" hidden style="font-size:.76rem;color:var(--muted-2);text-align:center;margin:0;line-height:1.6;">By submitting you agree to be contacted about your trial class. The $20 deposit is collected separately after confirmation and refunded when you enroll in a package.</p>
         </form>
-
         <div id="form-success" style="display:none;text-align:center;padding:52px 24px;">
-          <div style="width:76px;height:76px;border-radius:50%;background:rgba(63,140,255,.14);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6fb0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:2.2rem;color:#fff;text-transform:uppercase;margin:0 0 14px;">You're In!</h3>
-          <p style="font-family:'Barlow',sans-serif;font-size:.93rem;color:rgba(255,255,255,.52);line-height:1.75;margin:0;">
-            Thanks! We'll reach out within 24 hours to schedule your trial class.<br>See you on the field — Friday or Saturday.
-          </p>
+          <h3 class="display" style="font-size:2.6rem;margin:0 0 14px;">You're in!</h3>
+          <p style="font-size:.95rem;color:var(--muted);line-height:1.75;margin:0;">Thanks! We'll reach out within 24 hours to schedule your trial class. See you on the field.</p>
         </div>
       </div>
     </aside>
   </div>
 
-  <!-- ══════════════════ SCRIPTS ══════════════════ -->
+  <!-- ══════════ SCRIPTS ══════════ -->
   <script>
-    /* ══ Intro animation: big logo + video → shrink, reveal hero ══ */
-    (function () {
-      const intro = document.getElementById('intro');
-      const hero  = document.getElementById('hero');
-      if (!intro || !hero) return;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      document.body.style.overflow = 'hidden';
-      function finish() {
-        intro.classList.add('done');
-        hero.classList.add('intro-done');
-        setTimeout(function () { document.body.style.overflow = ''; intro.style.display = 'none'; }, 900);
-      }
-      if (reduce) finish(); else setTimeout(finish, 2400);
-    })();
-
-    /* ══════════════════════════════════════════════════════════════
-       DEPOSIT FEATURE FLAG
-       Flip to true to re-enable the $20 Stripe deposit + all deposit
-       messaging. false = FREE trial (no deposit, no Stripe).
-       ══════════════════════════════════════════════════════════════ */
-    const REQUIRE_DEPOSIT = false;  // set to true to re-enable the $20 Stripe deposit
-
-    /* Show the copy variant that matches the flag. */
+    /* ══ DEPOSIT FEATURE FLAG: true re-enables the $20 Stripe deposit + deposit messaging. ══ */
+    const REQUIRE_DEPOSIT = false;
     document.querySelectorAll('.flag-free').forEach(function (el) { el.hidden = REQUIRE_DEPOSIT; });
     document.querySelectorAll('.flag-deposit').forEach(function (el) { el.hidden = !REQUIRE_DEPOSIT; });
-
-    /* Submit-button label follows the flag too. */
     const SUBMIT_LABEL = REQUIRE_DEPOSIT ? 'Book My Trial Class' : 'Book My Free Trial';
     (function () { const b = document.getElementById('submit-btn'); if (b) b.textContent = SUBMIT_LABEL; })();
 
-    /* ── Trial booking drawer (slides in from the right) ── */
+    /* ── Announcement bar: changes by date, hides after Nov 16, 2026 ── */
+    (function () {
+      const bar = document.getElementById('announce'), txt = document.getElementById('announce-text');
+      const now = new Date();
+      const opening = new Date('2026-11-02T00:00:00-07:00'), hideAfter = new Date('2026-11-16T00:00:00-07:00');
+      if (now >= hideAfter) { bar.hidden = true; document.documentElement.style.setProperty('--annH', '0px'); return; }
+      if (now >= opening) txt.innerHTML = '<span>Now open at our new home</span><i class="dot"></i><span>2010 Bassett Ave, El Paso</span><i class="dot"></i><a href="#facility">See the facility</a>';
+    })();
+
+    /* ── Trial booking drawer ── */
     (function () {
       const overlay = document.getElementById('trial-drawer-overlay');
-      if (!overlay) return;
-      window.openTrialDrawer = function () {
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      };
-      window.closeTrialDrawer = function () {
-        overlay.classList.remove('open');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      };
+      window.openTrialDrawer = function () { overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; };
+      window.closeTrialDrawer = function () { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
       document.getElementById('trial-drawer-close').addEventListener('click', window.closeTrialDrawer);
       overlay.addEventListener('click', function (e) { if (e.target === overlay) window.closeTrialDrawer(); });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) window.closeTrialDrawer();
-      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { if (overlay.classList.contains('open')) window.closeTrialDrawer(); closeMenu(); } });
       document.querySelectorAll('[data-open-trial]').forEach(function (el) {
-        el.addEventListener('click', function (e) { e.preventDefault(); window.openTrialDrawer(); });
+        el.addEventListener('click', function (e) { e.preventDefault(); closeMenu(); window.openTrialDrawer(); });
       });
     })();
 
-    /* ── Mobile nav hamburger ── */
+    /* ── Mobile menu ── */
+    const mnav = document.getElementById('mnav'), burger = document.getElementById('burger');
+    function closeMenu(){ mnav.classList.remove('open'); mnav.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); if (!document.getElementById('trial-drawer-overlay').classList.contains('open')) document.body.style.overflow=''; }
+    burger.addEventListener('click', function () { mnav.classList.add('open'); mnav.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+    document.getElementById('mnav-close').addEventListener('click', closeMenu);
+    mnav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+
+    /* ── Nav background on scroll ── */
+    const nav = document.getElementById('nav');
+    function navState(){ nav.classList.toggle('solid', window.scrollY > 60); }
+    window.addEventListener('scroll', navState, { passive:true }); navState();
+
+    /* ── Story film: click to play with sound ── */
     (function () {
-      const hamburger = document.getElementById('nav-hamburger');
-      const drawer    = document.getElementById('mobile-nav-drawer');
-      const BARS  = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
-      const CROSS = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-      window.closeMobileNav = function () {
-        drawer.classList.remove('open');
-        drawer.setAttribute('aria-hidden', 'true');
-        hamburger.innerHTML = BARS;
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      hamburger.addEventListener('click', function () {
-        if (drawer.classList.contains('open')) {
-          window.closeMobileNav();
-        } else {
-          drawer.classList.add('open');
-          drawer.setAttribute('aria-hidden', 'false');
-          hamburger.innerHTML = CROSS;
-          hamburger.setAttribute('aria-expanded', 'true');
-          document.body.style.overflow = 'hidden';
-        }
-      });
+      const v = document.getElementById('storyVid'), b = document.getElementById('storyPlay');
+      b.addEventListener('click', function () { v.setAttribute('controls', ''); const p = v.play(); if (p && p.catch) p.catch(function(){}); b.style.display = 'none'; });
     })();
 
-    /* ── Story video: click to play with sound ── */
+    /* ── Coach photos: fall back to monogram if an image fails ── */
+    document.querySelectorAll('.coach .ph img').forEach(function (img) { img.addEventListener('error', function () { img.remove(); }); });
+
+    /* ── Membership tiers with billing toggle → app ── */
     (function () {
-      const v = document.getElementById('storyVid');
-      const b = document.getElementById('storyPlay');
-      if (!v || !b) return;
-      b.addEventListener('click', function () {
-        v.setAttribute('controls', '');
-        const p = v.play(); if (p && p.catch) p.catch(function(){});
-        b.style.display = 'none';
+      const TIERS = [
+        { lvl:'A',   les:'4 lessons / month',  m:260, perks:['About 1 session a week','Pro-led coaching','Train in your age group'] },
+        { lvl:'AA',  les:'8 lessons / month',  m:360, perks:['About 2 sessions a week','Pro-led coaching','Train in your age group'] },
+        { lvl:'AAA', les:'12 lessons / month', m:440, perks:['About 3 sessions a week','Pro-led coaching','Train in your age group'], gold:true },
+        { lvl:'MLB', les:'Unlimited',          m:600, perks:['Train as often as you want','Pro-led coaching','Train in your age group'], top:true }
+      ];
+      const DISC = { m:0, '6':.10, '12':.15, y:.20 };
+      const box = document.getElementById('tiers');
+      const money = function (n) { return '$' + n.toLocaleString('en-US', { maximumFractionDigits:0 }); };
+      const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      function render(bill) {
+        const d = DISC[bill];
+        box.innerHTML = TIERS.map(function (t) {
+          let price, per, was = '';
+          if (bill === 'y') { price = money(t.m * 12 * (1 - d)); per = '/ year'; was = '<s>' + money(t.m * 12) + '</s><em>Save ' + money(t.m * 12 * d) + '</em>'; }
+          else { price = money(t.m * (1 - d)); per = '/ month'; if (d) was = '<s>' + money(t.m) + '</s><em>Save ' + Math.round(d * 100) + '%</em>'; }
+          return '<article class="tier' + (t.top ? ' top' : '') + '">' +
+            '<span class="lvl' + (t.gold ? ' gold' : '') + '">' + t.lvl + '</span><span class="les">' + t.les + '</span>' +
+            '<div class="price"><b>' + price + '</b><span>' + per + '</span></div><div class="was">' + was + '</div>' +
+            '<ul>' + t.perks.map(function (p) { return '<li>' + check + p + '</li>'; }).join('') + '</ul>' +
+            '<a class="btn ' + (t.top ? 'btn-primary' : 'btn-ghost') + '" href="https://app.torquebaseball.us/" target="_blank" rel="noopener">Join ' + t.lvl + '</a></article>';
+        }).join('');
+      }
+      document.querySelectorAll('.toggle button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('.toggle button').forEach(function (x) { x.classList.toggle('on', x === b); });
+          render(b.dataset.bill);
+        });
       });
+      render('m');
     })();
 
     /* ── Footer year ── */
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-    /* ── Subscribe Here buttons → app ── */
-    document.querySelectorAll('button.sub-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () { window.open('https://app.torquebaseball.us/', '_blank'); });
-    });
-
-    /* ── Nav: scroll state + active section ── */
-    const nav = document.getElementById('main-nav');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sectionIds = ['hero', 'why', 'coaches', 'packages'];
-    window.addEventListener('scroll', function () {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-      let active = 'hero';
-      sectionIds.forEach(function (id) {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 140) active = id;
-      });
-      navLinks.forEach(function (a) { a.classList.toggle('active', a.dataset.section === active); });
-    }, { passive: true });
-
     /* ── Reveal on scroll ── */
     const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.14 });
-    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-
-    /* ── Stagger items per section ── */
-    document.querySelectorAll('section').forEach(function (section) {
-      const items = section.querySelectorAll('.stagger-item');
-      if (!items.length) return;
-      const sio = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        items.forEach(function (item, i) { setTimeout(function () { item.classList.add('visible'); }, i * 110); });
-        sio.disconnect();
-      }, { threshold: 0.08 });
-      sio.observe(section);
-    });
-
-    /* ── Stats counters ── */
-    function counter(el, target, suffix, ms) {
-      if (!el) return;
-      let start = null;
-      (function step(ts) {
-        if (!start) start = ts;
-        const p = Math.min((ts - start) / ms, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.floor(ease * target) + suffix;
-        if (p < 1) requestAnimationFrame(step);
-      })(performance.now());
-    }
-    const statsIO = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      counter(document.getElementById('stat-athletes'), 500, '+', 1800);
-      counter(document.getElementById('stat-years'),      10, '+', 1400);
-      statsIO.disconnect();
-    }, { threshold: 0.4 });
-    statsIO.observe(document.getElementById('hero'));
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin:'0px 0px -6% 0px' });
+    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
 
     /* ── Trial lead form → Apps Script (Sheet+email) + app endpoint ── */
     (function () {
@@ -917,12 +984,10 @@
       const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/3cI6oG5VQaeMaI5gcSfAc0i';
       const submitBtn  = document.getElementById('submit-btn');
       const errorBox   = document.getElementById('form-error');
-      const successBox = document.getElementById('form-success');
 
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         errorBox.style.display = 'none';
-
         const parentName   = form.parentName.value.trim();
         const phone        = form.phone.value.trim();
         const email        = form.email.value.trim();
@@ -931,47 +996,19 @@
         const preferredDay = form.preferredDay.value;
 
         if (!parentName || !phone || !email || !playerName || !playerAge || !preferredDay) {
-          errorBox.textContent = 'Please fill out all fields before submitting.';
-          errorBox.style.display = 'block';
-          return;
+          errorBox.textContent = 'Please fill out all fields before submitting.'; errorBox.style.display = 'block'; return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          errorBox.textContent = 'Please enter a valid email address.';
-          errorBox.style.display = 'block';
-          return;
+          errorBox.textContent = 'Please enter a valid email address.'; errorBox.style.display = 'block'; return;
         }
-
         submitBtn.disabled = true;
         submitBtn.textContent = 'Saving…';
-
-        const payload = {
-          parentName,
-          phone,
-          email,
-          playerName,
-          playerAge,
-          preferredDay,
-          timestamp: new Date().toISOString(),
-          source:    'main-landing-trial',
-          status:    REQUIRE_DEPOSIT ? 'pending_payment' : 'booked'
-        };
-
+        const payload = { parentName, phone, email, playerName, playerAge, preferredDay,
+          timestamp: new Date().toISOString(), source: 'main-landing-trial', status: REQUIRE_DEPOSIT ? 'pending_payment' : 'booked' };
         try {
-          /* 1) Always save the lead first (Apps Script — no CORS headers → text/plain, no-cors). */
-          await fetch(LEAD_ENDPOINT, {
-            method: 'POST',
-            mode:   'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body:    JSON.stringify(payload)
-          });
-          /* 1b) Additive & fire-and-forget: also send to the app (keepalive survives the redirect). */
-          fetch('https://app.torquebaseball.us/api/create-lead', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            keepalive: true,
-            body: JSON.stringify({ ...payload, company: form.company.value }),
-          }).catch(() => {});
-          /* 2) Branch on the flag. */
+          await fetch(LEAD_ENDPOINT, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+          fetch('https://app.torquebaseball.us/api/create-lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, keepalive:true,
+            body: JSON.stringify({ ...payload, company: form.company.value }) }).catch(function(){});
           if (REQUIRE_DEPOSIT) {
             submitBtn.textContent = 'Redirecting you to secure payment…';
             const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
@@ -982,9 +1019,7 @@
           }
         } catch (err) {
           errorBox.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.';
-          errorBox.style.display = 'block';
-          submitBtn.disabled = false;
-          submitBtn.textContent = SUBMIT_LABEL;
+          errorBox.style.display = 'block'; submitBtn.disabled = false; submitBtn.textContent = SUBMIT_LABEL;
         }
       });
     })();
