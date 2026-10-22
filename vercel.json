@@ -1,16 +1,51 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "index.html",      "use": "@vercel/static" },
-    { "src": "tournament.html", "use": "@vercel/static" },
-    { "src": "thank-you.html",  "use": "@vercel/static" },
-    { "src": "assets/**",       "use": "@vercel/static" }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/tryout",
+      "destination": "/teams-tryouts",
+      "permanent": true
+    },
+    {
+      "source": "/tryouts",
+      "destination": "/teams-tryouts",
+      "permanent": true
+    },
+    {
+      "source": "/torneo",
+      "destination": "/tournament",
+      "permanent": true
+    },
+    {
+      "source": "/precios",
+      "destination": "/es/membresias",
+      "permanent": true
+    },
+    {
+      "source": "/softbol",
+      "destination": "/softball",
+      "permanent": true
+    }
   ],
-  "routes": [
-    { "src": "/assets/(.*)",  "dest": "/assets/$1" },
-    { "src": "/tournament",   "dest": "/tournament.html" },
-    { "src": "/torneo",       "dest": "/tournament.html" },
-    { "src": "/thank-you",    "dest": "/thank-you.html" },
-    { "src": "/(.*)",         "dest": "/index.html" }
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/thank-you",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
   ]
 }
