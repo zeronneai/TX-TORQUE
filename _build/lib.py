@@ -14,7 +14,7 @@ ADDR = {'@type': 'PostalAddress', 'streetAddress': '2010 Bassett Ave', 'addressL
         'addressRegion': 'TX', 'postalCode': '79901', 'addressCountry': 'US'}
 MAPS = 'https://maps.google.com/?q=2010+Bassett+Ave,+El+Paso,+TX+79901'
 ORG_ID = SITE + '/#academy'
-ANALYTICS = '<script defer src="https://roots-engine.vercel.app/t.js" data-site="ae516dc734ece130f75ee0e5cf561244"></script>'
+ANALYTICS = '<script defer src="https://roots-engine.vercel.app/t.js" data-site="ae516dc734ece130f75ee0e5cf561244"></script>\n  <script src="/assets/meta-pixel.js" async></script>'
 WA_SVG = open(os.path.join(os.path.dirname(__file__), 'wa_path.txt')).read().strip()
 
 def org_schema(lang='en'):

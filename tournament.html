@@ -218,6 +218,7 @@
   </style>
   <!-- Roots Engine: analítica web (sin cookies) -->
   <script defer src="https://roots-engine.vercel.app/t.js" data-site="ae516dc734ece130f75ee0e5cf561244"></script>
+  <script src="/assets/meta-pixel.js" async></script>
 </head>
 <body style="margin:0;padding:0;font-family:'Barlow',sans-serif;background:#0a1628;">
 
@@ -739,6 +740,7 @@
           keepalive: true,
           body: JSON.stringify({ ...payload, company: form.company.value }),
         }).catch(() => {});
+        if (window.fbq) fbq('track', 'Lead');
         /* 2) Branch on the flag. */
         if (REQUIRE_DEPOSIT) {
           /* Paid flow → hand off to Stripe for the $20 deposit (email prefilled,

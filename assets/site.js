@@ -34,6 +34,7 @@
         await fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
         fetch('https://app.torquebaseball.us/api/create-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
           body: JSON.stringify(Object.assign({}, payload, { company: f.company ? f.company.value : '' })) }).catch(function () {});
+        if (window.fbq) fbq('track', 'Lead');
         if (form.dataset.redirect) { window.location.href = form.dataset.redirect; return; }
         form.reset(); btn.textContent = label; btn.disabled = false; ok.style.display = 'block';
       } catch (x) {

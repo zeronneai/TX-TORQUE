@@ -442,6 +442,7 @@
   </style>
   <!-- Roots Engine: analítica web (sin cookies) -->
   <script defer src="https://roots-engine.vercel.app/t.js" data-site="ae516dc734ece130f75ee0e5cf561244"></script>
+  <script src="/assets/meta-pixel.js" async></script>
 </head>
 <body>
 
@@ -1024,6 +1025,7 @@
           await fetch(LEAD_ENDPOINT, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
           fetch('https://app.torquebaseball.us/api/create-lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, keepalive:true,
             body: JSON.stringify({ ...payload, company: form.company.value }) }).catch(function(){});
+          if (window.fbq) fbq('track', 'Lead');
           if (REQUIRE_DEPOSIT) {
             submitBtn.textContent = 'Redirecting you to secure payment…';
             const payUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(email);
