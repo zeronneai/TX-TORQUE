@@ -9,7 +9,7 @@ WA = 'https://wa.me/19154740940'
 IG = 'https://www.instagram.com/tx.torque/'
 APP = 'https://app.torquebaseball.us/'
 LOGO = '/assets/media/chatgpt-image-sep-21-2026-09-05-04-pm-aecec.webp'
-LOGO_512 = '/assets/media/chatgpt-image-sep-21-2026-09-05-04-pm-45af9.webp'
+LOGO_512 = 'https://torquebaseball.us/assets/media/chatgpt-image-sep-21-2026-09-05-04-pm-45af9.webp'
 ADDR = {'@type': 'PostalAddress', 'streetAddress': '2010 Bassett Ave', 'addressLocality': 'El Paso',
         'addressRegion': 'TX', 'postalCode': '79901', 'addressCountry': 'US'}
 MAPS = 'https://maps.google.com/?q=2010+Bassett+Ave,+El+Paso,+TX+79901'
