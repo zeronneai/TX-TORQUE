@@ -2,26 +2,26 @@ from lib import *
 
 L = 'en'
 HOME = ('Home', '/')
-CLOUD = 'https://res.cloudinary.com/dsprn0ew4/image/upload/f_auto,q_auto,w_600/'
+CLOUD = '/assets/media/'
 
 COACHES = [
  dict(slug='justin-maese', name='Justin Maese', role='Director of Facility Operations · Pitching', badge='3rd round, 2015 MLB Draft',
-      photo=CLOUD + 'v1777676822/Captura_de_pantalla_2026-05-01_163730_uudbo5.png',
+      photo=CLOUD + 'captura-de-pantalla-2026-05-01-163730-1e026.webp',
       teams=['New York Yankees', 'Atlanta Braves', 'Toronto Blue Jays'], honors=['2015 El Paso Baseball Hall of Fame'],
       bio='Justin Maese was selected in the 3rd round of the 2015 MLB Draft and spent nine years in professional baseball with the New York Yankees, Atlanta Braves and Toronto Blue Jays organizations. He is a 2015 inductee of the El Paso Baseball Hall of Fame. At Torque he leads all training operations and runs the pitching program.',
       focus='Pitching', service='/pitching', job='Director of Facility Operations and Pitching Coach'),
  dict(slug='eudor-garcia', name='Eudor Garcia', role='Fielding & Hitting Director', badge='4th round, 2014 MLB Draft',
-      photo=CLOUD + 'v1787776032/EDURO_qg39ly.jpg',
+      photo=CLOUD + 'eduro-1e026.webp',
       teams=['EPCC', 'New York Mets', 'Toros de Tijuana', 'Algodoneros', 'Indios de Juárez'], honors=['NJCAA Player of the Year', '2014 El Paso Baseball Hall of Fame'],
       bio='Eudor Garcia was the NJCAA Player of the Year at El Paso Community College and a 4th round pick in the 2014 MLB Draft. He played twelve years of professional baseball, from the New York Mets organization to the Mexican League with Toros de Tijuana, Algodoneros and Indios de Juárez, and was inducted into the El Paso Baseball Hall of Fame in 2014. He directs hitting and defense at Torque with a detail-driven approach.',
       focus='Hitting and fielding', service='/hitting', job='Fielding and Hitting Director'),
  dict(slug='alex-reyes', name='Alex Reyes', role='Events & Recruitment Director', badge='College two-way · 5 years pro',
-      photo=CLOUD + 'v1777587918/WhatsApp_Image_2026-04-30_at_4.19.51_PM_4_djunua.jpg',
+      photo=CLOUD + 'whatsapp-image-2026-04-30-at-4-19-51-pm-4-1e026.webp',
       teams=['New Mexico State University', 'Bravos de León', 'Tigres de Aragua', 'Venados de Mazatlán'], honors=[],
       bio='Alex Reyes played four years of college baseball as a two-way player at New Mexico State University, then five professional seasons across Mexico, Venezuela and Colombia, including Bravos de León, Tigres de Aragua and Venados de Mazatlán. He runs events and recruitment at Torque and guides families through the recruiting process.',
       focus='Events and recruiting', service='/teams-tryouts', job='Events and Recruitment Director'),
  dict(slug='gabriel-aguilar', name='Gabriel Aguilar', role='Team Operations · Pitching · Strength & Conditioning', badge='10 years of pro pitching',
-      photo=CLOUD + 'v1787776032/GABRIELBASE_mu5fkm.jpg',
+      photo=CLOUD + 'gabrielbase-1e026.webp',
       teams=['University of New Mexico', 'Sultanes de Monterrey', 'Leones de Yucatán', 'Rieleros'], honors=[],
       bio='Gabriel Aguilar pitched four years at the University of New Mexico and spent a decade pitching professionally, including Sultanes de Monterrey, Leones de Yucatán and Rieleros. At Torque he handles team operations and coaches pitching development plus strength and conditioning.',
       focus='Pitching and strength and conditioning', service='/strength-conditioning', job='Team Operations, Pitching and Strength and Conditioning Coach'),
@@ -345,8 +345,8 @@ add('/teams-tryouts',
 <p>More than 120 players registered. Thank you to every family that came out.</p>
 </div>
 <div class="grid g2" style="margin:20px 0">
-<video controls preload="none" playsinline poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_2,w_720,q_auto,f_auto/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.jpg" style="width:100%;border-radius:4px;background:#000" aria-label="TX Torque tryouts recap video"><source src="https://res.cloudinary.com/dsprn0ew4/video/upload/q_auto,w_720/v1790046353/Try_Outs_Torque_Recap_2_1_eldfwv.mp4" type="video/mp4" /></video>
-<video controls preload="none" playsinline poster="https://res.cloudinary.com/dsprn0ew4/video/upload/so_1,w_720,q_auto,f_auto/v1790259284/Never_Train_at_Torque_fzxe62.jpg" style="width:100%;border-radius:4px;background:#000" aria-label="Never Train at Torque video"><source src="https://res.cloudinary.com/dsprn0ew4/video/upload/f_auto,q_auto,w_720/v1790259284/Never_Train_at_Torque_fzxe62.mp4" type="video/mp4" /></video>
+<video controls preload="none" playsinline poster="/assets/media/try-outs-torque-recap-2-1-76613.webp" style="width:100%;border-radius:4px;background:#000" aria-label="TX Torque tryouts recap video"><source src="/assets/media/try-outs-torque-recap-2-1-a650a.mp4" type="video/mp4" /></video>
+<video controls preload="none" playsinline poster="/assets/media/never-train-at-torque-02bfa.webp" style="width:100%;border-radius:4px;background:#000" aria-label="Never Train at Torque video"><source src="/assets/media/never-train-at-torque-cf286.mp4" type="video/mp4" /></video>
 </div>
 <div class="hero-grid" style="align-items:start">
 <div class="prose">
