@@ -44,10 +44,10 @@ NAV = {
 T = {
  'en': dict(trial='Free Trial', trial_long='Book a Free Trial', login='Member Login', lang_label='ES', menu='Open menu',
             home='Home', visit='Visit', contact='Contact', training='Training', academy='Academy', help='Help',
-            directions='Directions', rights='TX Torque Baseball Academy. All rights reserved.', wa='WhatsApp', trial_path='/free-trial'),
+            directions='Directions', rights='TX Torque Baseball Academy. All rights reserved.', credit='Website created by', wa='WhatsApp', trial_path='/free-trial'),
  'es': dict(trial='Clase gratis', trial_long='Agenda tu clase gratis', login='Miembros', lang_label='EN', menu='Abrir menú',
             home='Inicio', visit='Visítanos', contact='Contacto', training='Entrenamiento', academy='Academia', help='Ayuda',
-            directions='Cómo llegar', rights='TX Torque Baseball Academy. Todos los derechos reservados.', wa='WhatsApp', trial_path='/es/clase-gratis'),
+            directions='Cómo llegar', rights='TX Torque Baseball Academy. Todos los derechos reservados.', credit='Sitio creado por', wa='WhatsApp', trial_path='/es/clase-gratis'),
 }
 FOOT = {
  'en': {'training': [('Hitting lessons', '/hitting'), ('Pitching lessons', '/pitching'), ('Catching & fielding', '/catching-fielding'),
@@ -154,6 +154,7 @@ def page(*, lang, path, title, desc, h1_html, body, trail, schema=(), alt=None, 
         <div><h4>{t['help']}</h4><ul>{flist(foot['help'])}</ul></div>
       </div>
       <div class="fbottom"><span>&copy; <span id="footer-year">2026</span> {t['rights']}</span><span>El Paso, Texas</span></div>
+      <a class="pr-credit" href="https://purpleroots.agency" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:.72rem;color:var(--muted-2);text-decoration:none;opacity:.8">{t['credit']} <img src="/assets/media/purple-roots.png" alt="Purple Roots Agency" width="115" height="11" loading="lazy" style="height:11px;width:auto;opacity:.85" /></a>
     </div>
   </footer>
   <div class="trial-bar"><a class="btn btn-primary" href="{t['trial_path']}">{t['trial']}</a><a class="btn btn-wa" href="{WA}" target="_blank" rel="noopener">WhatsApp</a></div>
